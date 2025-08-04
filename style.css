@@ -6,7 +6,6 @@ html, body {
   font-family: Arial, sans-serif;
 }
 
-/* Full page background image that flows and covers all screen sizes */
 body {
   min-height: 100vh;
   min-width: 100vw;
@@ -29,7 +28,6 @@ nav {
   box-sizing: border-box;
 }
 
-/* Navigation list styling */
 nav ul {
   list-style-type: none;
   margin: 0;
@@ -39,7 +37,6 @@ nav ul {
   align-items: center;
 }
 
-/* Navigation links styling */
 nav ul li a {
   color: #fff;
   text-decoration: none;
@@ -50,25 +47,30 @@ nav ul li a {
   transition: background 0.2s ease-in-out;
 }
 
-/* Navigation links hover effect */
 nav ul li a:hover,
 nav ul li a:focus {
   background: #3756a7;
   outline: none;
 }
 
-/* Fullscreen image style */
+/* Scrolling fullscreen image style */
 img.fullscreen-image {
-  position: fixed;
-  top: 0;
-  left: 0;
+  display: block;
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  z-index: -1;
+  position: relative;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
 }
 
-/* Mobile responsiveness */
+/* For content below nav: add top padding on main container */
+.main-content {
+  padding-top: 60px;
+}
+
+/* Responsive adjustments */
 @media(max-width: 768px) {
   nav {
     justify-content: center;
