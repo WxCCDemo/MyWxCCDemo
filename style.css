@@ -5,14 +5,8 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-}
-
-body {
-  min-height: 100vh;
-  min-width: 100vw;
   background-color: #000;
-  position: relative;
-  overflow-x: hidden;
+  min-width: 100vw;
 }
 
 /* Navigation bar styling */
@@ -54,19 +48,18 @@ nav ul li a:focus {
   outline: none;
 }
 
-/* Scrolling fullscreen image style with natural height */
+/* Full width natural height images that scroll */
 img.fullscreen-image {
   display: block;
   width: 100vw;
-  height: auto;       /* natural height for scrolling */
-  object-fit: contain; /* or cover to crop */
-  position: relative;
-  z-index: 0;
+  height: auto;
   margin: 0;
   padding: 0;
+  position: relative;
+  z-index: 0;
 }
 
-/* Vertical Contact Us button on right middle of viewport */
+/* Vertical Contact Us button */
 .contact-us-button-vertical {
   position: fixed;
   top: 50%;
@@ -86,12 +79,11 @@ img.fullscreen-image {
   user-select: none;
   transition: background 0.3s ease;
 }
-
 .contact-us-button-vertical:hover {
   background-color: #084298;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 768px) {
   nav {
     justify-content: center;
