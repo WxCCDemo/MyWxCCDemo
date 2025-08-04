@@ -68,16 +68,17 @@ nav ul li a:focus {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  transition: right 0.35s cubic-bezier(.62,-0.24,.37,1.12);
+  transition: transform 0.35s cubic-bezier(.62,-0.24,.37,1.12);
 }
 
 .contact-us-pane-container.closed {
-  right: -350px; /* Hide pane and handle offscreen */
+  transform: translateX(340px); /* or panel width + handle width */
 }
 
 .contact-us-pane-container.open {
-  right: 0;
+  transform: translateX(0);
 }
+
 
 /* Pane */
 .contact-us-pane {
