@@ -1,4 +1,5 @@
 /* style.css */
+
 html, body {
   height: 100%;
   margin: 0;
@@ -65,13 +66,33 @@ img.fullscreen-image {
   padding: 0;
 }
 
-/* For content below nav: add top padding on main container */
-.main-content {
-  padding-top: 60px;
+/* Vertical Contact Us button on right middle of viewport */
+.contact-us-button-vertical {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  background-color: #0d6efd; /* bootstrap primary blue */
+  color: white;
+  padding: 10px 15px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  cursor: pointer;
+  z-index: 1050;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  user-select: none;
+  transition: background 0.3s ease;
+}
+
+.contact-us-button-vertical:hover {
+  background-color: #084298; /* darker blue on hover */
 }
 
 /* Responsive adjustments */
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   nav {
     justify-content: center;
   }
