@@ -3,61 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Demo1 - WxCC Demo</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <title>Demo2 - WxCC Demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
-<header>
-  <div class="container-header">
-    <img src="" class="logo" />
-    <nav aria-label="Primary" id="primary-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="demo1.html">Demo1</a></li>
-        <li><a href="demo2.html">Demo2</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-<main class="container py-4">
-  <h1>Demo1 Page</h1>
-   <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/UOB.png" alt="UOB" class="img-fluid mb-4" style="max-width: 350px;">
-  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#contactOffcanvas" aria-controls="contactOffcanvas">
+  <nav>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="demo1.html">Demo1</a></li>
+      <li><a href="demo2.html">Demo2</a></li>
+    </ul>
+  </nav>
+
+  <img class="fullscreen-image" src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/UOB.png" alt="UOB Image" />
+
+  <main class="container py-4 mt-5">
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#contactOffcanvas" aria-controls="contactOffcanvas">
       Contact Us
-  </button>
-  <!-- Contact Offcanvas -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="contactOffcanvas" aria-labelledby="contactOffcanvasLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="contactOffcanvasLabel">Contact Us</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="contactOffcanvas" aria-labelledby="contactOffcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="contactOffcanvasLabel">Contact Us</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body" id="contact-details"></div>
     </div>
-    <div class="offcanvas-body" id="contact-details">
-      <!-- Will be filled by JS below -->
-    </div>
-  </div>
-</main>
-<div id="live-chat-gadget"></div>
-<script src="script.js"></script>
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  // Load contact info from index.html or hardcode
-  const contact = {
+  </main>
+
+  <div id="live-chat-gadget"></div>
+
+  <script src="../script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const contact = {
       phone: "+1 669 285 6683",
       whatsapp: "+1 (207) 680-3464",
       email: "cxdemosc@gmail.com",
       address: "80, Pasir Panjang Road,Singapore 001001"
-  };
-  document.getElementById('contact-details').innerHTML = `
-    <div>
-      <strong>Phone Banking:</strong> <a href="tel:${contact.phone}">${contact.phone}</a><br>
-      <strong>WhatsApp Banking:</strong> <a href="https://wa.me/12076803464" target="_blank" rel="noopener">${contact.whatsapp}</a><br>
-      <strong>Email Banking:</strong> <a href="mailto:${contact.email}">${contact.email}</a><br>
-      <strong>Office Address:</strong> <div>${contact.address}</div>
-    </div>
-  `;
-</script>
+    };
+
+    document.getElementById('contact-details').innerHTML = `
+      <p><strong>Phone Banking:</strong> <a href="tel:${contact.phone}">${contact.phone}</a></p>
+      <p><strong>WhatsApp Banking:</strong> <a href="https://wa.me/12076803464" target="_blank" rel="noopener">${contact.whatsapp}</a></p>
+      <p><strong>Email Banking:</strong> <a href="mailto:${contact.email}">${contact.email}</a></p>
+      <p><strong>Office Address:</strong><br>${contact.address}</p>
+    `;
+  </script>
 </body>
 </html>
