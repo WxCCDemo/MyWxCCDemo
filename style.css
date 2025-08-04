@@ -1,12 +1,16 @@
-/* style.css */
-
 html, body {
-  height: 100%;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #000;
   min-width: 100vw;
+  font-family: Arial, sans-serif;
+  background: #000;
+}
+
+body.index,
+body.demo1,
+body.demo2 {
+  margin: 0;
+  padding: 0;
 }
 
 /* Navigation bar styling */
@@ -14,8 +18,8 @@ nav {
   width: 100vw;
   background: rgba(20, 26, 58, 0.85);
   position: fixed;
-  z-index: 9999;
-  top: 80px; /* Leave space for header images */
+  z-index: 999;
+  top: 0;
   left: 0;
   display: flex;
   justify-content: flex-end;
@@ -39,126 +43,179 @@ nav ul li a {
   font-weight: 500;
   padding: 8px 12px;
   border-radius: 6px;
-  transition: background 0.2s ease-in-out;
+  transition: background 0.2s;
 }
-
-nav ul li a:hover,
-nav ul li a:focus {
+nav ul li a:hover, nav ul li a:focus {
   background: #3756a7;
   outline: none;
 }
 
-/* Header images resized and set full width */
+/* Header images */
 .header-image {
   width: 100vw;
   height: auto;
   display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10000;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 0;
+  z-index: 1;
 }
 
-/* Add padding-top to body so content isn’t hidden under fixed header & nav */
-body.index, body.demo1 {
-  padding-top: 140px; /* Adjust depending on header + nav height */
+/* Page offset for menu/header */
+body.index,
+body.demo1 {
+  padding-top: 105px;
 }
 body.demo2 {
-  padding-top: 70px; /* no header image on demo2, so less padding */
+  padding-top: 50px;
 }
 
-/* Full width natural height images that scroll */
+/* Scrolling image - natural height, scrolls with content */
 img.fullscreen-image {
-  display: block;
   width: 100vw;
   height: auto;
-  margin: 0;
+  display: block;
+  margin: 0 0 0 0;
   padding: 0;
-  position: relative;
   z-index: 0;
+  position: relative;
 }
 
-/* Contact Us vertical button fixed on right side */
-.contact-us-button-vertical {
+/* Contact Us Floating Pane & Handle Styles */
+.contact-us-pane-container {
   position: fixed;
-  top: 50%;
   right: 0;
-  transform: translateY(-50%);
+  top: 30vh;
+  width: auto;
+  z-index: 99999;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+/* FLOATING Sliding Pane */
+.contact-us-pane {
+  min-width: 320px;
+  max-width: 340px;
+  background: rgba(9,18,40,0.93);
+  color: #fff;
+  border-radius: 25px 0 0 25px;
+  box-shadow: 0 3px 32px rgba(0,0,0,0.32);
+  padding: 28px 24px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.35s cubic-bezier(.62,-0.24,.37,1.12);
+}
+
+/* Initial closed, moves pane right out of view */
+.contact-us-pane-container.closed .contact-us-pane {
+  transform: translateX(101%);
+  pointer-events: none;
+  opacity: 0.05;
+}
+.contact-us-pane-container.open .contact-us-pane {
+  transform: translateX(0%);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* FLOATING Vertical Handle */
+.contact-us-handle {
+  height: 110px;
+  min-width: 48px;
+  background: #11235a;
+  color: #fff;
+  font-weight: bold;
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  background-color: #0b1d4b; /* Navy Blue */
-  color: white;
-  padding: 10px 15px;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  cursor: pointer;
-  z-index: 1050;
-  font-weight: 600;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  user-select: none;
-  transition: right 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 16px 0 0 16px;
+  position: relative;
+  top: 40px;
+  right: 0px;
+  z-index: 1;
+  box-shadow: 0 1px 8px rgba(0,0,0,.21);
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(.62,-0.24,.37,1.12);
 }
 
-/* When panel is open, move button out of view */
-.contact-us-button-vertical.hidden {
-  right: -60px; /* Slide out */
+.contact-us-pane-container.open .contact-us-handle {
+  transform: translateX(-320px); /* moves with the pane width */
+}
+.contact-us-pane-container.closed .contact-us-handle {
+  transform: translateX(0px);
 }
 
-/* Offcanvas panel styling override */
-.offcanvas.offcanvas-end {
-  width: 320px !important;
-  background-color: #0b1d4b; /* Navy Blue background */
-  color: #fff;
-  padding: 1rem 1rem 2rem 1rem;
-}
-
-/* Contact buttons inside offcanvas */
-.contact-button {
+/* Contact method buttons in pane */
+.contact-method-btn {
   display: flex;
   align-items: center;
-  background-color: #174288; /* Slightly lighter navy */
-  border-radius: 6px;
-  padding: 10px 16px;
-  margin-bottom: 12px;
+  background: rgba(16,60,140,0.95);
+  border-radius: 50px;
+  padding: 12px 20px 12px 16px;
+  margin-bottom: 14px;
   cursor: pointer;
-  color: white;
+  color: #fff;
   text-decoration: none;
-  transition: background-color 0.2s ease;
+  border: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+  transition: background 0.2s, transform 0.15s;
+  min-width: 240px;
 }
 
-.contact-button:hover {
-  background-color: #0c2c6f;
+.contact-method-btn:hover {
+  background: #3550a6;
+  transform: scale(1.05);
 }
 
-/* Icon styling in buttons */
-.contact-button img {
+.contact-method-btn img {
   width: 28px;
   height: 28px;
-  margin-right: 12px;
-  flex-shrink: 0;
+  margin-right: 13px;
+  border-radius: 50%;
+  background: #fff;
+  padding: 4px;
+  object-fit: contain;
+  box-shadow: 0 0 3px rgba(0,0,0,0.04);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  nav {
-    justify-content: center;
+.webex-logo-in-pane {
+  margin-top: 20px;
+  width: 44px !important;
+  height: 44px !important;
+  align-self: flex-end;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(20,43,130,0.21);
+  background: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .contact-us-pane {
+    min-width: 80vw;
+    max-width: 96vw;
+    padding: 15px 4vw 10px 5vw;
   }
-  nav ul {
-    gap: 16px;
+  .contact-method-btn {
+    min-width: 45vw;
+    font-size: 0.95em;
+    padding: 10px 10px;
   }
-  nav ul li a {
-    font-size: 1rem;
-    padding: 6px 10px;
+  .webex-logo-in-pane {
+    width: 30px !important;
+    height: 30px !important;
   }
-  /* Reduce header image height on small screens */
-  .header-image {
-    max-height: 70px;
-    object-fit: contain;
+  .contact-us-handle {
+    height: 60px;
+    min-width: 32px;
+    font-size: 0.94rem;
   }
-  body.index, body.demo1 {
-    padding-top: 100px;
+  .contact-us-pane-container {
+    top: 7vw;
   }
 }
