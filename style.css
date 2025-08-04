@@ -15,7 +15,7 @@ nav {
   background: rgba(20, 26, 58, 0.85);
   position: fixed;
   z-index: 9999;
-  top: 0;
+  top: 80px; /* Leave space for header images */
   left: 0;
   display: flex;
   justify-content: flex-end;
@@ -48,6 +48,25 @@ nav ul li a:focus {
   outline: none;
 }
 
+/* Header images resized and set full width */
+.header-image {
+  width: 100vw;
+  height: auto;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+}
+
+/* Add padding-top to body so content isn’t hidden under fixed header & nav */
+body.index, body.demo1 {
+  padding-top: 140px; /* Adjust depending on header + nav height */
+}
+body.demo2 {
+  padding-top: 70px; /* no header image on demo2, so less padding */
+}
+
 /* Full width natural height images that scroll */
 img.fullscreen-image {
   display: block;
@@ -59,7 +78,7 @@ img.fullscreen-image {
   z-index: 0;
 }
 
-/* Vertical Contact Us button */
+/* Contact Us vertical button fixed on right side */
 .contact-us-button-vertical {
   position: fixed;
   top: 50%;
@@ -67,7 +86,7 @@ img.fullscreen-image {
   transform: translateY(-50%);
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  background-color: #0d6efd;
+  background-color: #0b1d4b; /* Navy Blue */
   color: white;
   padding: 10px 15px;
   border-top-left-radius: 8px;
@@ -75,12 +94,51 @@ img.fullscreen-image {
   cursor: pointer;
   z-index: 1050;
   font-weight: 600;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
   user-select: none;
-  transition: background 0.3s ease;
+  transition: right 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.contact-us-button-vertical:hover {
-  background-color: #084298;
+
+/* When panel is open, move button out of view */
+.contact-us-button-vertical.hidden {
+  right: -60px; /* Slide out */
+}
+
+/* Offcanvas panel styling override */
+.offcanvas.offcanvas-end {
+  width: 320px !important;
+  background-color: #0b1d4b; /* Navy Blue background */
+  color: #fff;
+  padding: 1rem 1rem 2rem 1rem;
+}
+
+/* Contact buttons inside offcanvas */
+.contact-button {
+  display: flex;
+  align-items: center;
+  background-color: #174288; /* Slightly lighter navy */
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.contact-button:hover {
+  background-color: #0c2c6f;
+}
+
+/* Icon styling in buttons */
+.contact-button img {
+  width: 28px;
+  height: 28px;
+  margin-right: 12px;
+  flex-shrink: 0;
 }
 
 /* Responsive */
@@ -94,5 +152,13 @@ img.fullscreen-image {
   nav ul li a {
     font-size: 1rem;
     padding: 6px 10px;
+  }
+  /* Reduce header image height on small screens */
+  .header-image {
+    max-height: 70px;
+    object-fit: contain;
+  }
+  body.index, body.demo1 {
+    padding-top: 100px;
   }
 }
