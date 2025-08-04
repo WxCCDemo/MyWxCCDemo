@@ -6,25 +6,28 @@ html, body {
   background: #000;
 }
 
-body.index,
-body.demo1,
-body.demo2 {
+/* Header images scroll naturally */
+.header-image {
+  width: 100vw;
+  height: auto;
+  display: block;
+  position: relative;
   margin: 0;
   padding: 0;
+  z-index: 1;
 }
 
-/* Navigation bar styling */
+/* Navigation bar below header, floating style */
 nav {
   width: 100vw;
-  background: rgba(20, 26, 58, 0.85);
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
+  background: rgba(20, 26, 58, 0.75);
+  position: relative;   /* no longer fixed */
+  z-index: 9000;
   display: flex;
   justify-content: flex-end;
-  padding: 10px 24px;
+  padding: 12px 24px;
   box-sizing: border-box;
+  backdrop-filter: saturate(180%) blur(10px); /* floating translucent effect */
 }
 
 nav ul {
@@ -43,61 +46,48 @@ nav ul li a {
   font-weight: 500;
   padding: 8px 12px;
   border-radius: 6px;
-  transition: background 0.2s;
+  transition: background 0.2s ease-in-out;
 }
-nav ul li a:hover, nav ul li a:focus {
+
+nav ul li a:hover,
+nav ul li a:focus {
   background: #3756a7;
   outline: none;
 }
 
-/* Header images */
-.header-image {
-  width: 100vw;
-  height: auto;
-  display: block;
-  position: relative;
-  margin-top: 0;
-  margin-bottom: 0;
-  z-index: 1;
-}
-
-/* Page offset for menu/header */
-body.index,
-body.demo1 {
-  padding-top: 105px;
-}
-body.demo2 {
-  padding-top: 50px;
-}
-
-/* Scrolling image - natural height, scrolls with content */
-img.fullscreen-image {
-  width: 100vw;
-  height: auto;
-  display: block;
-  margin: 0 0 0 0;
+/* Remove default margin from body so images connect directly */
+body.index, body.demo1, body.demo2 {
+  margin: 0;
   padding: 0;
-  z-index: 0;
-  position: relative;
 }
 
-/* Contact Us Floating Pane & Handle Styles */
+/* Remove gaps between header and main images */
+.main-content, .header-image, img.fullscreen-image {
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: 100vw;
+  height: auto;
+  position: relative;
+  z-index: 0;
+}
+
+/* Floating Contact Us Pane & Left Handle */
+
 .contact-us-pane-container {
   position: fixed;
-  right: 0;
   top: 30vh;
-  width: auto;
-  z-index: 99999;
+  right: 0;
+  z-index: 10000;
   display: flex;
   flex-direction: row;
   align-items: stretch;
 }
 
-/* FLOATING Sliding Pane */
 .contact-us-pane {
   min-width: 320px;
   max-width: 340px;
-  background: rgba(9,18,40,0.93);
+  background: rgba(9,18,40,0.9);
   color: #fff;
   border-radius: 25px 0 0 25px;
   box-shadow: 0 3px 32px rgba(0,0,0,0.32);
@@ -108,11 +98,10 @@ img.fullscreen-image {
   transition: transform 0.35s cubic-bezier(.62,-0.24,.37,1.12);
 }
 
-/* Initial closed, moves pane right out of view */
 .contact-us-pane-container.closed .contact-us-pane {
-  transform: translateX(101%);
+  transform: translateX(105%);
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0;
 }
 .contact-us-pane-container.open .contact-us-pane {
   transform: translateX(0%);
@@ -120,13 +109,12 @@ img.fullscreen-image {
   pointer-events: auto;
 }
 
-/* FLOATING Vertical Handle */
 .contact-us-handle {
   height: 110px;
   min-width: 48px;
   background: #11235a;
   color: #fff;
-  font-weight: bold;
+  font-weight: 600;
   writing-mode: vertical-rl;
   text-orientation: mixed;
   display: flex;
@@ -135,21 +123,41 @@ img.fullscreen-image {
   border-radius: 16px 0 0 16px;
   position: relative;
   top: 40px;
-  right: 0px;
-  z-index: 1;
+  right: 0;
+  z-index: 10001;
   box-shadow: 0 1px 8px rgba(0,0,0,.21);
   cursor: pointer;
   transition: transform 0.35s cubic-bezier(.62,-0.24,.37,1.12);
+  user-select: none;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+/* Hinge bars: three small horizontal lines vertically centered inside handle */
+.contact-us-handle .hinge-bars {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  height: 80%;
+}
+
+.contact-us-handle .bar {
+  width: 24px;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
 }
 
 .contact-us-pane-container.open .contact-us-handle {
-  transform: translateX(-320px); /* moves with the pane width */
+  transform: translateX(-320px);
 }
 .contact-us-pane-container.closed .contact-us-handle {
-  transform: translateX(0px);
+  transform: translateX(0);
 }
 
-/* Contact method buttons in pane */
+/* Contact buttons inside pane */
+
 .contact-method-btn {
   display: flex;
   align-items: center;
@@ -184,22 +192,26 @@ img.fullscreen-image {
   box-shadow: 0 0 3px rgba(0,0,0,0.04);
 }
 
+/* Webex Logo Button in Pane */
+
 .webex-logo-in-pane {
   margin-top: 20px;
   width: 44px !important;
-  height: 44px !important;
-  align-self: flex-end;
+  height: auto !important;
   border-radius: 14px;
   box-shadow: 0 2px 10px rgba(20,43,130,0.21);
   background: #fff;
   cursor: pointer;
+  align-self: flex-end;
 }
+
+/* Responsive (optional) */
 
 @media (max-width: 600px) {
   .contact-us-pane {
     min-width: 80vw;
     max-width: 96vw;
-    padding: 15px 4vw 10px 5vw;
+    border-radius: 20px;
   }
   .contact-method-btn {
     min-width: 45vw;
@@ -208,12 +220,10 @@ img.fullscreen-image {
   }
   .webex-logo-in-pane {
     width: 30px !important;
-    height: 30px !important;
   }
   .contact-us-handle {
     height: 60px;
     min-width: 32px;
-    font-size: 0.94rem;
   }
   .contact-us-pane-container {
     top: 7vw;
