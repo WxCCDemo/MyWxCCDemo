@@ -5,52 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Demo2 - WxCC Demo</title>
   <link rel="stylesheet" href="../style.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
-<body>
-
-  <!-- No header image for demo2 -->
+<body class="demo2">
 
   <img class="fullscreen-image" src="../assets/UOB.png" alt="UOB" />
 
-  <div class="contact-us-button-vertical" id="contact-us-button"
-       data-bs-toggle="offcanvas"
-       data-bs-target="#contactOffcanvas"
-       aria-controls="contactOffcanvas"
-       role="button" tabindex="0">
-    Contact Us
-  </div>
-
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="contactOffcanvas" aria-labelledby="contactOffcanvasLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title text-white" id="contactOffcanvasLabel">Contact Us</h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <!-- Contact Buttons -->
-      <a href="tel:+16692856683" class="contact-button">
+  <!-- FLOATING CONTACT US PANE + HANDLE -->
+  <div class="contact-us-pane-container closed" id="contact-pane-container">
+    <div class="contact-us-pane">
+      <a href="tel:+16692856683" class="contact-method-btn">
         <img src="../assets/Phone.jpg" alt="Phone Icon" /> 
         Phone Banking: +1 669 285 6683
       </a>
-      <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-button">
+      <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-method-btn">
         <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" /> 
         WhatsApp Banking: +1 (207) 680-3464
       </a>
-      <a href="mailto:cxdemosc@gmail.com" class="contact-button">
+      <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
         <img src="../assets/contact-us-email.jpg" alt="Email Icon" /> 
         Email Banking: cxdemosc@gmail.com
       </a>
-      <div class="contact-button" style="cursor: default;">
+      <div class="contact-method-btn" style="cursor: default;">
         <img src="../assets/adresspin.png" alt="Address Icon" /> 
         Office Address: 80, Pasir Panjang Road, Singapore 001001
       </div>
+      <a href="../index.html">
+        <img src="../assets/Webex-Logo.jpg" alt="Webex" class="webex-logo-in-pane" title="Back to Home" />
+      </a>
     </div>
+    <div class="contact-us-handle" id="contact-us-handle">Contact Us</div>
   </div>
 
   <div id="live-chat-container"></div>
-
   <script src="../script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script>
+    // Pane/handle toggling
+    const paneContainer = document.getElementById('contact-pane-container');
+    const handle = document.getElementById('contact-us-handle');
+    let paneOpen = false;
+    if(handle && paneContainer){
+      handle.addEventListener('click', function() {
+        paneOpen = !paneOpen;
+        paneContainer.classList.toggle('open', paneOpen);
+        paneContainer.classList.toggle('closed', !paneOpen);
+      });
+    }
+    // Close pane if clicking anywhere outside pane when open (optional)
+    document.addEventListener('click', function(e) {
+      if (!paneContainer.contains(e.target) && paneOpen) {
+        paneOpen = false;
+        paneContainer.classList.remove('open');
+        paneContainer.classList.add('closed');
+      }
+    });
+  </script>
 </body>
 </html>
