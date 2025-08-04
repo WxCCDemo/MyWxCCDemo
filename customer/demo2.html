@@ -45,23 +45,29 @@
   <div id="live-chat-container"></div>
 
   <script src="../script.js"></script>
-  <script>
-    const paneContainer = document.getElementById('contact-pane-container');
-    const handle = document.getElementById('contact-us-handle');
+const paneContainer = document.getElementById('contact-pane-container');
+const handle = document.getElementById('contact-us-handle');
 
-    handle.addEventListener('click', () => {
-      const isOpen = paneContainer.classList.toggle('open');
-      paneContainer.classList.toggle('closed', !isOpen);
-      handle.setAttribute('aria-expanded', isOpen);
-    });
+let paneOpen = false;
 
-    document.addEventListener('click', (event) => {
-      if (!paneContainer.contains(event.target) && paneContainer.classList.contains('open')) {
-        paneContainer.classList.remove('open');
-        paneContainer.classList.add('closed');
-        handle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  </script>
+handle.addEventListener('click', () => {
+  paneOpen = !paneOpen;
+  paneContainer.classList.toggle('open', paneOpen);
+  paneContainer.classList.toggle('closed', !paneOpen);
+  paneContainer.setAttribute('aria-expanded', paneOpen);
+  handle.setAttribute('aria-expanded', paneOpen);
+});
+
+// Close panel on clicking outside
+document.addEventListener('click', (event) => {
+  if (!paneContainer.contains(event.target) && paneOpen) {
+    paneOpen = false;
+    paneContainer.classList.remove('open');
+    paneContainer.classList.add('closed');
+    paneContainer.setAttribute('aria-expanded', 'false');
+    handle.setAttribute('aria-expanded', 'false');
+  }
+});
+
 </body>
 </html>
