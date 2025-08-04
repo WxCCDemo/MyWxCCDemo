@@ -20,15 +20,20 @@ html, body {
 /* Navigation bar below header, floating style */
 nav {
   width: 100vw;
-  background: rgba(20, 26, 58, 0.75);
-  position: relative;   /* no longer fixed */
-  z-index: 9000;
+  background: rgba(20, 26, 58, 0.75);    /* translucent */
+  position: fixed;                        /* fixed, floating on top */
+  top: 0;                                /* stick to top */
+  left: 0;
+  z-index: 9999;                         /* high layer */
   display: flex;
   justify-content: flex-end;
   padding: 12px 24px;
   box-sizing: border-box;
-  backdrop-filter: saturate(180%) blur(10px); /* floating translucent effect */
+  backdrop-filter: saturate(180%) blur(10px); /* frosted glass blur */
+  -webkit-backdrop-filter: saturate(180%) blur(10px); /* Safari and Chrome */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);  /* subtle border line */
 }
+
 
 nav ul {
   list-style-type: none;
