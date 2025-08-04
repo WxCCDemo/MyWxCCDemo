@@ -10,9 +10,9 @@ html, body {
 body {
   min-height: 100vh;
   min-width: 100vw;
-  background: url('https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/Webex%20AI.png') no-repeat center center fixed;
-  background-size: cover;
   background-color: #000;
+  position: relative;
+  overflow-x: hidden;
 }
 
 /* Navigation bar styling */
@@ -55,6 +55,17 @@ nav ul li a:hover,
 nav ul li a:focus {
   background: #3756a7;
   outline: none;
+}
+
+/* Fullscreen image style */
+img.fullscreen-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
 }
 
 /* Mobile responsiveness */
