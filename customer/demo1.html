@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="demo1">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,45 +9,49 @@
 </head>
 <body>
 
-  <img class="fullscreen-image" src="../assets/OCBC.png" alt="OCBC Image" />
+  <!-- OCBC Header Image fixed at top -->
+  <img class="header-image" src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/OCBCHeader.png" alt="OCBC Header" />
+  
+  <img class="fullscreen-image" src="../assets/OCBC.png" alt="OCBC" />
 
-  <div class="contact-us-button-vertical"
+  <div class="contact-us-button-vertical" id="contact-us-button"
        data-bs-toggle="offcanvas"
        data-bs-target="#contactOffcanvas"
        aria-controls="contactOffcanvas"
-       role="button"
-       tabindex="0">
+       role="button" tabindex="0">
     Contact Us
   </div>
 
   <div class="offcanvas offcanvas-end" tabindex="-1" id="contactOffcanvas" aria-labelledby="contactOffcanvasLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="contactOffcanvasLabel">Contact Us</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <h5 class="offcanvas-title text-white" id="contactOffcanvasLabel">Contact Us</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body" id="contact-details"></div>
+    <div class="offcanvas-body">
+      <!-- Contact Buttons -->
+      <a href="tel:+16692856683" class="contact-button">
+        <img src="../assets/Phone.jpg" alt="Phone Icon" /> 
+        Phone Banking: +1 669 285 6683
+      </a>
+      <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-button">
+        <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" /> 
+        WhatsApp Banking: +1 (207) 680-3464
+      </a>
+      <a href="mailto:cxdemosc@gmail.com" class="contact-button">
+        <img src="../assets/contact-us-email.jpg" alt="Email Icon" /> 
+        Email Banking: cxdemosc@gmail.com
+      </a>
+      <div class="contact-button" style="cursor: default;">
+        <img src="../assets/adresspin.png" alt="Address Icon" /> 
+        Office Address: 80, Pasir Panjang Road, Singapore 001001
+      </div>
+    </div>
   </div>
 
-  <!-- Live chat container placeholder -->
   <div id="live-chat-container"></div>
 
   <script src="../script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script>
-    const contact = {
-      phone: "+1 669 285 6683",
-      whatsapp: "+1 (207) 680-3464",
-      email: "cxdemosc@gmail.com",
-      address: "80, Pasir Panjang Road,Singapore 001001"
-    };
-    document.getElementById('contact-details').innerHTML = `
-      <p><strong>Phone Banking:</strong> <a href="tel:${contact.phone}">${contact.phone}</a></p>
-      <p><strong>WhatsApp Banking:</strong> <a href="https://wa.me/12076803464" target="_blank" rel="noopener">${contact.whatsapp}</a></p>
-      <p><strong>Email Banking:</strong> <a href="mailto:${contact.email}">${contact.email}</a></p>
-      <p><strong>Office Address:</strong><br>${contact.address}</p>
-    `;
-  </script>
 
 </body>
 </html>
