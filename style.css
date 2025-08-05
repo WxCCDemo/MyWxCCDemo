@@ -72,13 +72,12 @@ nav ul li a:focus {
 }
 
 .contact-us-pane-container.closed {
-  transform: translateX(340px); /* or panel width + handle width */
+  transform: translateX(340px);
 }
 
 .contact-us-pane-container.open {
   transform: translateX(0);
 }
-
 
 /* Pane */
 .contact-us-pane {
@@ -113,15 +112,13 @@ nav ul li a:focus {
   padding: 8px 6px;
 }
 
-/* Vertical hamburger bars container */
 .hamburger-vertical {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 6px; /* spacing below bars */
+  margin-bottom: 6px;
 }
 
-/* Each thin vertical bar */
 .hamburger-vertical span {
   width: 3px;
   height: 22px;
@@ -129,7 +126,6 @@ nav ul li a:focus {
   border-radius: 2px;
 }
 
-/* Vertically oriented 'Contact Us' */
 .vertical-label {
   writing-mode: vertical-rl;
   text-orientation: upright;
@@ -208,46 +204,4 @@ nav ul li a:focus {
   .contact-us-pane-container {
     top: 7vw;
   }
-}
-
-/* nav styles for floating fixed nav */
-nav {
-  width: 100vw;
-  background: rgba(20, 26, 58, 0.75);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  display: flex;
-  justify-content: flex-end;
-  padding: 12px 24px;
-  box-sizing: border-box;
-  backdrop-filter: saturate(180%) blur(10px);
-  -webkit-backdrop-filter: saturate(180%) blur(10px);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 32px;
-  align-items: center;
-}
-
-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.15rem;
-  font-weight: 500;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background 0.2s ease-in-out;
-}
-
-nav ul li a:hover,
-nav ul li a:focus {
-  background: #3756a7;
-  outline: none;
 }
