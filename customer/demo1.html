@@ -5,72 +5,163 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Demo1 - WxCC Demo</title>
   <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* Add only the changed / added styles here for Contact Us */
+
+    .contact-us-pane-container {
+      position: fixed;
+      top: 30vh;
+      right: 0;
+      z-index: 10000;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      transition: transform 0.35s cubic-bezier(.62,-0.24,.37,1.12);
+    }
+
+    .contact-us-pane-container.closed {
+      transform: translateX(340px);
+    }
+
+    .contact-us-pane-container.open {
+      transform: translateX(0);
+    }
+
+    .contact-us-pane {
+      min-width: 320px;
+      max-width: 340px;
+      background: rgba(9,18,40,0.93);
+      color: #fff;
+      border-radius: 25px 0 0 25px;
+      box-shadow: 0 3px 32px rgba(0,0,0,0.32);
+      padding: 28px 24px 18px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .contact-us-handle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #132a54;
+      color: #fff;
+      height: 145px;
+      min-width: 52px;
+      border-radius: 0 16px 16px 0;
+      box-shadow: 2px 2px 16px rgba(0,0,0,.14);
+      cursor: pointer;
+      position: relative;
+      z-index: 4;
+      user-select: none;
+      padding: 8px 6px;
+    }
+
+    .hamburger-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .hamburger-vertical span {
+      width: 3px;
+      height: 22px;
+      background: #fff;
+      border-radius: 2px;
+    }
+
+    .vertical-label {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      user-select: none;
+    }
+
+    /* Contact method buttons styles assume from your style.css */
+
+    /* Webex logo styling */
+    .webex-logo-in-pane {
+      margin-top: 20px;
+      width: 44px !important;
+      height: auto !important;
+      border-radius: 14px;
+      box-shadow: 0 2px 10px rgba(20,43,130,0.21);
+      background: #fff;
+      cursor: pointer;
+      align-self: flex-end;
+    }
+  </style>
 </head>
 <body class="demo1">
-  <!-- OCBC Header image scrolls with page -->
-  <!--<img class="header-image" src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/OCBCHeader.png" alt="OCBC Header" /> -->
-  
+
   <img class="fullscreen-image" src="../assets/OCBCAI.png" alt="OCBC" />
-  
+
   <!-- Floating Contact Us Pane and handle -->
-<div id="contact-pane-container" class="contact-us-pane-container closed" aria-expanded="false" aria-label="Contact Us Panel">
-  <div class="contact-us-pane" role="region" aria-label="Contact Us Information">
-    <a href="tel:+16692856683" class="contact-method-btn">
-      <img src="../assets/Phone.jpg" alt="Phone Icon" /> 
-      Phone Banking: +1 669 285 6683
-    </a>
-    <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-method-btn">
-      <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" /> 
-      WhatsApp Banking: +1 (207) 680-3464
-    </a>
-    <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
-      <img src="../assets/contact-us-email.jpg" alt="Email Icon" /> 
-      Email Banking: cxdemosc@gmail.com
-    </a>
-    <div class="contact-method-btn" style="cursor: default;" tabindex="0" aria-label="Office Address">
-      <img src="../assets/adresspin.png" alt="Address Icon" /> 
-      Office Address: 80, Pasir Panjang Road, Singapore 001001
+  <div id="contact-pane-container" class="contact-us-pane-container closed" aria-expanded="false" aria-label="Contact Us Panel">
+    <div class="contact-us-pane" role="region" aria-label="Contact Us Information">
+      <a href="tel:+16692856683" class="contact-method-btn">
+        <img src="../assets/Phone.jpg" alt="Phone Icon" /> 
+        Phone Banking: +1 669 285 6683
+      </a>
+      <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-method-btn">
+        <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" /> 
+        WhatsApp Banking: +1 (207) 680-3464
+      </a>
+      <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
+        <img src="../assets/contact-us-email.jpg" alt="Email Icon" /> 
+        Email Banking: cxdemosc@gmail.com
+      </a>
+      <div class="contact-method-btn" style="cursor: default;" tabindex="0" aria-label="Office Address">
+        <img src="../assets/adresspin.png" alt="Address Icon" /> 
+        Office Address: 80, Pasir Panjang Road, Singapore 001001
+      </div>
+      <a href="../index.html" aria-label="Back to Home">
+        <img src="../assets/Webex-Logo.jpg" alt="Webex Home" class="webex-logo-in-pane" />
+      </a>
     </div>
-    <a href="../index.html" aria-label="Back to Home">
-      <img src="../assets/Webex-Logo.jpg" alt="Webex Home" class="webex-logo-in-pane" />
-    </a>
-  </div>
-  <div id="contact-us-handle" class="contact-us-handle" tabindex="0" role="button" aria-controls="contact-pane-container" aria-expanded="false" aria-label="Toggle Contact Us Panel">
-    <div class="hamburger-vertical">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div id="contact-us-handle" class="contact-us-handle" tabindex="0" role="button" aria-controls="contact-pane-container" aria-expanded="false" aria-label="Toggle Contact Us Panel">
+      <div class="hamburger-vertical">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <span class="vertical-label">Contact Us</span>
     </div>
-    <span class="vertical-label">Contact Us</span>
   </div>
-</div>
-  
+
   <div id="live-chat-container"></div>
 
   <script src="../script.js"></script>
-const paneContainer = document.getElementById('contact-pane-container');
-const handle = document.getElementById('contact-us-handle');
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const paneContainer = document.getElementById('contact-pane-container');
+      const handle = document.getElementById('contact-us-handle');
 
-let paneOpen = false;
+      let paneOpen = false;
 
-handle.addEventListener('click', () => {
-  paneOpen = !paneOpen;
-  paneContainer.classList.toggle('open', paneOpen);
-  paneContainer.classList.toggle('closed', !paneOpen);
-  paneContainer.setAttribute('aria-expanded', paneOpen);
-  handle.setAttribute('aria-expanded', paneOpen);
-});
+      handle.addEventListener('click', function() {
+        paneOpen = !paneOpen;
+        paneContainer.classList.toggle('open', paneOpen);
+        paneContainer.classList.toggle('closed', !paneOpen);
+        paneContainer.setAttribute('aria-expanded', paneOpen);
+        handle.setAttribute('aria-expanded', paneOpen);
+      });
 
-// Close panel on clicking outside
-document.addEventListener('click', (event) => {
-  if (!paneContainer.contains(event.target) && paneOpen) {
-    paneOpen = false;
-    paneContainer.classList.remove('open');
-    paneContainer.classList.add('closed');
-    paneContainer.setAttribute('aria-expanded', 'false');
-    handle.setAttribute('aria-expanded', 'false');
-  }
-});
+      document.addEventListener('click', function(event) {
+        if (!paneContainer.contains(event.target) && paneOpen) {
+          paneOpen = false;
+          paneContainer.classList.remove('open');
+          paneContainer.classList.add('closed');
+          paneContainer.setAttribute('aria-expanded', 'false');
+          handle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
