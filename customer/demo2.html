@@ -45,32 +45,5 @@
   <div id="live-chat-container"></div>
 
   <script src="../script.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const paneContainer = document.getElementById('contact-pane-container');
-      const handle = document.getElementById('contact-us-handle');
-
-      let paneOpen = false;
-
-      handle.addEventListener('click', function() {
-        paneOpen = !paneOpen;
-        paneContainer.classList.toggle('open', paneOpen);
-        paneContainer.classList.toggle('closed', !paneOpen);
-        paneContainer.setAttribute('aria-expanded', paneOpen);
-        handle.setAttribute('aria-expanded', paneOpen);
-      });
-
-      document.addEventListener('click', function(event) {
-        if (!paneContainer.contains(event.target) && paneOpen) {
-          paneOpen = false;
-          paneContainer.classList.remove('open');
-          paneContainer.classList.add('closed');
-          paneContainer.setAttribute('aria-expanded', 'false');
-          handle.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-  </script>
-
 </body>
 </html>
