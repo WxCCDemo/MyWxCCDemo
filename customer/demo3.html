@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>demo3 - Final Working Contact Sidebar</title>
+  <title>demo3 - Final Transparent Contact Sidebar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background: #000;
       font-family: Arial, sans-serif;
+      background: #000;
       overflow-x: hidden;
     }
 
@@ -24,16 +24,15 @@
       position: fixed;
       top: 30vh;
       right: 0;
-      width: 240px;
-      background: rgba(9, 18, 40, 0.96);
+      width: 260px;
+      background: rgba(9, 18, 40, 0.85); /* More transparent */
       color: white;
       border-radius: 20px 0 0 20px;
       padding: 16px 12px 16px 12px;
       box-shadow: -4px 6px 20px rgba(0, 0, 0, 0.4);
-      transform: translateX(100%);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform 0.4s ease, opacity 0.3s ease;
+      transform: translateX(220px); /* Leaves only handle visible */
+      opacity: 1;
+      transition: transform 0.35s ease;
       z-index: 10001;
       display: flex;
       flex-direction: column;
@@ -43,15 +42,13 @@
 
     #contact-pane.open {
       transform: translateX(0);
-      opacity: 1;
-      pointer-events: auto;
     }
 
     /* === Sidebar Buttons === */
     .contact-method-btn {
       display: flex;
       align-items: center;
-      background: rgba(16, 60, 140, 0.95);
+      background: rgba(16, 60, 140, 0.8);
       color: white;
       padding: 10px 12px;
       border-radius: 50px;
@@ -84,14 +81,14 @@
       align-self: flex-end;
     }
 
-    /* === Toggle Handle (Tab) === */
-    #contact-us-handle {
-      position: fixed;
-      top: 30vh;
-      right: 240px;
+    /* === Embedded Handle === */
+    .contact-tab {
+      position: absolute;
+      top: 0;
+      left: -44px;
       width: 44px;
       min-height: 120px;
-      background: #132a54;
+      background: rgba(19, 42, 84, 0.85); /* more transparent tab */
       border-radius: 8px 0 0 8px;
       display: flex;
       flex-direction: column;
@@ -109,6 +106,7 @@
       background: white;
       margin: 2px 0;
       border-radius: 2px;
+      display: block;
     }
 
     .vertical-label {
@@ -118,16 +116,22 @@
       font-weight: bold;
       margin-top: 6px;
       white-space: nowrap;
-      color: white;
       text-align: center;
+      color: white;
     }
 
     @media (max-width: 600px) {
       #contact-pane {
         width: 80vw;
+        transform: translateX(calc(80vw - 44px));
       }
-      #contact-us-handle {
-        right: 80vw;
+
+      #contact-pane.open {
+        transform: translateX(0);
+      }
+
+      .contact-tab {
+        left: -44px;
       }
     }
   </style>
@@ -137,84 +141,82 @@
   <!-- Background image -->
   <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/111111/ffffff?text=Demo+Page" alt="Demo Background" />
 
-  <!-- Handle Tab -->
-  <div id="contact-us-handle">
-    <div class="hamburger-vertical">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <span class="vertical-label">Contact Us</span>
-  </div>
-
-  <!-- Sidebar Panel -->
+  <!-- Sidebar Panel INCLUDING Tab -->
   <div id="contact-pane">
-    <!-- Call -->
+
+    <!-- Handle visually embedded -->
+    <div id="contact-us-tab" class="contact-tab">
+      <div class="hamburger-vertical">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <span class="vertical-label">Contact Us</span>
+    </div>
+
+    <!-- Contact Options -->
     <a href="tel:+16692856683" class="contact-method-btn">
       <img src="https://via.placeholder.com/24x24/ffffff/000000?text=📞" alt="Phone" />
       Call: +1 669 285 6683
     </a>
 
-    <!-- WhatsApp -->
     <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-method-btn">
       <img src="https://via.placeholder.com/24x24/ffffff/000000?text=💬" alt="WhatsApp" />
       WhatsApp: +1 207 680 3464
     </a>
 
-    <!-- Email -->
     <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
       <img src="https://via.placeholder.com/24x24/ffffff/000000?text=✉️" alt="Email" />
       Email: cxdemosc@gmail.com
     </a>
 
-    <!-- Address -->
-    <a href="https://www.google.com/maps/search/?api=1&query=80+Pasir+Panjang+Rd,+Singapore" target="_blank" rel="noopener" class="contact-method-btn">
+    <a href="https://www.google.com/maps/search/?api=1&query=80+Pasir+Panjang+Rd,+Singapore"
+       target="_blank" rel="noopener" class="contact-method-btn">
       <img src="https://via.placeholder.com/24x24/ffffff/000000?text=📍" alt="Map" />
       80 Pasir Panjang Rd
     </a>
 
-    <!-- Webex Logo -->
     <img class="webex-logo-in-pane" src="https://via.placeholder.com/36x36?text=W" alt="Webex Logo" />
   </div>
 
-  <!-- JavaScript: Toggling logic -->
+  <!-- JS -->
   <script>
     const pane = document.getElementById('contact-pane');
-    const toggleHandle = document.getElementById('contact-us-handle');
-    let inactivityTimer = null;
+    const handle = document.getElementById('contact-us-tab');
+    let timer = null;
 
-    function openPane() {
+    function open() {
       pane.classList.add('open');
-      startInactivityTimer();
+      resetTimer();
     }
 
-    function closePane() {
+    function close() {
       pane.classList.remove('open');
-      clearTimeout(inactivityTimer);
+      clearTimeout(timer);
     }
 
-    function togglePane() {
-      pane.classList.contains('open') ? closePane() : openPane();
+    function toggle() {
+      pane.classList.contains('open') ? close() : open();
     }
 
-    function startInactivityTimer() {
-      clearTimeout(inactivityTimer);
-      inactivityTimer = setTimeout(() => closePane(), 60000);
+    function resetTimer() {
+      clearTimeout(timer);
+      timer = setTimeout(() => close(), 60000);
     }
 
-    toggleHandle.addEventListener('click', (e) => {
+    handle.addEventListener('click', (e) => {
       e.stopPropagation();
-      togglePane();
+      toggle();
     });
 
     document.addEventListener('click', (e) => {
-      if (!pane.contains(e.target) && !toggleHandle.contains(e.target)) {
-        closePane();
+      if (!pane.contains(e.target) && !handle.contains(e.target)) {
+        close();
       }
     });
 
     ['mousemove', 'keydown', 'touchstart'].forEach(event =>
-      pane.addEventListener(event, startInactivityTimer)
+      pane.addEventListener(event, resetTimer)
     );
   </script>
 </body>
