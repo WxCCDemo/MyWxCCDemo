@@ -4,21 +4,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let paneOpen = false;
   let inactivityTimer = null;
+  const INACTIVITY_DURATION = 60000; // 1 minute in milliseconds
 
-  // Duration of inactivity before auto-closing (ms)
-  const INACTIVITY_DURATION = 60000; // 1 minute
-
-  // Opens the pane visually and logically
   function openPane() {
     paneOpen = true;
     paneContainer.classList.add('open');
     paneContainer.classList.remove('closed');
     paneContainer.setAttribute('aria-expanded', 'true');
     handle.setAttribute('aria-expanded', 'true');
-    startInactivityTimer(); // Begin countdown
+    startInactivityTimer();
   }
 
-  // Closes the pane visually and logically
   function closePane() {
     paneOpen = false;
     paneContainer.classList.remove('open');
@@ -28,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
     stopInactivityTimer();
   }
 
-  // Toggle logic based on state
   function togglePane() {
     if (paneOpen) {
       closePane();
@@ -37,13 +32,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Starts the inactivity countdown
   function startInactivityTimer() {
-    stopInactivityTimer(); // Prevent duplicate timers
+    stopInactivityTimer();
     inactivityTimer = setTimeout(closePane, INACTIVITY_DURATION);
   }
 
-  // Clears the current inactivity timer if any
   function stopInactivityTimer() {
     if (inactivityTimer) {
       clearTimeout(inactivityTimer);
@@ -51,21 +44,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Event: Clicking the handle toggles panel
+  // Toggle panel via handle
   if (handle && paneContainer) {
     handle.addEventListener('click', function (e) {
       togglePane();
       e.stopPropagation();
     });
 
-    // Auto-close if background area is clicked while pane is open
+    // Auto-close on outside click
     document.addEventListener('click', function (e) {
       if (!paneContainer.contains(e.target) && paneOpen) {
         closePane();
       }
     });
 
-    // Listen for user activity inside the panel to reset the timer
+    // Reset inactivity timer on user interaction
     ['mousemove', 'keydown', 'touchstart'].forEach(eventName => {
       paneContainer.addEventListener(eventName, () => {
         if (paneOpen) startInactivityTimer();
