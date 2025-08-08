@@ -1,96 +1,66 @@
+/* Reset and Background */
 html, body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #000;
+  background: #000;
+  overflow-x: hidden;
 }
 
-/* Image */
+/* Fullscreen Image */
 .fullscreen-image {
-  width: 100%;
+  width: 100vw;
   height: auto;
 }
 
-/* Sidebar */
+/* === Contact Us Panel Container === */
 .contact-us-pane-container {
   position: fixed;
   top: 30vh;
   right: 0;
+  z-index: 10000;
   display: flex;
-  z-index: 9999;
+  flex-direction: row;
   transition: transform 0.4s ease-in-out;
+  will-change: transform;
 }
 
+/* Hidden state: slide panel completely off screen */
 .contact-us-pane-container.closed {
-  transform: translateX(350px);
-  opacity: 0.6;
+  transform: translateX(100%);
 }
 
+/* Visible state: panel fully on screen */
 .contact-us-pane-container.open {
   transform: translateX(0);
-  opacity: 1;
 }
 
-/* Panel Inside */
+/* Sidebar Panel Content */
 .contact-us-pane {
   min-width: 320px;
   max-width: 340px;
-  background: rgba(9, 18, 40, 0.95);
   padding: 28px 24px;
-  color: white;
+  background: rgba(9, 18, 40, 0.95);
   border-radius: 25px 0 0 25px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  color: white;
   display: flex;
   flex-direction: column;
 }
 
-/* Handle */
-.contact-us-handle {
-  background: #132a54;
-  min-width: 52px;
-  height: 145px;
-  border-radius: 0 16px 16px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-}
-
-.contact-us-handle:hover {
-  background: #1a356a;
-}
-
-.hamburger-vertical span {
-  width: 3px;
-  height: 22px;
-  background: #fff;
-  margin: 2px 0;
-  border-radius: 1px;
-}
-
-.vertical-label {
-  writing-mode: vertical-rl;
-  font-weight: bold;
-  margin-top: 8px;
-  font-size: 0.90rem;
-}
-
-/* Buttons */
+/* Contact Method Cards */
 .contact-method-btn {
+  display: flex;
+  align-items: center;
   background: rgba(16, 60, 140, 0.95);
   color: white;
-  border: none;
   padding: 12px 20px;
-  margin-bottom: 12px;
   border-radius: 50px;
-  display: flex;
-  align-items: center;
   text-decoration: none;
+  margin-bottom: 14px;
   font-size: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .contact-method-btn:hover {
@@ -103,36 +73,77 @@ html, body {
   height: 28px;
   border-radius: 50%;
   margin-right: 12px;
-  background-color: #fff;
+  background: white;
   padding: 4px;
 }
 
-/* Logo */
+/* Bottom Logo */
 .webex-logo-in-pane {
   width: 44px;
-  margin-top: 18px;
-  border-radius: 14px;
-  align-self: flex-end;
+  border-radius: 10px;
   background: white;
+  margin-top: 20px;
+  align-self: flex-end;
 }
 
-/* Responsive */
+/* === Handle to Open Panel === */
+.contact-us-handle {
+  background: #132a54;
+  color: white;
+  height: 145px;
+  width: 52px;
+  border-radius: 0 16px 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.contact-us-handle:hover {
+  background: #1a356a;
+}
+
+.hamburger-vertical span {
+  width: 3px;
+  height: 22px;
+  background: white;
+  margin: 2px 0;
+  border-radius: 2px;
+}
+
+.vertical-label {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 8px;
+}
+
+/* Responsive Layout */
 @media (max-width: 600px) {
+  .contact-us-pane-container {
+    top: 20vh;
+  }
+
   .contact-us-pane {
     min-width: 80vw;
+    max-width: 90vw;
     padding: 20px;
-  }
-
-  .contact-method-btn {
-    font-size: 0.95rem;
-  }
-
-  .contact-us-pane-container {
-    top: 12vh;
   }
 
   .contact-us-handle {
     height: 90px;
-    min-width: 36px;
+    width: 36px;
+  }
+
+  .contact-method-btn {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .webex-logo-in-pane {
+    width: 36px;
   }
 }
