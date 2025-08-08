@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Demo1 - WxCC Demo</title>
-  <!-- Link to sidebar + base styles -->
+  <title>Demo1 - Contact Us Sidebar</title>
+
+  <!-- ✅ Link to custom styles -->
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body class="demo1">
 
-  <!-- Background Image -->
+  <!-- Fullscreen Background Image -->
   <img class="fullscreen-image" src="../assets/OCBCAI.png" alt="OCBC AI Demo" />
 
-  <!-- ✅ Contact Us Sidebar on LEFT -->
+  <!-- ✅ Contact Us Sidebar — initially hidden (closed) -->
   <div id="contact-pane-container" class="contact-us-pane-container closed" aria-expanded="false">
     
-    <!-- Sidebar Content -->
+    <!-- 📩 Sidebar Content (Contact Methods) -->
     <div class="contact-us-pane">
       <a href="tel:+16692856683" class="contact-method-btn">
         <img src="../assets/Phone.jpg" alt="Phone Icon" />
@@ -31,14 +32,14 @@
       </a>
       <div class="contact-method-btn" tabindex="0">
         <img src="../assets/adresspin.png" alt="Address Icon" />
-        Office Address: 80, Pasir Panjang Rd, SG 001001
+        Office Address: 80 Pasir Panjang Rd, SG 001001
       </div>
       <a href="../index.html" class="webex-logo-in-pane">
         <img src="../assets/Webex-Logo.jpg" alt="Webex Logo" />
       </a>
     </div>
 
-    <!-- Vertical Tab to Toggle -->
+    <!-- 🎛 Vertical Tab to Toggle Sidebar -->
     <div id="contact-us-handle" class="contact-us-handle" tabindex="0" role="button">
       <div class="hamburger-vertical">
         <span></span>
@@ -49,10 +50,10 @@
     </div>
   </div>
 
-  <!-- 📞 Live Chat Widget Container -->
+  <!-- 💬 Live Chat Widget Container (unchanged) -->
   <div id="live-chat-container"></div>
 
-  <!-- JavaScript for Sidebar and Chat -->
+  <!-- ✅ Custom sidebar logic + chat initializer -->
   <script src="../script.js"></script>
 </body>
 </html>
