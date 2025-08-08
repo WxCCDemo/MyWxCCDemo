@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>demo3 - Right Sidebar with Floating Left Handle</title>
+  <title>demo3 - Final Working Contact Sidebar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
       background: #000;
+      font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
 
@@ -47,7 +47,7 @@
       pointer-events: auto;
     }
 
-    /* === Sidebar Content Buttons === */
+    /* === Sidebar Buttons === */
     .contact-method-btn {
       display: flex;
       align-items: center;
@@ -59,19 +59,21 @@
       text-decoration: none;
       font-size: 0.95rem;
       width: 100%;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .contact-method-btn:hover {
+      background: #3756a7;
+      transform: scale(1.02);
     }
 
     .contact-method-btn img {
       width: 24px;
       height: 24px;
-      margin-right: 8px;
+      margin-right: 10px;
       border-radius: 50%;
       background: white;
       padding: 4px;
-    }
-
-    .contact-method-btn:hover {
-      background: #3756a7;
     }
 
     .webex-logo-in-pane {
@@ -82,13 +84,13 @@
       align-self: flex-end;
     }
 
-    /* === Handle (outside of sidebar!) === */
+    /* === Toggle Handle (Tab) === */
     #contact-us-handle {
       position: fixed;
       top: 30vh;
-      right: 240px; /* Aligns the tab just before the closed sidebar */
+      right: 240px;
       width: 44px;
-      min-height: 110px;
+      min-height: 120px;
       background: #132a54;
       border-radius: 8px 0 0 8px;
       display: flex;
@@ -98,6 +100,7 @@
       cursor: pointer;
       z-index: 10002;
       padding: 8px 4px;
+      box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.3);
     }
 
     .hamburger-vertical span {
@@ -111,12 +114,12 @@
     .vertical-label {
       writing-mode: vertical-rl;
       text-orientation: upright;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       font-weight: bold;
       margin-top: 6px;
       white-space: nowrap;
-      text-align: center;
       color: white;
+      text-align: center;
     }
 
     @media (max-width: 600px) {
@@ -131,10 +134,10 @@
 </head>
 <body>
 
-  <!-- 🎨 Background Image -->
-  <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/111111/ffffff?text=Demo+Page" alt="Background" />
+  <!-- Background image -->
+  <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/111111/ffffff?text=Demo+Page" alt="Demo Background" />
 
-  <!-- ✅ Contact Us Tab -->
+  <!-- Handle Tab -->
   <div id="contact-us-handle">
     <div class="hamburger-vertical">
       <span></span>
@@ -144,28 +147,37 @@
     <span class="vertical-label">Contact Us</span>
   </div>
 
-  <!-- ✅ Sidebar Panel -->
+  <!-- Sidebar Panel -->
   <div id="contact-pane">
+    <!-- Call -->
     <a href="tel:+16692856683" class="contact-method-btn">
-      <img src="https://via.placeholder.com/28x28?text=📞" alt="Phone" />
+      <img src="https://via.placeholder.com/24x24/ffffff/000000?text=📞" alt="Phone" />
       Call: +1 669 285 6683
     </a>
-    <a href="https://wa.me/12076803464" target="_blank" class="contact-method-btn">
-      <img src="https://via.placeholder.com/28x28?text=💬" alt="WhatsApp" />
-      WhatsApp
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-method-btn">
+      <img src="https://via.placeholder.com/24x24/ffffff/000000?text=💬" alt="WhatsApp" />
+      WhatsApp: +1 207 680 3464
     </a>
+
+    <!-- Email -->
     <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
-      <img src="https://via.placeholder.com/28x28?text=✉️" alt="Email" />
+      <img src="https://via.placeholder.com/24x24/ffffff/000000?text=✉️" alt="Email" />
       Email: cxdemosc@gmail.com
     </a>
-    <div class="contact-method-btn">
-      <img src="https://via.placeholder.com/28x28?text=📍" alt="Address" />
+
+    <!-- Address -->
+    <a href="https://www.google.com/maps/search/?api=1&query=80+Pasir+Panjang+Rd,+Singapore" target="_blank" rel="noopener" class="contact-method-btn">
+      <img src="https://via.placeholder.com/24x24/ffffff/000000?text=📍" alt="Map" />
       80 Pasir Panjang Rd
-    </div>
-    <img class="webex-logo-in-pane" src="https://via.placeholder.com/36x36?text=W" alt="Webex" />
+    </a>
+
+    <!-- Webex Logo -->
+    <img class="webex-logo-in-pane" src="https://via.placeholder.com/36x36?text=W" alt="Webex Logo" />
   </div>
 
-  <!-- ✅ Sidebar Toggle Script -->
+  <!-- JavaScript: Toggling logic -->
   <script>
     const pane = document.getElementById('contact-pane');
     const toggleHandle = document.getElementById('contact-us-handle');
@@ -187,7 +199,7 @@
 
     function startInactivityTimer() {
       clearTimeout(inactivityTimer);
-      inactivityTimer = setTimeout(() => closePane(), 60000); // 60s
+      inactivityTimer = setTimeout(() => closePane(), 60000);
     }
 
     toggleHandle.addEventListener('click', (e) => {
