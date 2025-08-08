@@ -1,59 +1,64 @@
-/* ===============================
-   General Layout + Reset Styles
-=============================== */
+/* Reset Base */
 html, body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
   background: #000;
-  overflow-x: hidden; /* Prevent unwanted horizontal scroll */
+  overflow-x: hidden;
+  height: 100%;
 }
 
+/* Full Image Background */
 .fullscreen-image {
   width: 100vw;
   height: auto;
 }
 
-/* ===============================
-   Sidebar Container - LEFT SIDE
-=============================== */
+/* Sidebar Container */
 .contact-us-pane-container {
   position: fixed;
   top: 30vh;
-  left: 0;  /* ❗ sidebar now slides in from the left */
-  z-index: 10000;
+  left: 0;
   display: flex;
   flex-direction: row;
+  z-index: 10000;
   min-width: 320px;
+  max-height: 100vh;
+
+  /* Transition Control */
   transition: transform 0.4s ease-in-out;
   will-change: transform;
+
+  /* Prevent the "white bar" across screen */
+  overflow: hidden;
 }
 
-/* Slide OFF screen to the left */
+/* Fully Slide Out of View */
 .contact-us-pane-container.closed {
   transform: translateX(-100%);
-  opacity: 0.6;
+  pointer-events: none;
+  opacity: 0;
 }
 
-/* Slide ON screen (fully visible) */
+/* Fully Slide Into View */
 .contact-us-pane-container.open {
   transform: translateX(0);
+  pointer-events: auto;
   opacity: 1;
 }
 
-/* ===============================
-   Sidebar Contents Styling
-=============================== */
+/* Actual Sidebar Content Styling */
 .contact-us-pane {
+  background: rgba(9, 18, 40, 0.95);
+  border-radius: 0 25px 25px 0;
   min-width: 320px;
   max-width: 340px;
   padding: 28px 24px;
-  background: rgba(9, 18, 40, 0.95);
-  border-radius: 0 25px 25px 0;
-  box-shadow: 2px 4px 24px rgba(0, 0, 0, 0.4);
   color: white;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
 /* Contact Buttons */
@@ -69,12 +74,10 @@ html, body {
   font-size: 1rem;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
-
 .contact-method-btn:hover {
   background: #3756a7;
   transform: scale(1.04);
 }
-
 .contact-method-btn img {
   width: 28px;
   height: 28px;
@@ -84,7 +87,7 @@ html, body {
   padding: 4px;
 }
 
-/* Webex Logo at Bottom */
+/* Logo in Sidebar */
 .webex-logo-in-pane {
   width: 44px;
   border-radius: 10px;
@@ -93,28 +96,24 @@ html, body {
   align-self: flex-end;
 }
 
-/* ===============================
-   Toggle "Contact Us" Handle
-=============================== */
+/* Handle (= tab) */
 .contact-us-handle {
   background: #132a54;
   color: white;
   height: 145px;
   width: 52px;
-  border-radius: 16px 0 0 16px;  /* ❗ Rounded on left now */
+  border-radius: 16px 0 0 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
 }
 
 .contact-us-handle:hover {
   background: #1a356a;
 }
 
-/* Hamburger-style lines */
 .hamburger-vertical span {
   width: 3px;
   height: 22px;
@@ -125,6 +124,7 @@ html, body {
 
 .vertical-label {
   writing-mode: vertical-rl;
+  text-orientation: upright;
   font-size: 1rem;
   font-weight: bold;
   letter-spacing: 1px;
@@ -132,14 +132,8 @@ html, body {
   user-select: none;
 }
 
-/* ===============================
-   Mobile/Responsive Styling
-=============================== */
+/* Responsive */
 @media (max-width: 600px) {
-  .contact-us-pane-container {
-    top: 20vh;
-  }
-
   .contact-us-pane {
     min-width: 80vw;
     max-width: 90vw;
