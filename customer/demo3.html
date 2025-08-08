@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>demo3 - Right Sidebar with Left Handle</title>
+  <title>demo3 - Right Sidebar with Floating Left Handle</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     html, body {
@@ -16,18 +16,19 @@
     .fullscreen-image {
       width: 100vw;
       height: auto;
+      display: block;
     }
 
-    /* == Sliding Sidebar Panel == */
+    /* === Sidebar Panel === */
     #contact-pane {
       position: fixed;
       top: 30vh;
       right: 0;
-      width: 240px; /* ❗️ Thinner sidebar */
+      width: 240px;
       background: rgba(9, 18, 40, 0.96);
       color: white;
       border-radius: 20px 0 0 20px;
-      padding: 16px 12px 16px 8px;
+      padding: 16px 12px 16px 12px;
       box-shadow: -4px 6px 20px rgba(0, 0, 0, 0.4);
       transform: translateX(100%);
       opacity: 0;
@@ -46,7 +47,7 @@
       pointer-events: auto;
     }
 
-    /* == Contact Buttons == */
+    /* === Sidebar Content Buttons === */
     .contact-method-btn {
       display: flex;
       align-items: center;
@@ -81,22 +82,22 @@
       align-self: flex-end;
     }
 
-    /* == Embedded Handle - aligned left inside the panel == */
-    .handle-inside-panel {
-      align-self: flex-start;
-      background: #132a54;
+    /* === Handle (outside of sidebar!) === */
+    #contact-us-handle {
+      position: fixed;
+      top: 30vh;
+      right: 240px; /* Aligns the tab just before the closed sidebar */
       width: 44px;
       min-height: 110px;
+      background: #132a54;
       border-radius: 8px 0 0 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      z-index: 10002;
       padding: 8px 4px;
-      position: absolute;
-      left: -44px; /* ❗ Pulls it to the left of the panel */
-      top: 0;
     }
 
     .hamburger-vertical span {
@@ -121,47 +122,50 @@
     @media (max-width: 600px) {
       #contact-pane {
         width: 80vw;
-        right: 0;
+      }
+      #contact-us-handle {
+        right: 80vw;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Image -->
-  <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/111111/ffffff?text=Demo+Page"/>
+  <!-- 🎨 Background Image -->
+  <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/111111/ffffff?text=Demo+Page" alt="Background" />
+
+  <!-- ✅ Contact Us Tab -->
+  <div id="contact-us-handle">
+    <div class="hamburger-vertical">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <span class="vertical-label">Contact Us</span>
+  </div>
 
   <!-- ✅ Sidebar Panel -->
   <div id="contact-pane">
-    
-    <!-- ✅ Left-side Handle Inside Sidebar -->
-    <div id="contact-us-handle" class="handle-inside-panel">
-      <div class="hamburger-vertical">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <span class="vertical-label">Contact Us</span>
-    </div>
-
-    <!-- Sidebar Buttons -->
     <a href="tel:+16692856683" class="contact-method-btn">
-      <img src="https://via.placeholder.com/28x28?text=📞" />Call: +1 669 285 6683
+      <img src="https://via.placeholder.com/28x28?text=📞" alt="Phone" />
+      Call: +1 669 285 6683
     </a>
     <a href="https://wa.me/12076803464" target="_blank" class="contact-method-btn">
-      <img src="https://via.placeholder.com/28x28?text=💬" />WhatsApp
+      <img src="https://via.placeholder.com/28x28?text=💬" alt="WhatsApp" />
+      WhatsApp
     </a>
     <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
-      <img src="https://via.placeholder.com/28x28?text=✉️" />Email: cxdemosc@gmail.com
+      <img src="https://via.placeholder.com/28x28?text=✉️" alt="Email" />
+      Email: cxdemosc@gmail.com
     </a>
     <div class="contact-method-btn">
-      <img src="https://via.placeholder.com/28x28?text=📍" />80 Pasir Panjang Rd
+      <img src="https://via.placeholder.com/28x28?text=📍" alt="Address" />
+      80 Pasir Panjang Rd
     </div>
-
-    <img class="webex-logo-in-pane" src="https://via.placeholder.com/36x36?text=W" />
+    <img class="webex-logo-in-pane" src="https://via.placeholder.com/36x36?text=W" alt="Webex" />
   </div>
 
-  <!-- ✅ Script -->
+  <!-- ✅ Sidebar Toggle Script -->
   <script>
     const pane = document.getElementById('contact-pane');
     const toggleHandle = document.getElementById('contact-us-handle');
@@ -183,7 +187,7 @@
 
     function startInactivityTimer() {
       clearTimeout(inactivityTimer);
-      inactivityTimer = setTimeout(() => closePane(), 60000);
+      inactivityTimer = setTimeout(() => closePane(), 60000); // 60s
     }
 
     toggleHandle.addEventListener('click', (e) => {
@@ -192,12 +196,12 @@
     });
 
     document.addEventListener('click', (e) => {
-      if (!pane.contains(e.target)) {
+      if (!pane.contains(e.target) && !toggleHandle.contains(e.target)) {
         closePane();
       }
     });
 
-    ['mousemove', 'keydown', 'touchstart'].forEach((event) =>
+    ['mousemove', 'keydown', 'touchstart'].forEach(event =>
       pane.addEventListener(event, startInactivityTimer)
     );
   </script>
