@@ -4,17 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Demo1 - WxCC Demo</title>
+  <!-- Link to sidebar + base styles -->
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body class="demo1">
 
-  <!-- Fullscreen Background -->
+  <!-- Background Image -->
   <img class="fullscreen-image" src="../assets/OCBCAI.png" alt="OCBC AI Demo" />
 
-  <!-- Contact Us Sidebar -->
+  <!-- ✅ Contact Us Sidebar on LEFT -->
   <div id="contact-pane-container" class="contact-us-pane-container closed" aria-expanded="false">
     
-    <!-- Contact Methods -->
+    <!-- Sidebar Content -->
     <div class="contact-us-pane">
       <a href="tel:+16692856683" class="contact-method-btn">
         <img src="../assets/Phone.jpg" alt="Phone Icon" />
@@ -37,7 +38,7 @@
       </a>
     </div>
 
-    <!-- Vertical Toggle Tab -->
+    <!-- Vertical Tab to Toggle -->
     <div id="contact-us-handle" class="contact-us-handle" tabindex="0" role="button">
       <div class="hamburger-vertical">
         <span></span>
@@ -46,13 +47,12 @@
       </div>
       <span class="vertical-label">Contact Us</span>
     </div>
-    
   </div>
 
-  <!-- Live Chat Widget Placeholder -->
+  <!-- 📞 Live Chat Widget Container -->
   <div id="live-chat-container"></div>
 
-  <!-- Main Logic -->
+  <!-- JavaScript for Sidebar and Chat -->
   <script src="../script.js"></script>
 </body>
 </html>
