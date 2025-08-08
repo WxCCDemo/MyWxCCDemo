@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>🧪 demo3.html – Contact Us Sidebar (Left)</title>
+  <title>Fixed Demo3 - Contact Sidebar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background: #000;
       font-family: Arial, sans-serif;
+      background: #000;
       overflow-x: hidden;
     }
 
@@ -19,52 +18,40 @@
       height: auto;
     }
 
-    /* ===== Sidebar Container ===== */
-    #contact-pane-container {
+    /* == Sidebar Panel (ONLY) == */
+    #contact-pane {
       position: fixed;
       top: 30vh;
-      left: 0;
-      display: flex;
-      flex-direction: row;
-      z-index: 10000;
+      left: 52px; /* leave space for the handle tab */
+      width: 340px;
+      background: rgba(9, 18, 40, 0.95);
+      color: white;
+      border-radius: 0 20px 20px 0;
+      padding: 24px;
+      box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.4);
       transform: translateX(-100%);
-      opacity: 0.6;
-      transition: transform 0.4s ease-in-out;
-      will-change: transform;
+      opacity: 0;
       pointer-events: none;
+      transition: transform 0.4s ease, opacity 0.3s ease;
+      z-index: 10001;
     }
 
-    #contact-pane-container.open {
+    #contact-pane.open {
       transform: translateX(0);
       opacity: 1;
       pointer-events: auto;
     }
 
-    /* ===== Sidebar Panel ===== */
-    .contact-us-pane {
-      background: rgba(9, 18, 40, 0.95);
-      border-radius: 0 20px 20px 0;
-      min-width: 320px;
-      max-width: 340px;
-      padding: 24px;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      max-height: fit-content;
-    }
-
-    /* ===== Contact Buttons ===== */
     .contact-method-btn {
       display: flex;
       align-items: center;
       background: rgba(16, 60, 140, 0.95);
       color: white;
-      padding: 10px 16px;
+      padding: 10px 14px;
       border-radius: 50px;
+      margin-bottom: 12px;
       text-decoration: none;
-      margin-bottom: 14px;
       font-size: 1rem;
-      transition: background-color 0.2s ease;
     }
 
     .contact-method-btn:hover {
@@ -75,38 +62,42 @@
     .contact-method-btn img {
       width: 28px;
       height: 28px;
-      border-radius: 50%;
       margin-right: 12px;
+      border-radius: 50%;
       background: white;
       padding: 4px;
     }
 
     .webex-logo-in-pane {
       width: 44px;
-      border-radius: 10px;
       background: white;
+      border-radius: 10px;
       margin-top: 20px;
       align-self: flex-end;
     }
 
-    /* ===== Toggle Tab (Handle) ===== */
-    .contact-us-handle {
+    /* == Fixed Vertical Handle == */
+    #contact-us-handle {
+      position: fixed;
+      top: 30vh;
+      left: 0;
       width: 52px;
       min-height: 140px;
       background: #132a54;
-      border-radius: 16px 0 0 16px;
+      color: white;
+      border-radius: 0 16px 16px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       padding: 10px 6px;
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+      z-index: 10002;
     }
 
     .hamburger-vertical span {
       width: 4px;
-      height: 18px;
+      height: 20px;
       background: white;
       margin: 2px 0;
       border-radius: 2px;
@@ -115,135 +106,97 @@
     .vertical-label {
       writing-mode: vertical-rl;
       text-orientation: upright;
+      margin-top: 6px;
       font-size: 0.9rem;
-      font-weight: 600;
-      margin-top: 8px;
-      white-space: nowrap;
-      color: white;
+      font-weight: bold;
       text-align: center;
     }
 
     @media (max-width: 600px) {
-      .contact-us-pane {
-        min-width: 85vw;
+      #contact-pane {
+        width: 85vw;
+        left: 44px;
       }
 
-      .contact-us-handle {
+      #contact-us-handle {
         width: 36px;
-        min-height: 100px;
-      }
-
-      .hamburger-vertical span {
-        height: 16px;
-        width: 3px;
-      }
-
-      .vertical-label {
-        font-size: 0.8rem;
-      }
-
-      .contact-method-btn {
-        font-size: 0.95rem;
-        padding: 10px;
       }
     }
   </style>
 </head>
-
 <body>
 
   <!-- Background -->
-  <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/040404/ffffff?text=Background+Image" alt="Demo Background"/>
+  <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/040404/ffffff?text=Background" alt="" />
 
-  <!-- == Contact Us Sidebar == -->
-  <div id="contact-pane-container">
-
-    <!-- ✅ Pull Tab -->
-    <div id="contact-us-handle" class="contact-us-handle">
-      <div class="hamburger-vertical">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <span class="vertical-label">Contact Us</span>
+  <!-- == Vertical Tap Handle == -->
+  <div id="contact-us-handle">
+    <div class="hamburger-vertical">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
-
-    <!-- ✅ Sidebar Content -->
-    <div class="contact-us-pane">
-      <a href="tel:+16692856683" class="contact-method-btn">
-        <img src="https://via.placeholder.com/32x32?text=📞" alt="Phone" />
-        Phone Banking: +1 669 285 6683
-      </a>
-      <a href="https://wa.me/12076803464" class="contact-method-btn" target="_blank">
-        <img src="https://via.placeholder.com/32x32?text=💬" alt="WhatsApp" />
-        WhatsApp: +1 (207) 680-3464
-      </a>
-      <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
-        <img src="https://via.placeholder.com/32x32?text=✉️" alt="Email" />
-        Email: cxdemosc@gmail.com
-      </a>
-      <div class="contact-method-btn">
-        <img src="https://via.placeholder.com/32x32?text=📍" />
-        80 Pasir Panjang Rd, SG 001001
-      </div>
-      <img class="webex-logo-in-pane" src="https://via.placeholder.com/44x44?text=W" alt="Webex"/>
-    </div>
+    <span class="vertical-label">Contact Us</span>
   </div>
 
-  <!-- == JS Logic == -->
+  <!-- == Sliding Panel ONLY == -->
+  <div id="contact-pane">
+    <a href="tel:+16692856683" class="contact-method-btn">
+      <img src="https://via.placeholder.com/32x32?text=📞" />
+      Phone: +1 669 285 6683
+    </a>
+    <a href="https://wa.me/12076803464" target="_blank" class="contact-method-btn">
+      <img src="https://via.placeholder.com/32x32?text=💬" />
+      WhatsApp: +1 207 680 3464
+    </a>
+    <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
+      <img src="https://via.placeholder.com/32x32?text=✉️" />
+      Email: cxdemosc@gmail.com
+    </a>
+    <div class="contact-method-btn">
+      <img src="https://via.placeholder.com/32x32?text=📍" />
+      80 Pasir Panjang Rd, SG 001001
+    </div>
+    <img class="webex-logo-in-pane" src="https://via.placeholder.com/44x44?text=W" />
+  </div>
+
+  <!-- == JS Toggle Logic == -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const pane = document.getElementById("contact-pane-container");
-      const handle = document.getElementById("contact-us-handle");
+    const toggleButton = document.getElementById('contact-us-handle');
+    const pane = document.getElementById('contact-pane');
+    let inactivityTimer = null;
 
-      let paneOpen = false;
-      let inactivityTimer = null;
-      const INACTIVITY_TIMEOUT = 60000;
+    const open = () => {
+      pane.classList.add('open');
+      resetInactivityTimer();
+    };
 
-      function openPane() {
-        pane.classList.add("open");
-        pane.setAttribute("aria-expanded", "true");
-        paneOpen = true;
-        startInactivityTimer();
-      }
+    const close = () => {
+      pane.classList.remove('open');
+      clearTimeout(inactivityTimer);
+    };
 
-      function closePane() {
-        pane.classList.remove("open");
-        pane.setAttribute("aria-expanded", "false");
-        paneOpen = false;
-        clearTimeout(inactivityTimer);
-      }
+    const resetInactivityTimer = () => {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => close(), 60000);
+    };
 
-      function togglePane() {
-        paneOpen ? closePane() : openPane();
-      }
-
-      function startInactivityTimer() {
-        clearTimeout(inactivityTimer);
-        inactivityTimer = setTimeout(() => {
-          if (paneOpen) closePane();
-        }, INACTIVITY_TIMEOUT);
-      }
-
-      handle.addEventListener("click", (e) => {
-        e.stopPropagation();
-        togglePane();
-      });
-
-      document.addEventListener("click", (e) => {
-        if (!pane.contains(e.target)) {
-          closePane();
-        }
-      });
-
-      ["mousemove", "keydown", "touchstart"].forEach((eventType) => {
-        pane.addEventListener(eventType, () => {
-          if (paneOpen) startInactivityTimer();
-        });
-      });
-
-      window.addEventListener("load", closePane);
+    // Show pane on tab click
+    toggleButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      pane.classList.contains('open') ? close() : open();
     });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!pane.contains(e.target) && !toggleButton.contains(e.target)) close();
+    });
+
+    // Reset inactivity on user interaction
+    ['mousemove', 'keydown', 'touchstart'].forEach(event =>
+      pane.addEventListener(event, resetInactivityTimer)
+    );
   </script>
+
 </body>
 </html>
