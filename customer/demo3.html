@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Contact Us Sidebar (Final Working Demo)</title>
+  <title>🧪 demo3.html – Contact Us Sidebar (Left)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
@@ -19,54 +19,57 @@
       height: auto;
     }
 
-    .contact-us-pane-container {
+    /* ===== Sidebar Container ===== */
+    #contact-pane-container {
       position: fixed;
       top: 30vh;
       left: 0;
       display: flex;
+      flex-direction: row;
       z-index: 10000;
-      transition: transform 0.4s ease-in-out;
-      will-change: transform;
       transform: translateX(-100%);
       opacity: 0.6;
+      transition: transform 0.4s ease-in-out;
+      will-change: transform;
       pointer-events: none;
     }
 
-    .contact-us-pane-container.open {
+    #contact-pane-container.open {
       transform: translateX(0);
       opacity: 1;
       pointer-events: auto;
     }
 
+    /* ===== Sidebar Panel ===== */
     .contact-us-pane {
       background: rgba(9, 18, 40, 0.95);
-      border-radius: 0 25px 25px 0;
+      border-radius: 0 20px 20px 0;
       min-width: 320px;
       max-width: 340px;
-      padding: 28px 24px;
+      padding: 24px;
       color: white;
       display: flex;
       flex-direction: column;
-      overflow-y: auto;
       max-height: fit-content;
     }
 
+    /* ===== Contact Buttons ===== */
     .contact-method-btn {
       display: flex;
       align-items: center;
       background: rgba(16, 60, 140, 0.95);
       color: white;
-      padding: 12px 20px;
+      padding: 10px 16px;
       border-radius: 50px;
       text-decoration: none;
       margin-bottom: 14px;
       font-size: 1rem;
-      transition: all 0.2s ease;
+      transition: background-color 0.2s ease;
     }
 
     .contact-method-btn:hover {
       background: #3756a7;
-      transform: scale(1.04);
+      transform: scale(1.03);
     }
 
     .contact-method-btn img {
@@ -86,24 +89,24 @@
       align-self: flex-end;
     }
 
+    /* ===== Toggle Tab (Handle) ===== */
     .contact-us-handle {
-      background: #132a54;
-      color: white;
-      min-height: 120px;
       width: 52px;
-      padding: 10px 6px;
+      min-height: 140px;
+      background: #132a54;
       border-radius: 16px 0 0 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      gap: 6px;
+      padding: 10px 6px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
     }
 
     .hamburger-vertical span {
       width: 4px;
-      height: 20px;
+      height: 18px;
       background: white;
       margin: 2px 0;
       border-radius: 2px;
@@ -114,63 +117,48 @@
       text-orientation: upright;
       font-size: 0.9rem;
       font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-top: 6px;
+      margin-top: 8px;
       white-space: nowrap;
+      color: white;
       text-align: center;
     }
 
     @media (max-width: 600px) {
       .contact-us-pane {
-        min-width: 80vw;
-        max-width: 90vw;
-        padding: 20px;
+        min-width: 85vw;
       }
 
       .contact-us-handle {
         width: 36px;
-        padding: 8px 4px;
+        min-height: 100px;
       }
 
       .hamburger-vertical span {
-        height: 18px;
+        height: 16px;
         width: 3px;
       }
 
       .vertical-label {
         font-size: 0.8rem;
       }
+
+      .contact-method-btn {
+        font-size: 0.95rem;
+        padding: 10px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- Optional test image -->
-  <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/040404/ffffff?text=Demo+Background" alt="Demo BG"/>
+  <!-- Background -->
+  <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/040404/ffffff?text=Background+Image" alt="Demo Background"/>
 
-  <!-- Sidebar Component -->
-  <div id="contact-pane-container" class="contact-us-pane-container" aria-expanded="false">
+  <!-- == Contact Us Sidebar == -->
+  <div id="contact-pane-container">
 
-    <div class="contact-us-pane">
-      <a class="contact-method-btn" href="tel:+16692856683">
-        <img src="https://via.placeholder.com/32x32?text=📞" alt="Phone"/>
-        Phone Banking: +1 669 285 6683
-      </a>
-      <a class="contact-method-btn" href="https://wa.me/12076803464" target="_blank">
-        <img src="https://via.placeholder.com/32x32?text=💬" alt="WhatsApp"/>
-        WhatsApp Banking: +1 (207) 680-3464
-      </a>
-      <a class="contact-method-btn" href="mailto:cxdemosc@gmail.com">
-        <img src="https://via.placeholder.com/32x32?text=✉️" alt="Email"/>
-        Email: cxdemosc@gmail.com
-      </a>
-      <div class="contact-method-btn">
-        <img src="https://via.placeholder.com/32x32?text=📍" alt="Location"/>
-        80 Pasir Panjang Rd, SG 001001
-      </div>
-      <img class="webex-logo-in-pane" src="https://via.placeholder.com/44x44?text=W" alt="Webex Logo"/>
-    </div>
-
+    <!-- ✅ Pull Tab -->
     <div id="contact-us-handle" class="contact-us-handle">
       <div class="hamburger-vertical">
         <span></span>
@@ -179,8 +167,30 @@
       </div>
       <span class="vertical-label">Contact Us</span>
     </div>
+
+    <!-- ✅ Sidebar Content -->
+    <div class="contact-us-pane">
+      <a href="tel:+16692856683" class="contact-method-btn">
+        <img src="https://via.placeholder.com/32x32?text=📞" alt="Phone" />
+        Phone Banking: +1 669 285 6683
+      </a>
+      <a href="https://wa.me/12076803464" class="contact-method-btn" target="_blank">
+        <img src="https://via.placeholder.com/32x32?text=💬" alt="WhatsApp" />
+        WhatsApp: +1 (207) 680-3464
+      </a>
+      <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
+        <img src="https://via.placeholder.com/32x32?text=✉️" alt="Email" />
+        Email: cxdemosc@gmail.com
+      </a>
+      <div class="contact-method-btn">
+        <img src="https://via.placeholder.com/32x32?text=📍" />
+        80 Pasir Panjang Rd, SG 001001
+      </div>
+      <img class="webex-logo-in-pane" src="https://via.placeholder.com/44x44?text=W" alt="Webex"/>
+    </div>
   </div>
 
+  <!-- == JS Logic == -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const pane = document.getElementById("contact-pane-container");
@@ -188,7 +198,7 @@
 
       let paneOpen = false;
       let inactivityTimer = null;
-      const INACTIVITY_TIMEOUT = 60000; // 60 sec
+      const INACTIVITY_TIMEOUT = 60000;
 
       function openPane() {
         pane.classList.add("open");
@@ -202,7 +212,6 @@
         pane.setAttribute("aria-expanded", "false");
         paneOpen = false;
         clearTimeout(inactivityTimer);
-        inactivityTimer = null;
       }
 
       function togglePane() {
@@ -222,7 +231,7 @@
       });
 
       document.addEventListener("click", (e) => {
-        if (!pane.contains(e.target) && paneOpen) {
+        if (!pane.contains(e.target)) {
           closePane();
         }
       });
@@ -233,9 +242,7 @@
         });
       });
 
-      window.addEventListener("load", () => {
-        closePane();
-      });
+      window.addEventListener("load", closePane);
     });
   </script>
 </body>
