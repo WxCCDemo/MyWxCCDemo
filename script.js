@@ -1,4 +1,6 @@
-// ======== 1. Live Chat Widget Loader (DO NOT REMOVE) ========
+// =======================================
+// [1] Live Chat Widget Loader (Do Not Remove)
+// =======================================
 const liveChatContainer = document.getElementById('live-chat-container');
 
 if (liveChatContainer) {
@@ -28,13 +30,13 @@ if (liveChatContainer) {
         o.open("GET", url, true);
         o.send();
       } catch (e) {
-        console.error(e);
+        console.error("Chat Widget Error:", e);
       }
     },
     o: function (t) {
       t.insertAdjacentHTML(
         "afterend",
-        '<iframe id="tls_al_frm" frameborder="0" style="overflow:hidden;height:208px;width:394px;position:fixed;right:48px;bottom:12px;z-index:99999;"></iframe>'
+        '<iframe id="tls_al_frm" frameborder="0" style="overflow:hidden;height:208px;width:394px;position:fixed;left:48px;bottom:12px;z-index:99999;"></iframe>'
       );
     },
     s: function () {
@@ -46,15 +48,18 @@ if (liveChatContainer) {
   i.t();
 }
 
-// ======== 2. Contact Panel Behaviour ========
+// =======================================
+// [2] Sidebar Toggle + Auto-Close Logic
+// =======================================
 document.addEventListener("DOMContentLoaded", () => {
   const pane = document.getElementById("contact-pane-container");
   const handle = document.getElementById("contact-us-handle");
 
   let paneOpen = false;
   let inactivityTimer = null;
-  const INACTIVITY_DELAY = 60000; // 60s
+  const INACTIVITY_TIMEOUT = 60000; // 60 seconds
 
+  // Show sidebar
   function openPane() {
     pane.classList.add("open");
     pane.classList.remove("closed");
@@ -63,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     startInactivityTimer();
   }
 
+  // Hide sidebar
   function closePane() {
     pane.classList.remove("open");
     pane.classList.add("closed");
@@ -72,38 +78,44 @@ document.addEventListener("DOMContentLoaded", () => {
     inactivityTimer = null;
   }
 
+  // Handle toggle click
   function togglePane() {
     paneOpen ? closePane() : openPane();
   }
 
+  // Start/reset inactivity timer
   function startInactivityTimer() {
     clearTimeout(inactivityTimer);
     inactivityTimer = setTimeout(() => {
-      if (paneOpen) closePane();
-    }, INACTIVITY_DELAY);
+      if (paneOpen) {
+        closePane();
+      }
+    }, INACTIVITY_TIMEOUT);
   }
 
-  // ⇨ Toggle via tab click
+  // 👆 Click to toggle handle
   handle.addEventListener("click", (e) => {
     e.stopPropagation();
     togglePane();
   });
 
-  // ⇨ Auto close on outside click
+  // 👆 Close when clicking elsewhere
   document.addEventListener("click", (e) => {
     if (!pane.contains(e.target) && paneOpen) {
       closePane();
     }
   });
 
-  // ⇨ Reset inactivity on movement
-  ["mousemove", "keydown", "touchstart"].forEach((evt) => {
-    pane.addEventListener(evt, () => {
-      if (paneOpen) startInactivityTimer();
+  // 👆 Reset timer on user activity
+  ["mousemove", "keydown", "touchstart"].forEach((eventType) => {
+    pane.addEventListener(eventType, () => {
+      if (paneOpen) {
+        startInactivityTimer();
+      }
     });
   });
 
-  // ⇨ Ensure default closed state
+  // ✅ Ensure pane is closed on load
   window.addEventListener("load", () => {
     closePane();
   });
