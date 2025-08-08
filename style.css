@@ -1,115 +1,74 @@
+/* Basic Reset */
 html, body {
   margin: 0;
   padding: 0;
-  min-width: 100vw;
+  width: 100%;
   font-family: Arial, sans-serif;
   background: #000;
 }
 
-/* Navigation bar styling */
-nav {
-  width: 100vw;
-  background: rgba(20, 26, 58, 0.75);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  display: flex;
-  justify-content: flex-end;
-  padding: 12px 24px;
-  box-sizing: border-box;
-  backdrop-filter: saturate(180%) blur(10px);
-  -webkit-backdrop-filter: saturate(180%) blur(10px);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 32px;
-  align-items: center;
-}
-
-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.15rem;
-  font-weight: 500;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background 0.2s ease-in-out;
-}
-
-nav ul li a:hover,
-nav ul li a:focus {
-  background: #3756a7;
-  outline: none;
-}
-
-/* Main fullscreen image */
+/* Background Image */
 .fullscreen-image {
   display: block;
-  width: 100vw;
+  width: 100%;
   height: auto;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  z-index: 0;
 }
 
-/* Contact Us panel container */
+/* --- CONTACT US PANEL --- */
+
 .contact-us-pane-container {
   position: fixed;
   top: 30vh;
   right: 0;
   z-index: 10000;
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  transition: transform 0.35s cubic-bezier(.62,-0.24,.37,1.12);
+  transition: transform 0.45s ease-in-out, opacity 0.3s;
 }
 
+/* Closed (off-screen to right) */
 .contact-us-pane-container.closed {
-  transform: translateX(340px);
+  transform: translateX(350px);
+  opacity: 0.6;
 }
 
+/* Open (visible) */
 .contact-us-pane-container.open {
   transform: translateX(0);
+  opacity: 1;
 }
 
-/* Pane */
+/* Sidebar Panel */
 .contact-us-pane {
   min-width: 320px;
   max-width: 340px;
   background: rgba(9,18,40,0.93);
-  color: #fff;
+  color: white;
   border-radius: 25px 0 0 25px;
-  box-shadow: 0 3px 32px rgba(0,0,0,0.32);
-  padding: 28px 24px 18px 24px;
+  padding: 28px 24px 18px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  box-shadow: 0 3px 24px rgba(0,0,0,0.4);
 }
 
-/* Handle floating on left edge of pane */
+/* Open/Close Handle */
 .contact-us-handle {
+  background: #132a54;
+  color: white;
+  cursor: pointer;
+  border-radius: 0 16px 16px 0;
+  min-width: 52px;
+  height: 145px;
+  padding: 10px 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #132a54;
-  color: #fff;
-  height: 145px;
-  min-width: 52px;
-  border-radius: 0 16px 16px 0;
-  box-shadow: 2px 2px 16px rgba(0,0,0,.14);
-  cursor: pointer;
-  position: relative;
-  z-index: 4;
-  user-select: none;
-  padding: 8px 6px;
+  box-shadow: 2px 2px 16px rgba(0,0,0,0.15);
+  transition: background 0.3s;
+}
+
+.contact-us-handle:hover {
+  background: #1a356a;
 }
 
 .hamburger-vertical {
@@ -122,7 +81,7 @@ nav ul li a:focus {
 .hamburger-vertical span {
   width: 3px;
   height: 22px;
-  background: #fff;
+  background: white;
   border-radius: 2px;
 }
 
@@ -130,78 +89,66 @@ nav ul li a:focus {
   writing-mode: vertical-rl;
   text-orientation: upright;
   font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  user-select: none;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-/* Contact method buttons in pane */
+/* Contact Method Buttons */
 .contact-method-btn {
   display: flex;
   align-items: center;
   background: rgba(16,60,140,0.95);
+  color: white;
   border-radius: 50px;
-  padding: 12px 20px 12px 16px;
+  padding: 12px 20px;
   margin-bottom: 14px;
-  cursor: pointer;
-  color: #fff;
   text-decoration: none;
-  border: none;
-  font-size: 1rem;
   font-weight: 500;
-  min-width: 240px;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-  transition: background 0.2s, transform 0.15s;
-}
-
-.contact-method-btn:hover {
-  background: #3550a6;
-  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s, background-color 0.3s ease;
 }
 
 .contact-method-btn img {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  margin-right: 13px;
-  background: #fff;
+  margin-right: 12px;
+  background: white;
   padding: 4px;
-  object-fit: contain;
-  box-shadow: 0 0 3px rgba(0,0,0,0.04);
 }
 
-/* Webex Logo at bottom */
+.contact-method-btn:hover,
+.contact-method-btn:focus {
+  background: #4768ca;
+  transform: translateY(-2px) scale(1.04);
+  outline: none;
+}
+
+/* Webex Logo */
 .webex-logo-in-pane {
+  width: 44px;
+  border-radius: 12px;
+  background: white;
   margin-top: 20px;
-  width: 44px !important;
-  height: auto !important;
-  border-radius: 14px;
-  box-shadow: 0 2px 10px rgba(20,43,130,0.21);
-  background: #fff;
-  cursor: pointer;
   align-self: flex-end;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-/* Responsive */
+/* Responsive Adjustments */
 @media (max-width: 600px) {
   .contact-us-pane {
-    min-width: 75vw;
-    max-width: 95vw;
-    padding: 18px 7vw 10px 10vw;
+    min-width: 80vw;
+    max-width: 90vw;
   }
   .contact-method-btn {
-    min-width: 45vw;
+    min-width: 50vw;
     font-size: 0.95em;
-    padding: 10px 10px;
-  }
-  .webex-logo-in-pane {
-    width: 30px !important;
   }
   .contact-us-handle {
     height: 90px;
     min-width: 36px;
   }
   .contact-us-pane-container {
-    top: 7vw;
+    top: 20vw;
   }
 }
