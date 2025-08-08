@@ -1,12 +1,12 @@
-/* =========================
-   Base Layout + Overrides
-   ========================= */
+/* ===============================
+   General Layout + Reset Styles
+=============================== */
 html, body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
   background: #000;
-  overflow-x: hidden; /* Prevents horizontal scroll when sidebar is offscreen */
+  overflow-x: hidden; /* Prevent unwanted horizontal scroll */
 }
 
 .fullscreen-image {
@@ -14,47 +14,43 @@ html, body {
   height: auto;
 }
 
-/* =========================
-   Contact Us Sidebar Panel
-   ========================= */
-
+/* ===============================
+   Sidebar Container - LEFT SIDE
+=============================== */
 .contact-us-pane-container {
   position: fixed;
   top: 30vh;
-  right: 0;
+  left: 0;  /* ❗ sidebar now slides in from the left */
+  z-index: 10000;
   display: flex;
   flex-direction: row;
-  z-index: 10000;
-
-  min-width: 320px; /* Ensures panel is not collapsed */
+  min-width: 320px;
   transition: transform 0.4s ease-in-out;
   will-change: transform;
-  background: transparent;
 }
 
-/* Sidebar Hidden (off-screen to the right) */
+/* Slide OFF screen to the left */
 .contact-us-pane-container.closed {
-  transform: translateX(100%);
+  transform: translateX(-100%);
   opacity: 0.6;
 }
 
-/* Sidebar Open (fully visible) */
+/* Slide ON screen (fully visible) */
 .contact-us-pane-container.open {
   transform: translateX(0);
   opacity: 1;
 }
 
-/* =========================
-   Inside Panel (Contact Cards)
-   ========================= */
-
+/* ===============================
+   Sidebar Contents Styling
+=============================== */
 .contact-us-pane {
   min-width: 320px;
   max-width: 340px;
   padding: 28px 24px;
   background: rgba(9, 18, 40, 0.95);
-  border-radius: 25px 0 0 25px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  border-radius: 0 25px 25px 0;
+  box-shadow: 2px 4px 24px rgba(0, 0, 0, 0.4);
   color: white;
   display: flex;
   flex-direction: column;
@@ -72,7 +68,6 @@ html, body {
   margin-bottom: 14px;
   font-size: 1rem;
   transition: background-color 0.2s ease, transform 0.1s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .contact-method-btn:hover {
@@ -89,7 +84,7 @@ html, body {
   padding: 4px;
 }
 
-/* Brand Logo (Bottom) */
+/* Webex Logo at Bottom */
 .webex-logo-in-pane {
   width: 44px;
   border-radius: 10px;
@@ -98,30 +93,28 @@ html, body {
   align-self: flex-end;
 }
 
-/* =========================
-   Vertical Handle (Sidebar Tab)
-   ========================= */
-
+/* ===============================
+   Toggle "Contact Us" Handle
+=============================== */
 .contact-us-handle {
   background: #132a54;
   color: white;
   height: 145px;
   width: 52px;
-  border-radius: 0 16px 16px 0;
+  border-radius: 16px 0 0 16px;  /* ❗ Rounded on left now */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
 }
 
 .contact-us-handle:hover {
   background: #1a356a;
 }
 
-/* Hamburger Lines */
+/* Hamburger-style lines */
 .hamburger-vertical span {
   width: 3px;
   height: 22px;
@@ -130,7 +123,6 @@ html, body {
   border-radius: 2px;
 }
 
-/* Vertical Label */
 .vertical-label {
   writing-mode: vertical-rl;
   font-size: 1rem;
@@ -140,9 +132,9 @@ html, body {
   user-select: none;
 }
 
-/* =========================
-   Responsive Layout (Mobile)
-   ========================= */
+/* ===============================
+   Mobile/Responsive Styling
+=============================== */
 @media (max-width: 600px) {
   .contact-us-pane-container {
     top: 20vh;
@@ -166,6 +158,5 @@ html, body {
 
   .webex-logo-in-pane {
     width: 36px;
-    margin-top: 16px;
   }
 }
