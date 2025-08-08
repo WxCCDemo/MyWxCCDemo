@@ -8,18 +8,19 @@
 </head>
 <body class="demo1">
 
-  <!-- Background -->
+  <!-- Fullscreen Background -->
   <img class="fullscreen-image" src="../assets/OCBCAI.png" alt="OCBC AI Demo" />
 
-  <!-- Contact Us Pane -->
+  <!-- Contact Us Sidebar -->
   <div id="contact-pane-container" class="contact-us-pane-container closed" aria-expanded="false">
-    <!-- Sidebar Content -->
+    
+    <!-- Contact Methods -->
     <div class="contact-us-pane">
       <a href="tel:+16692856683" class="contact-method-btn">
         <img src="../assets/Phone.jpg" alt="Phone Icon" />
         Phone Banking: +1 669 285 6683
       </a>
-      <a href="https://wa.me/12076803464" class="contact-method-btn" target="_blank" rel="noopener">
+      <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-method-btn">
         <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" />
         WhatsApp Banking: +1 (207) 680-3464
       </a>
@@ -36,19 +37,22 @@
       </a>
     </div>
 
-    <!-- Handle to Open/Close -->
+    <!-- Vertical Toggle Tab -->
     <div id="contact-us-handle" class="contact-us-handle" tabindex="0" role="button">
       <div class="hamburger-vertical">
-        <span></span><span></span><span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
       <span class="vertical-label">Contact Us</span>
     </div>
+    
   </div>
 
-  <!-- Chat Widget Placeholder -->
+  <!-- Live Chat Widget Placeholder -->
   <div id="live-chat-container"></div>
 
-  <!-- Bootstrap Sidebar & Chat JS -->
+  <!-- Main Logic -->
   <script src="../script.js"></script>
 </body>
 </html>
