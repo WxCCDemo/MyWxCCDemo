@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact Us Sidebar (Final Working Demo)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .fullscreen-image {
+      width: 100vw;
+      height: auto;
+    }
+
+    .contact-us-pane-container {
+      position: fixed;
+      top: 30vh;
+      left: 0;
+      display: flex;
+      z-index: 10000;
+      transition: transform 0.4s ease-in-out;
+      will-change: transform;
+      transform: translateX(-100%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .contact-us-pane-container.open {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .contact-us-pane {
+      background: rgba(9, 18, 40, 0.95);
+      border-radius: 0 25px 25px 0;
+      min-width: 320px;
+      max-width: 340px;
+      padding: 28px 24px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-height: fit-content;
+    }
+
+    .contact-method-btn {
+      display: flex;
+      align-items: center;
+      background: rgba(16, 60, 140, 0.95);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      margin-bottom: 14px;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .contact-method-btn:hover {
+      background: #3756a7;
+      transform: scale(1.04);
+    }
+
+    .contact-method-btn img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      margin-right: 12px;
+      background: white;
+      padding: 4px;
+    }
+
+    .webex-logo-in-pane {
+      width: 44px;
+      border-radius: 10px;
+      background: white;
+      margin-top: 20px;
+      align-self: flex-end;
+    }
+
+    .contact-us-handle {
+      background: #132a54;
+      color: white;
+      min-height: 120px;
+      width: 52px;
+      padding: 10px 6px;
+      border-radius: 16px 0 0 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      gap: 6px;
+    }
+
+    .hamburger-vertical span {
+      width: 4px;
+      height: 20px;
+      background: white;
+      margin: 2px 0;
+      border-radius: 2px;
+    }
+
+    .vertical-label {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-top: 6px;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .contact-us-pane {
+        min-width: 80vw;
+        max-width: 90vw;
+        padding: 20px;
+      }
+
+      .contact-us-handle {
+        width: 36px;
+        padding: 8px 4px;
+      }
+
+      .hamburger-vertical span {
+        height: 18px;
+        width: 3px;
+      }
+
+      .vertical-label {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Optional test image -->
+  <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/040404/ffffff?text=Demo+Background" alt="Demo BG"/>
+
+  <!-- Sidebar Component -->
+  <div id="contact-pane-container" class="contact-us-pane-container" aria-expanded="false">
+
+    <div class="contact-us-pane">
+      <a class="contact-method-btn" href="tel:+16692856683">
+        <img src="https://via.placeholder.com/32x32?text=📞" alt="Phone"/>
+        Phone Banking: +1 669 285 6683
+      </a>
+      <a class="contact-method-btn" href="https://wa.me/12076803464" target="_blank">
+        <img src="https://via.placeholder.com/32x32?text=💬" alt="WhatsApp"/>
+        WhatsApp Banking: +1 (207) 680-3464
+      </a>
+      <a class="contact-method-btn" href="mailto:cxdemosc@gmail.com">
+        <img src="https://via.placeholder.com/32x32?text=✉️" alt="Email"/>
+        Email: cxdemosc@gmail.com
+      </a>
+      <div class="contact-method-btn">
+        <img src="https://via.placeholder.com/32x32?text=📍" alt="Location"/>
+        80 Pasir Panjang Rd, SG 001001
+      </div>
+      <img class="webex-logo-in-pane" src="https://via.placeholder.com/44x44?text=W" alt="Webex Logo"/>
+    </div>
+
+    <div id="contact-us-handle" class="contact-us-handle">
+      <div class="hamburger-vertical">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <span class="vertical-label">Contact Us</span>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const pane = document.getElementById("contact-pane-container");
+      const handle = document.getElementById("contact-us-handle");
+
+      let paneOpen = false;
+      let inactivityTimer = null;
+      const INACTIVITY_TIMEOUT = 60000; // 60 sec
+
+      function openPane() {
+        pane.classList.add("open");
+        pane.setAttribute("aria-expanded", "true");
+        paneOpen = true;
+        startInactivityTimer();
+      }
+
+      function closePane() {
+        pane.classList.remove("open");
+        pane.setAttribute("aria-expanded", "false");
+        paneOpen = false;
+        clearTimeout(inactivityTimer);
+        inactivityTimer = null;
+      }
+
+      function togglePane() {
+        paneOpen ? closePane() : openPane();
+      }
+
+      function startInactivityTimer() {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(() => {
+          if (paneOpen) closePane();
+        }, INACTIVITY_TIMEOUT);
+      }
+
+      handle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        togglePane();
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!pane.contains(e.target) && paneOpen) {
+          closePane();
+        }
+      });
+
+      ["mousemove", "keydown", "touchstart"].forEach((eventType) => {
+        pane.addEventListener(eventType, () => {
+          if (paneOpen) startInactivityTimer();
+        });
+      });
+
+      window.addEventListener("load", () => {
+        closePane();
+      });
+    });
+  </script>
+</body>
+</html>
