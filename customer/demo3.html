@@ -57,7 +57,9 @@
       will-change: transform;
     }
     #sidebar-container.open{
-      transform: translateY(-50%) translateX(0);
+   /*   transform: translateY(-50%) translateX(0); */
+      /* Shift by panel width minus tab width */
+transform: translateY(-50%) translateX(calc(var(--panel-w) - var(--tab-w)));
     }
 
     /* Tab (closed-state control) */
