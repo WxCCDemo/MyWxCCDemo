@@ -1,318 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Floating Contact Sidebar</title>
-  <style>
-    :root{
-      /* Tunables for pixel-perfect matching */
-      --tab-w: 56px;
-      --tab-h: 120px;
-      --panel-w: 320px;
-      --radius: 14px;
-      --gap: 14px;
+<meta charset="UTF-8" />
+<title>Final Contact Sidebar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --tab-width: 54px;
+    --tab-height: 120px;
+    --panel-width: 80px;
+    --bg-color: rgba(19, 42, 84, 0.75);
+    --icon-size: 42px;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #1e1e1e;
+    font-family: Arial, sans-serif;
+  }
 
-      --bg-page: #1c1f26;
+  /* Always visible Contact Us tab */
+  #contact-tab {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: var(--tab-width);
+    height: var(--tab-height);
+    background: var(--bg-color);
+    border-radius: 12px 0 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1002;
+  }
+  .vertical-label {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 1px;
+  }
 
-      --ink: #ffffff;
-      --ink-muted: rgba(255,255,255,0.8);
+  /* Sidebar panel */
+  #sidebar {
+    position: fixed;
+    top: 0;
+    right: var(--tab-width);
+    width: var(--panel-width);
+    height: 100vh;
+    background: var(--bg-color);
+    border-radius: 12px 0 0 12px;
+    transform: translateX(100%);
+    transition: transform 0.35s ease-in-out;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+  }
+  #sidebar.open {
+    transform: translateX(0);
+  }
 
-      /* Navy tones */
-      --navy-900: #0f244e;
-      --navy-800: #132a54;
+  /* Icons stack */
+  .icon-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    flex-grow: 1;
+    margin-top: 10px;
+  }
+  .icon-link {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+    text-decoration: none;
+  }
+  .icon-link:hover {
+    background: rgba(255,255,255,0.18);
+  }
+  .icon-link img {
+    width: 24px;
+    height: 24px;
+  }
 
-      /* Surfaces */
-      --tab-bg: rgba(19,42,84,0.80);
-      --panel-bg: rgba(19,42,84,0.96);
-      --panel-border: rgba(255,255,255,0.08);
-      --row-bg: rgba(255,255,255,0.06);
-      --row-bg-hover: rgba(255,255,255,0.12);
-
-      /* Effects */
-      --shadow-lg: 0 14px 40px rgba(0,0,0,0.45);
-      --easing: cubic-bezier(.2,.8,.2,1);
-    }
-
-    html, body {
-      height: 200vh; /* demo scroll space */
-      margin: 0;
-      background: var(--bg-page);
-      color: var(--ink);
-      font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    /* Container: fixed, centered vertically, hidden panel by translateX(panel width) */
-    #sidebar-container{
-      position: fixed;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%) translateX(var(--panel-w)); /* closed: only tab visible */
-      display: flex;
-      flex-direction: row-reverse; /* tab on the outer/right edge */
-      align-items: center;
-      gap: 0;
-      z-index: 1000;
-      transition: transform 320ms var(--easing);
-      will-change: transform;
-    }
-    #sidebar-container.open{
-   /*   transform: translateY(-50%) translateX(0); */
-      /* Shift by panel width minus tab width */
-transform: translateY(-50%) translateX(calc(var(--panel-w) - var(--tab-w)));
-    }
-
-    /* Tab (closed-state control) */
-    #contact-us-tab{
-      width: var(--tab-w);
-      height: var(--tab-h);
-      background: var(--tab-bg);
-      border-radius: var(--radius) 0 0 var(--radius);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      user-select: none;
-      box-shadow: var(--shadow-lg);
-      backdrop-filter: saturate(120%) blur(6px);
-      -webkit-backdrop-filter: saturate(120%) blur(6px);
-    }
-    #contact-us-tab:hover{
-      filter: brightness(1.08);
-    }
-    .vertical-label{
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      color: var(--ink);
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 12px;
-      opacity: 0.95;
-    }
-
-    /* Panel (elastic height; capped for overflow) */
-    #panel{
-      width: var(--panel-w);
-      max-height: 85vh;
-      overflow-y: auto;
-      background:
-        linear-gradient(180deg, rgba(19,42,84,0.98) 0%, rgba(19,42,84,0.94) 100%);
-      border: 1px solid var(--panel-border);
-      border-radius: var(--radius) 0 0 var(--radius);
-      padding: 16px;
-      box-shadow: var(--shadow-lg);
-      backdrop-filter: saturate(120%) blur(6px);
-      -webkit-backdrop-filter: saturate(120%) blur(6px);
-      display: flex;
-      flex-direction: column;
-      gap: var(--gap);
-    }
-
-    .pane-header{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 2px 4px 8px 4px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      margin-bottom: 6px;
-    }
-    .pane-title{
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 0.02em;
-      opacity: 0.95;
-    }
-
-    .contact-row{
-      display: grid;
-      grid-template-columns: 28px 1fr;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: var(--ink);
-      background: var(--row-bg);
-      transition: background 180ms var(--easing), transform 180ms var(--easing);
-    }
-    .contact-row:hover{
-      background: var(--row-bg-hover);
-      transform: translateY(-1px);
-    }
-    .contact-row .label{
-      font-size: 13px;
-      line-height: 1.35;
-      color: var(--ink-muted);
-    }
-    .contact-row .emph{
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    .brand{
-      margin-top: 4px;
-      display: flex;
-      justify-content: center;
-      opacity: 0.9;
-    }
-    .brand svg{
-      width: 112px;
-      height: auto;
-    }
-
-    /* Minimal focus styles for keyboard */
-    .focus-ring:focus{
-      outline: 2px solid rgba(255,255,255,0.65);
-      outline-offset: 2px;
-      border-radius: 10px;
-    }
-
-    /* Simple demo content underlay */
-    .demo-content{
-      padding: 24px;
-      max-width: 60ch;
-      color: rgba(255,255,255,0.85);
-    }
-
-    /* Reduce tab height on very small screens */
-    @media (max-height: 580px){
-      :root{
-        --tab-h: 96px;
-      }
-    }
-  </style>
+  /* Logo at bottom-left inside panel */
+  .sidebar-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 8px;
+  }
+  .sidebar-bottom img {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.75);
+  }
+</style>
 </head>
 <body>
-  <div class="demo-content">
-    <h1>Page Content</h1>
-    <p>Scroll the page — the sidebar tab stays centered. Click the tab to open the elastic panel.</p>
-    <p>This is just placeholder content so you can verify floating behavior.</p>
+
+<!-- Always-visible tab -->
+<div id="contact-tab" role="button" aria-label="Toggle Contact Sidebar">
+  <span class="vertical-label">Contact Us</span>
+</div>
+
+<!-- Sliding sidebar -->
+<div id="sidebar" role="region" aria-label="Contact Options">
+  <div class="icon-list">
+    <a href="tel:+16692856683" class="icon-link" title="Call">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/phone.svg" alt="Call" />
+    </a>
+    <a href="https://wa.me/12076803464" class="icon-link" title="WhatsApp" target="_blank" rel="noopener">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" />
+    </a>
+    <a href="mailto:cxdemosc@gmail.com" class="icon-link" title="Email">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/maildotru.svg" alt="Email" />
+    </a>
+    <a href="https://www.google.com/maps/search/?api=1&query=80+Pasir+Panjang+Rd,+Singapore" class="icon-link" title="Location" target="_blank" rel="noopener">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlemaps.svg" alt="Map" />
+    </a>
   </div>
-
-  <!-- Floating sidebar -->
-  <div id="sidebar-container" aria-live="polite">
-    <!-- Tab (visible when closed) -->
-    <button id="contact-us-tab"
-            class="focus-ring"
-            aria-controls="panel"
-            aria-expanded="false"
-            aria-label="Open Contact Panel">
-      <span class="vertical-label">Contact Us</span>
-    </button>
-
-    <!-- Panel (elastic height) -->
-    <section id="panel"
-             role="region"
-             aria-label="Contact Options"
-             hidden>
-      <header class="pane-header">
-        <!-- Small inline icon for header -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 3a9 9 0 1 0 .001 18.001A9 9 0 0 0 12 3Z" fill="url(#g)"/>
-          <defs>
-            <linearGradient id="g" x1="6" y1="4" x2="18" y2="20" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#3CA0FF"/><stop offset="1" stop-color="#71E3FF"/>
-            </linearGradient>
-          </defs>
-        </svg>
-        <div class="pane-title">We’re here to help</div>
-      </header>
-
-      <!-- Phone -->
-      <a class="contact-row focus-ring" href="tel:+16692856683" aria-label="Call Phone Banking at +1 669 285 6683">
-        <span aria-hidden="true">
-          <!-- phone svg -->
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M6.6 3.5l2.1-.5a1 1 0 0 1 1.2.67l1 3a1 1 0 0 1-.28 1.03l-1.3 1.2a12.6 12.6 0 0 0 5.2 5.2l1.2-1.3a1 1 0 0 1 1.03-.28l3 1a1 1 0 0 1 .67 1.2l-.5 2.1a2 2 0 0 1-1.94 1.5C10.3 19.9 4.1 13.7 4.1 6.44A2 2 0 0 1 6.6 3.5Z" fill="currentColor"/>
-          </svg>
-        </span>
-        <span class="label"><span class="emph">Phone Banking:</span> +1 669 285 6683</span>
-      </a>
-
-      <!-- WhatsApp -->
-      <a class="contact-row focus-ring" href="https://wa.me/12076803464" target="_blank" rel="noopener" aria-label="WhatsApp Banking at +1 207 680 3464">
-        <span aria-hidden="true">
-          <!-- chat bubble svg -->
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M12 3a8 8 0 0 0-6.7 12.4l-.9 3.3 3.4-.9A8 8 0 1 0 12 3Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
-            <circle cx="9.5" cy="11.5" r="1" fill="currentColor"/><circle cx="13" cy="11.5" r="1" fill="currentColor"/><circle cx="16.5" cy="11.5" r="1" fill="currentColor"/>
-          </svg>
-        </span>
-        <span class="label"><span class="emph">WhatsApp Banking:</span> +1 (207) 680-3464</span>
-      </a>
-
-      <!-- Email -->
-      <a class="contact-row focus-ring" href="mailto:cxdemosc@gmail.com" aria-label="Email Banking cxdemosc@gmail.com">
-        <span aria-hidden="true">
-          <!-- mail svg -->
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
-            <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="label"><span class="emph">Email Banking:</span> cxdemosc@gmail.com</span>
-      </a>
-
-      <!-- Address -->
-      <div class="contact-row focus-ring" role="group" aria-label="Office Address">
-        <span aria-hidden="true">
-          <!-- location svg -->
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
-            <circle cx="12" cy="10" r="2.6" fill="currentColor"/>
-          </svg>
-        </span>
-        <span class="label"><span class="emph">Office Address:</span> 80 Pasir Panjang Road, Singapore 001001</span>
-      </div>
-
-      <!-- Brand -->
-      <div class="brand" aria-hidden="true" title="Webex">
-        <!-- Minimal inline wordmark -->
-        <svg viewBox="0 0 120 20" fill="none">
-          <text x="0" y="15" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700">Webex</text>
-        </svg>
-      </div>
-    </section>
+  <div class="sidebar-bottom">
+    <img src="https://via.placeholder.com/28x28?text=W" alt="Webex Logo" />
   </div>
+</div>
 
-  <script>
-    (function(){
-      const container = document.getElementById('sidebar-container');
-      const tab = document.getElementById('contact-us-tab');
-      const panel = document.getElementById('panel');
+<script>
+  const tab = document.getElementById('contact-tab');
+  const sidebar = document.getElementById('sidebar');
+  let timer;
 
-      function openPanel(){
-        container.classList.add('open');
-        tab.setAttribute('aria-expanded', 'true');
-        tab.setAttribute('aria-label', 'Close Contact Panel');
-        panel.hidden = false;
-      }
-      function closePanel(){
-        container.classList.remove('open');
-        tab.setAttribute('aria-expanded', 'false');
-        tab.setAttribute('aria-label', 'Open Contact Panel');
-        panel.hidden = true;
-      }
-      function togglePanel(){
-        if(container.classList.contains('open')) closePanel();
-        else openPanel();
-      }
+  function openSidebar() {
+    sidebar.classList.add('open');
+    resetTimer();
+  }
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    clearTimeout(timer);
+  }
+  function toggleSidebar() {
+    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+  }
+  function resetTimer() {
+    clearTimeout(timer);
+    timer = setTimeout(closeSidebar, 60000);
+  }
 
-      tab.addEventListener('click', togglePanel);
-      tab.addEventListener('keydown', (e)=>{
-        if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); togglePanel(); }
-      });
+  tab.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleSidebar();
+  });
+  document.addEventListener('click', e => {
+    if (!sidebar.contains(e.target) && !tab.contains(e.target)) closeSidebar();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeSidebar();
+  });
+  ['mousemove', 'keydown', 'touchstart'].forEach(evt =>
+    sidebar.addEventListener(evt, resetTimer)
+  );
+</script>
 
-      // Dismiss when clicking outside
-      document.addEventListener('click', (e)=>{
-        if(!container.contains(e.target)) closePanel();
-      });
-
-      // Escape to close
-      document.addEventListener('keydown', (e)=>{
-        if(e.key === 'Escape') closePanel();
-      });
-    })();
-  </script>
 </body>
 </html>
