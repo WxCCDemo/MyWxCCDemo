@@ -3,95 +3,256 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Floating Sidebar with Toggle</title>
+<title>Contact Sidebar - Refined Version</title>
 <style>
+  :root {
+    --tab-width: 54px;
+    --tab-height: 120px;
+    --panel-width: 270px;
+    --bg-color: rgba(19, 42, 84, 0.80);
+    --icon-size: 36px;
+    --radius: 14px;
+    --merge-gap: 0px;
+  }
   body {
     margin: 0;
     background: #000;
-    font-family: sans-serif;
+    font-family: Arial, sans-serif;
   }
-
-  #sidebar-container {
+  /* Unified container anchors both tab and panel for easy merge effect */
+  #sidebar-outer {
     position: fixed;
-    top: 50%;
+    top: 0;
     right: 0;
-    transform: translateY(-50%);
-    display: flex;
     z-index: 1000;
-    transition: right 0.3s ease;
+    height: 100vh;
+    display: flex;
+    align-items: flex-start;
   }
-
-  #sidebar-container.closed {
-    right: -70px; /* hide panel but leave tab visible */
+  /* The toggle tab (always visible, flush top right!) */
+  #contact-tab {
+    position: relative;
+    width: var(--tab-width);
+    height: var(--tab-height);
+    background: var(--bg-color);
+    border-radius: var(--radius) 0 0 var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: background 0.2s;
   }
-
-  #panel {
-    width: 70px;
-    background: rgba(19, 42, 84, 0.95);
-    border-radius: 12px 0 0 12px;
+  /* Tab highlight on hover */
+  #contact-tab:hover {
+    background: rgba(37, 68, 135, 0.92);
+  }
+  /* The panel */
+  #sidebar-panel {
+    width: var(--panel-width);
+    height: 100vh;
+    background: var(--bg-color);
+    border-radius: var(--radius) 0 0 var(--radius);
+    box-shadow: 0 4px 18px rgba(0,0,0,.26);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    position: relative;
+    transition: transform 0.35s cubic-bezier(.45,.01,.32,1), opacity 0.2s;
+    transform: translateX(100%);
+    opacity: 0;
+    z-index: 1;
+    /* Remove gap between panel and tab */
+    margin-right: calc(-1 * var(--tab-width) + var(--merge-gap));
+    /* Panel is initially hidden (slides out) */
+    pointer-events: none;
   }
-
-  .sidebar-icon-link {
-    width: 42px;
-    height: 42px;
-    background: rgba(255, 255, 255, 0.09);
-    border-radius: 50%;
-    margin: 10px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 1.2rem;
-    text-decoration: none;
+  #sidebar-panel.open {
+    transform: translateX(0);
+    opacity: 1;
+    transition-delay: 0s, 0s;
+    pointer-events: all;
   }
-
-  .bottom-icon {
-    margin-top: auto;
-    font-size: 1.2rem;
-    color: #fff;
+  /* Merge border radius -- ensure they sit flush in open state */
+  #sidebar-panel.open, #contact-tab {
+    border-radius: var(--radius) 0 0 var(--radius);
   }
-
-  /* Toggle tab */
-  #toggle-tab {
-    background: rgba(19, 42, 84, 0.95);
-    border-radius: 12px 0 0 12px;
-    width: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  /* Vertical label inside tab and also in open panel (for brand unity) */
+  .vertical-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 0.83rem;
+    font-weight: bold;
     color: #fff;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    letter-spacing: 1px;
+    white-space: nowrap;
     user-select: none;
+    opacity: 0.85;
+  }
+  /* Vertical label INSIDE the open panel */
+  #sidebar-panel .vertical-label-inside {
+    position: absolute;
+    left: 11px;
+    top: 25px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 0.93rem;
+    font-weight: bold;
+    color: #fff;
+    opacity: 0.55;
+    letter-spacing: 1px;
+    user-select: none;
+    pointer-events: none;
+  }
+  /* Contact row: icon left, info right */
+  .sidebar-contact-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 20px 10px 44px;
+    margin: 6px 0;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    transition: background 0.15s;
+    text-decoration: none;
+    color: #fff;
+    min-width: 0;
+  }
+  .sidebar-contact-row:hover {
+    background: rgba(255,255,255,0.10);
+    color: #eaeaea;
+  }
+  .sidebar-contact-row:active {
+    background: rgba(255,255,255,0.20);
+  }
+  .sidebar-contact-row img {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    flex-shrink: 0;
+    display: block;
+  }
+  .sidebar-contact-info {
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+  }
+  /* WhatsApp and phone can have green tint */
+  .sidebar-contact-row[data-channel="whatsapp"]:hover {
+    background: rgba(72,200,149, .12)
+  }
+  .sidebar-contact-row[data-channel="call"]:hover {
+    background: rgba(72,149,200, .10)
+  }
+  /* Map row can have blue on hover */
+  .sidebar-contact-row[data-channel="map"]:hover {
+    background: rgba(52,135,235, .13)
+  }
+  /* Sidebar logo at the bottom left of panel */
+  .sidebar-bottom {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding-left: 14px;
+    padding-bottom: 16px;
+    margin-top: auto;
+  }
+  .sidebar-bottom img {
+    width: 31px;
+    height: 31px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.75);
+    box-shadow: 0 1.5px 8px rgba(19,42,84,0.11);
+  }
+  /* Panel content vertical spacing */
+  .sidebar-allcontent {
+    margin-top: 54px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  @media (max-width: 500px) {
+    :root {
+      --tab-width: 40px;
+      --tab-height: 76px;
+      --panel-width: 95vw;
+      --icon-size: 25px;
+      --radius: 8px;
+    }
+    .sidebar-contact-info {font-size: .93rem;}
   }
 </style>
 </head>
 <body>
 
-<div id="sidebar-container" class="open">
-  <div id="toggle-tab">⮜</div>
-  <div id="panel">
-    <a href="#" class="sidebar-icon-link" title="Call Us">📞</a>
-    <a href="#" class="sidebar-icon-link" title="Live Chat">💬</a>
-    <a href="#" class="sidebar-icon-link" title="Email Us">✉️</a>
-    <a href="#" class="sidebar-icon-link" title="Find Us">📍</a>
-    <div class="bottom-icon" title="Status">🟦</div>
+<div id="sidebar-outer">
+  <!-- Always-visible toggle tab -->
+  <div id="contact-tab" role="button" aria-label="Toggle Contact Sidebar">
+    <span class="vertical-label">Contact Us</span>
+  </div>
+  <!-- Sliding sidebar panel -->
+  <div id="sidebar-panel" role="region" aria-label="Contact Options">
+      <!-- Vertical label INSIDE the panel -->
+      <span class="vertical-label-inside">Contact Us</span>
+      <div class="sidebar-allcontent">
+        <a href="tel:+16692856683" class="sidebar-contact-row" data-channel="call" title="Call">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/phone.svg" alt="Call" />
+          <span class="sidebar-contact-info">+1 669 285 6683</span>
+        </a>
+        <a href="https://wa.me/12076803464" class="sidebar-contact-row" data-channel="whatsapp" title="WhatsApp" target="_blank" rel="noopener">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" />
+          <span class="sidebar-contact-info">+1 (207) 680-3464</span>
+        </a>
+        <a href="mailto:cxdemosc@gmail.com" class="sidebar-contact-row" data-channel="email" title="Email">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/maildotru.svg" alt="Email" />
+          <span class="sidebar-contact-info">cxdemosc@gmail.com</span>
+        </a>
+        <a href="https://www.google.com/maps/search/?api=1&query=80+Pasir+Panjang+Rd,+Singapore" class="sidebar-contact-row" data-channel="map" title="Location" target="_blank" rel="noopener">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlemaps.svg" alt="Map" />
+          <span class="sidebar-contact-info">80 Pasir Panjang Rd, Singapore</span>
+        </a>
+      </div>
+      <div class="sidebar-bottom">
+        <img src="https://via.placeholder.com/31x31?text=W" alt="Webex Logo" />
+      </div>
   </div>
 </div>
 
 <script>
-  const container = document.getElementById('sidebar-container');
-  const toggleTab = document.getElementById('toggle-tab');
+  const tab = document.getElementById('contact-tab');
+  const panel = document.getElementById('sidebar-panel');
+  let timer;
 
-  toggleTab.addEventListener('click', () => {
-    const isClosed = container.classList.toggle('closed');
-    toggleTab.textContent = isClosed ? '⮞' : '⮜';
+  function openSidebar() {
+    panel.classList.add('open');
+    resetTimer();
+  }
+  function closeSidebar() {
+    panel.classList.remove('open');
+    clearTimeout(timer);
+  }
+  function toggleSidebar() {
+    panel.classList.contains('open') ? closeSidebar() : openSidebar();
+  }
+  function resetTimer() {
+    clearTimeout(timer);
+    timer = setTimeout(closeSidebar, 60000);
+  }
+
+  tab.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleSidebar();
   });
+  document.addEventListener('click', e => {
+    if (!panel.contains(e.target) && !tab.contains(e.target)) closeSidebar();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeSidebar();
+  });
+  ['mousemove', 'keydown', 'touchstart'].forEach(evt =>
+    panel.addEventListener(evt, resetTimer)
+  );
 </script>
 
 </body>
