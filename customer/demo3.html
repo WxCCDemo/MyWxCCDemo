@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Floating Sidebar – Contact Us</title>
+<title>Contact Sidebar</title>
 <style>
   body {
     margin: 0;
     font-family: system-ui, sans-serif;
     background: #f4f4f4;
-    height: 200vh; /* scroll room for testing */
+    height: 200vh;
   }
 
   /* Sidebar */
@@ -18,46 +18,46 @@
     top: 50%;
     right: 0;
     transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255,255,255,0.85);
     backdrop-filter: blur(6px);
     box-shadow: -2px 0 8px rgba(0,0,0,0.1);
     border-radius: 8px 0 0 8px;
     overflow: hidden;
-    transition: right 0.3s ease;
     display: flex;
     flex-direction: column;
+    transition: right 0.3s ease;
     width: fit-content;
     max-width: 340px;
   }
+
+  /* Closed = tab visible only */
   .sidebar.closed {
-    right: -240px; /* adjust to leave tab peeking out */
+    right: -250px; /* leaves ~60–70px tab visible */
   }
 
   /* Toggle */
   .sidebar-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1rem;
-    background: transparent;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    background: #0078d4;
+    color: #fff;
     border: none;
     cursor: pointer;
     font-weight: bold;
     font-size: 1rem;
-    transition: background-color 0.2s ease;
-  }
-  .sidebar-toggle:hover {
-    background-color: rgba(0,0,0,0.05);
+    padding: 0.5rem;
+    text-align: center;
   }
   .toggle-arrow {
-    display: inline-block;
+    display: block;
     transition: transform 0.2s ease;
+    margin: 0 auto 0.25rem;
   }
   .sidebar:not(.closed) .toggle-arrow {
     transform: rotate(90deg);
   }
 
-  /* Contact pane inside sidebar */
+  /* Contact list */
   .contact-us-pane {
     display: flex;
     flex-direction: column;
@@ -79,24 +79,26 @@
     background-color: rgba(0,0,0,0.08);
   }
   .contact-method-btn img {
-    width: 24px;
-    height: 24px;
+    width: 24px; height: 24px;
     flex-shrink: 0;
   }
 
-  /* Webex logo link */
+  /* Webex logo */
   .webex-logo-in-pane {
     margin-top: 0.5rem;
     display: block;
     text-align: center;
   }
   .webex-logo-in-pane img {
-    max-width: 100%;
+    max-width: 120px; /* reduced size for alignment */
     height: auto;
+    display: inline-block;
   }
 
   @media (max-width: 768px) {
-    .sidebar.closed { right: -70%; }
+    .sidebar.closed {
+      right: -70%;
+    }
   }
 </style>
 </head>
@@ -104,25 +106,26 @@
 
 <div class="sidebar closed" id="sidebar">
   <button class="sidebar-toggle" id="toggleBtn">
-    <span class="toggle-arrow">➤</span> Contact Us
+    <span class="toggle-arrow">➤</span>
+    Contact Us
   </button>
 
   <div class="contact-us-pane">
     <a href="tel:+16692856683" class="contact-method-btn">
       <img src="../assets/Phone.jpg" alt="Phone Icon" />
-      Phone Banking: +1 669 285 6683
+      +1 669 285 6683
     </a>
     <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-method-btn">
       <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" />
-      WhatsApp Banking: +1 (207) 680-3464
+      +1 (207) 680-3464
     </a>
     <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
       <img src="../assets/contact-us-email.jpg" alt="Email Icon" />
-      Email Banking: cxdemosc@gmail.com
+      cxdemosc@gmail.com
     </a>
     <div class="contact-method-btn" tabindex="0">
       <img src="../assets/adresspin.png" alt="Address Icon" />
-      Office Address: 80 Pasir Panjang Rd, SG 001001
+      80 Pasir Panjang Rd, SG 001001
     </div>
     <a href="../index.html" class="webex-logo-in-pane">
       <img src="../assets/Webex-Logo.jpg" alt="Webex Logo" />
@@ -132,7 +135,7 @@
 
 <main>
   <h1>Website Content</h1>
-  <p>Scroll the page and click the Contact Us tab to see it in action.</p>
+  <p>Scroll and click the Contact Us tab to test closed/open states.</p>
 </main>
 
 <script>
@@ -143,7 +146,7 @@
   });
 </script>
 
-<!-- Your root/script.js is still loaded for the live chat widget -->
+<!-- Your root/script.js still loads here for live chat widget -->
 <script src="../../script.js"></script>
 </body>
 </html>
