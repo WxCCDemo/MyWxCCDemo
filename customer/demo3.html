@@ -2,174 +2,72 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Final Contact Sidebar</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Floating Sidebar - Open State</title>
 <style>
-  :root {
-    --tab-width: 54px;
-    --tab-height: 120px;
-    --panel-width: 80px;
-    --bg-color: rgba(19, 42, 84, 0.75);
-    --icon-size: 42px;
-  }
-  html, body {
+  body {
     margin: 0;
-    padding: 0;
-    background: #1e1e1e;
-    font-family: Arial, sans-serif;
+    background: #000; /* Page background like your mockup */
+    font-family: sans-serif;
   }
 
-  /* Always visible Contact Us tab */
-  #contact-tab {
+  /* Sidebar wrapper */
+  #sidebar-container {
     position: fixed;
-    top: 0;
+    top: 50%;
     right: 0;
-    width: var(--tab-width);
-    height: var(--tab-height);
-    background: var(--bg-color);
-    border-radius: 12px 0 0 12px;
+    transform: translateY(-50%); /* Vertically center */
     display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1002;
-  }
-  .vertical-label {
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-    font-size: 0.75rem;
-    font-weight: bold;
-    color: #fff;
-    letter-spacing: 1px;
+    flex-direction: row-reverse; /* Tab (if any) would be outermost */
+    z-index: 1000;
   }
 
-  /* Sidebar panel */
-  #sidebar {
-    position: fixed;
-    top: 0;
-    right: var(--tab-width);
-    width: var(--panel-width);
-    height: 100vh;
-    background: var(--bg-color);
+  /* Contact panel - OPEN permanently */
+  #panel {
+    width: 70px;
+    background: rgba(19, 42, 84, 0.95);
     border-radius: 12px 0 0 12px;
-    transform: translateX(100%);
-    transition: transform 0.35s ease-in-out;
-    z-index: 1001;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px 0;
-  }
-  #sidebar.open {
-    transform: translateX(0);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   }
 
-  /* Icons stack */
-  .icon-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    flex-grow: 1;
-    margin-top: 10px;
-  }
-  .icon-link {
-    width: var(--icon-size);
-    height: var(--icon-size);
+  .sidebar-icon-link {
+    width: 42px;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.09);
     border-radius: 50%;
-    background: rgba(255,255,255,0.08);
+    margin: 10px 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s ease;
+    color: #fff;
+    font-size: 1.2rem;
     text-decoration: none;
   }
-  .icon-link:hover {
-    background: rgba(255,255,255,0.18);
-  }
-  .icon-link img {
-    width: 24px;
-    height: 24px;
-  }
 
-  /* Logo at bottom-left inside panel */
-  .sidebar-bottom {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    padding-left: 8px;
-  }
-  .sidebar-bottom img {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    background: rgba(255,255,255,0.75);
+  .bottom-icon {
+    margin-top: auto;
+    font-size: 1.2rem;
+    color: #fff;
   }
 </style>
 </head>
 <body>
 
-<!-- Always-visible tab -->
-<div id="contact-tab" role="button" aria-label="Toggle Contact Sidebar">
-  <span class="vertical-label">Contact Us</span>
-</div>
-
-<!-- Sliding sidebar -->
-<div id="sidebar" role="region" aria-label="Contact Options">
-  <div class="icon-list">
-    <a href="tel:+16692856683" class="icon-link" title="Call">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/phone.svg" alt="Call" />
-    </a>
-    <a href="https://wa.me/12076803464" class="icon-link" title="WhatsApp" target="_blank" rel="noopener">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp" />
-    </a>
-    <a href="mailto:cxdemosc@gmail.com" class="icon-link" title="Email">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/maildotru.svg" alt="Email" />
-    </a>
-    <a href="https://www.google.com/maps/search/?api=1&query=80+Pasir+Panjang+Rd,+Singapore" class="icon-link" title="Location" target="_blank" rel="noopener">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlemaps.svg" alt="Map" />
-    </a>
-  </div>
-  <div class="sidebar-bottom">
-    <img src="https://via.placeholder.com/28x28?text=W" alt="Webex Logo" />
+<!-- Sidebar in open state -->
+<div id="sidebar-container">
+  <div id="panel">
+    <a href="#" class="sidebar-icon-link" title="Call Us">📞</a>
+    <a href="#" class="sidebar-icon-link" title="Live Chat">💬</a>
+    <a href="#" class="sidebar-icon-link" title="Email Us">✉️</a>
+    <a href="#" class="sidebar-icon-link" title="Find Us">📍</a>
+    <div class="bottom-icon" title="Status">🟦</div>
   </div>
 </div>
-
-<script>
-  const tab = document.getElementById('contact-tab');
-  const sidebar = document.getElementById('sidebar');
-  let timer;
-
-  function openSidebar() {
-    sidebar.classList.add('open');
-    resetTimer();
-  }
-  function closeSidebar() {
-    sidebar.classList.remove('open');
-    clearTimeout(timer);
-  }
-  function toggleSidebar() {
-    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
-  }
-  function resetTimer() {
-    clearTimeout(timer);
-    timer = setTimeout(closeSidebar, 60000);
-  }
-
-  tab.addEventListener('click', e => {
-    e.stopPropagation();
-    toggleSidebar();
-  });
-  document.addEventListener('click', e => {
-    if (!sidebar.contains(e.target) && !tab.contains(e.target)) closeSidebar();
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeSidebar();
-  });
-  ['mousemove', 'keydown', 'touchstart'].forEach(evt =>
-    sidebar.addEventListener(evt, resetTimer)
-  );
-</script>
 
 </body>
 </html>
