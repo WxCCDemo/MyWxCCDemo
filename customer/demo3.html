@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sidebar Toggle</title>
+  <title>Contact Sidebar</title>
   <style>
     body {
       margin: 0;
@@ -11,12 +11,25 @@
       font-family: sans-serif;
     }
 
-    /* Contact Us tab */
-    #contact-us-tab {
+    /* Sidebar container including tab */
+    #sidebar-container {
       position: fixed;
-      top: 50%;
+      top: 0;
       right: 0;
-      transform: translateY(-50%);
+      width: 124px; /* Total width including tab */
+      height: 100vh;
+      display: flex;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 2;
+    }
+
+    #sidebar-container.open {
+      transform: translateX(0);
+    }
+
+    /* Contact Us tab (now part of sidebar) */
+    #contact-us-tab {
       width: 54px;
       height: 100px;
       background: rgba(19, 42, 84, 0.75);
@@ -25,7 +38,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 3;
+      margin-top: 20px;
     }
 
     .vertical-label {
@@ -38,9 +51,6 @@
 
     /* Sidebar panel */
     #panel {
-      position: fixed;
-      top: 0;
-      right: 0;
       width: 70px;
       height: 100vh;
       background: rgba(19, 42, 84, 0.95);
@@ -49,13 +59,6 @@
       flex-direction: column;
       align-items: center;
       padding-top: 20px;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      z-index: 2;
-    }
-
-    #panel.open {
-      transform: translateX(0);
     }
 
     .sidebar-icon-link {
@@ -72,7 +75,6 @@
       text-decoration: none;
     }
 
-    /* Bottom icon */
     .bottom-icon {
       margin-top: auto;
       margin-bottom: 20px;
@@ -80,10 +82,15 @@
       color: #fff;
     }
 
-    /* Responsive tweaks */
     @media (max-width: 600px) {
+      #sidebar-container {
+        width: 100px;
+      }
+      #contact-us-tab {
+        width: 40px;
+      }
       #panel {
-        width: 90px;
+        width: 60px;
       }
       .sidebar-icon-link {
         width: 36px;
@@ -94,36 +101,35 @@
   </style>
 </head>
 <body>
-  <!-- Toggle Tab -->
-  <div id="contact-us-tab" role="button" aria-expanded="false" aria-controls="panel">
-    <span class="vertical-label">Contact Us</span>
+  <!-- Sidebar container -->
+  <div id="sidebar-container">
+    <!-- Sidebar panel -->
+    <div id="panel">
+      <a href="#" class="sidebar-icon-link" title="Call Us">📞</a>
+      <a href="#" class="sidebar-icon-link" title="Live Chat">💬</a>
+      <a href="#" class="sidebar-icon-link" title="Email Us">✉️</a>
+      <a href="#" class="sidebar-icon-link" title="Find Us">📍</a>
+      <div class="bottom-icon" title="Status">🟦</div>
+    </div>
+    <!-- Contact Us tab -->
+    <div id="contact-us-tab" role="button" aria-expanded="false" aria-controls="sidebar-container">
+      <span class="vertical-label">Contact Us</span>
+    </div>
   </div>
 
-  <!-- Sidebar Panel -->
-  <div id="panel" aria-hidden="true">
-    <a href="#" class="sidebar-icon-link" title="Call Us">📞</a>
-    <a href="#" class="sidebar-icon-link" title="Live Chat">💬</a>
-    <a href="#" class="sidebar-icon-link" title="Email Us">✉️</a>
-    <a href="#" class="sidebar-icon-link" title="Find Us">📍</a>
-    <div class="bottom-icon" title="Status">🟦</div>
-  </div>
-
-  <!-- Script -->
   <script>
     const tab = document.getElementById('contact-us-tab');
-    const panel = document.getElementById('panel');
+    const container = document.getElementById('sidebar-container');
 
     tab.onclick = () => {
-      const isOpen = panel.classList.toggle('open');
+      const isOpen = container.classList.toggle('open');
       tab.setAttribute('aria-expanded', isOpen);
-      panel.setAttribute('aria-hidden', !isOpen);
     };
 
     document.onclick = e => {
-      if (!tab.contains(e.target) && !panel.contains(e.target)) {
-        panel.classList.remove('open');
+      if (!container.contains(e.target)) {
+        container.classList.remove('open');
         tab.setAttribute('aria-expanded', false);
-        panel.setAttribute('aria-hidden', true);
       }
     };
   </script>
