@@ -21,13 +21,13 @@
       height: 100vh;
       display: flex;
       flex-direction: row-reverse; /* Tab on the right */
-      transform: translateX(calc(100% - 54px)); /* Show only tab */
+      transform: translateX(124px); /* Fully hidden */
       transition: transform 0.3s ease;
       z-index: 1000;
     }
 
     #sidebar-container.open {
-      transform: translateX(0); /* Slide full sidebar into view */
+      transform: translateX(0); /* Fully visible */
     }
 
     /* Contact Us tab */
@@ -83,30 +83,13 @@
       font-size: 1.2rem;
       color: #fff;
     }
-
-    @media (max-width: 600px) {
-      #sidebar-container {
-        width: 100px;
-      }
-      #panel {
-        width: 60px;
-      }
-      #contact-us-tab {
-        width: 40px;
-      }
-      .sidebar-icon-link {
-        width: 36px;
-        height: 36px;
-        font-size: 1rem;
-      }
-    }
   </style>
 </head>
 <body>
   <!-- Sidebar container -->
   <div id="sidebar-container">
     <!-- Contact Us tab -->
-    <div id="contact-us-tab" role="button" aria-expanded="false" aria-controls="sidebar-container">
+    <div id="contact-us-tab" role="button">
       <span class="vertical-label">Contact Us</span>
     </div>
 
@@ -125,16 +108,14 @@
     const container = document.getElementById('sidebar-container');
 
     tab.onclick = () => {
-      const isOpen = container.classList.toggle('open');
-      tab.setAttribute('aria-expanded', isOpen);
+      container.classList.toggle('open');
     };
 
-    document.onclick = e => {
+    document.addEventListener('click', (e) => {
       if (!container.contains(e.target)) {
         container.classList.remove('open');
-        tab.setAttribute('aria-expanded', false);
       }
-    };
+    });
   </script>
 </body>
 </html>
