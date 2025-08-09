@@ -12,30 +12,36 @@
     height: 200vh;
   }
 
-  /* Sidebar */
+  /* Sidebar container */
   .sidebar {
     position: fixed;
     top: 50%;
     right: 0;
     transform: translateY(-50%);
-    background-color: rgba(255,255,255,0.85);
-    backdrop-filter: blur(6px);
-    box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+    display: flex;
     border-radius: 8px 0 0 8px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
     transition: right 0.3s ease;
-    width: fit-content;
-    max-width: 340px;
   }
 
-  /* Closed = tab visible only */
+  /* Closed state */
   .sidebar.closed {
-    right: -250px; /* leaves ~60–70px tab visible */
+    background: transparent;
+    flex-direction: column;
+    align-items: center;
+    right: 0;
   }
 
-  /* Toggle */
+  /* Open state */
+  .sidebar:not(.closed) {
+    background-color: rgba(255,255,255,0.9);
+    backdrop-filter: blur(6px);
+    box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+    max-width: 340px;
+    flex-direction: row;
+  }
+
+  /* Blue tab */
   .sidebar-toggle {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
@@ -57,12 +63,35 @@
     transform: rotate(90deg);
   }
 
-  /* Contact list */
+  /* Icons visible in closed state */
+  .contact-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0;
+    gap: 0.5rem;
+    background: transparent;
+  }
+  .contact-icons a, .contact-icons div {
+    display: block;
+  }
+  .contact-icons img {
+    width: 32px;
+    height: 32px;
+    display: block;
+  }
+  .contact-icons .webex-logo img {
+    width: 32px;
+    height: auto;
+  }
+
+  /* Contact list in open state */
   .contact-us-pane {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     padding: 1rem;
+    flex: 1;
   }
   .contact-method-btn {
     display: flex;
@@ -82,50 +111,58 @@
     width: 24px; height: 24px;
     flex-shrink: 0;
   }
-
-  /* Webex logo */
   .webex-logo-in-pane {
     margin-top: 0.5rem;
     display: block;
     text-align: center;
   }
   .webex-logo-in-pane img {
-    max-width: 120px; /* reduced size for alignment */
+    max-width: 120px;
     height: auto;
-    display: inline-block;
-  }
-
-  @media (max-width: 768px) {
-    .sidebar.closed {
-      right: -70%;
-    }
   }
 </style>
 </head>
 <body>
 
 <div class="sidebar closed" id="sidebar">
+  <!-- Blue vertical handle -->
   <button class="sidebar-toggle" id="toggleBtn">
     <span class="toggle-arrow">➤</span>
-    Contact Us
+    Contact
   </button>
 
+  <!-- Closed-state icons -->
+  <div class="contact-icons">
+    <a href="tel:+16692856683">
+      <img src="../assets/Phone.jpg" alt="Phone" />
+    </a>
+    <a href="https://wa.me/12076803464" target="_blank" rel="noopener">
+      <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp" />
+    </a>
+    <a href="mailto:cxdemosc@gmail.com">
+      <img src="../assets/contact-us-email.jpg" alt="Email" />
+    </a>
+    <div>
+      <img src="../assets/adresspin.png" alt="Address" />
+    </div>
+    <a href="../index.html" class="webex-logo">
+      <img src="../assets/Webex-Logo.jpg" alt="Webex Logo" />
+    </a>
+  </div>
+
+  <!-- Open-state contact pane -->
   <div class="contact-us-pane">
     <a href="tel:+16692856683" class="contact-method-btn">
-      <img src="../assets/Phone.jpg" alt="Phone Icon" />
-      +1 669 285 6683
+      <img src="../assets/Phone.jpg" alt="Phone Icon" /> +1 669 285 6683
     </a>
     <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-method-btn">
-      <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" />
-      +1 (207) 680-3464
+      <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" /> +1 (207) 680-3464
     </a>
     <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
-      <img src="../assets/contact-us-email.jpg" alt="Email Icon" />
-      cxdemosc@gmail.com
+      <img src="../assets/contact-us-email.jpg" alt="Email Icon" /> cxdemosc@gmail.com
     </a>
-    <div class="contact-method-btn" tabindex="0">
-      <img src="../assets/adresspin.png" alt="Address Icon" />
-      80 Pasir Panjang Rd, SG 001001
+    <div class="contact-method-btn">
+      <img src="../assets/adresspin.png" alt="Address Icon" /> 80 Pasir Panjang Rd, SG 001001
     </div>
     <a href="../index.html" class="webex-logo-in-pane">
       <img src="../assets/Webex-Logo.jpg" alt="Webex Logo" />
@@ -135,7 +172,7 @@
 
 <main>
   <h1>Website Content</h1>
-  <p>Scroll and click the Contact Us tab to test closed/open states.</p>
+  <p>Scroll and click the Contact tab to test closed/open states.</p>
 </main>
 
 <script>
@@ -146,7 +183,7 @@
   });
 </script>
 
-<!-- Your root/script.js still loads here for live chat widget -->
+<!-- Chat widget or other scripts -->
 <script src="../../script.js"></script>
 </body>
 </html>
