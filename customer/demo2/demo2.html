@@ -1,1 +1,50 @@
 
+<!DOCTYPE html>
+<html lang="en" class="demo2">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demo2 - WxCC Demo</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body class="demo2">
+
+  <img class="fullscreen-image" src="../assets/UOB.png" alt="UOB" />
+
+  <div id="contact-pane-container" class="contact-us-pane-container closed" aria-expanded="false" aria-label="Contact Us Panel">
+    <div class="contact-us-pane" role="region" aria-label="Contact Us Information">
+      <a href="tel:+16692856683" class="contact-method-btn">
+        <img src="../assets/Phone.jpg" alt="Phone Icon" /> 
+        Phone Banking: +1 669 285 6683
+      </a>
+      <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-method-btn">
+        <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" /> 
+        WhatsApp Banking: +1 (207) 680-3464
+      </a>
+      <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
+        <img src="../assets/contact-us-email.jpg" alt="Email Icon" /> 
+        Email Banking: cxdemosc@gmail.com
+      </a>
+      <div class="contact-method-btn" style="cursor: default;" tabindex="0" aria-label="Office Address">
+        <img src="../assets/adresspin.png" alt="Address Icon" /> 
+        Office Address: 80, Pasir Panjang Road, Singapore 001001
+      </div>
+      <a href="../index.html" aria-label="Back to Home">
+        <img src="../assets/Webex-Logo.jpg" alt="Webex Home" class="webex-logo-in-pane" />
+      </a>
+    </div>
+    <div id="contact-us-handle" class="contact-us-handle" tabindex="0" role="button" aria-controls="contact-pane-container" aria-expanded="false" aria-label="Toggle Contact Us Panel">
+      <div class="hamburger-vertical">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <span class="vertical-label">Contact Us</span>
+    </div>
+  </div>
+
+  <div id="live-chat-container"></div>
+
+  <script src="../script.js"></script>
+</body>
+</html>
