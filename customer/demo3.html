@@ -3,46 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Sidebar</title>
+  <title>Floating Contact Sidebar</title>
   <style>
     body {
       margin: 0;
-      background: #333;
-      font-family: sans-serif;
-      overflow-x: hidden;
+      background: #1e1e1e;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
     }
 
     /* Sidebar container */
     #sidebar-container {
       position: fixed;
-      top: 0;
+      top: 50%;
       right: 0;
-      width: 124px; /* 70px panel + 54px tab */
-      height: 100vh;
+      transform: translateY(-50%) translateX(124px); /* Hidden by default */
       display: flex;
-      flex-direction: row-reverse; /* Tab on the right */
-      transform: translateX(124px); /* Fully hidden */
+      flex-direction: row-reverse;
       transition: transform 0.3s ease;
       z-index: 1000;
     }
 
     #sidebar-container.open {
-      transform: translateX(0); /* Fully visible */
+      transform: translateY(-50%) translateX(0); /* Slide in */
     }
 
     /* Contact Us tab */
     #contact-us-tab {
       width: 54px;
-      height: 100px; 
-    /*  background: rgba(19, 42, 84, 0.75); */
-      background: red; /* Just for testing */
-
+      height: 100px;
+      background: rgba(19, 42, 84, 0.75);
       border-radius: 12px 0 0 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      margin-top: 20px;
     }
 
     .vertical-label {
@@ -55,53 +50,74 @@
 
     /* Sidebar panel */
     #panel {
-      width: 70px;
-      height: 100vh;
+      width: 260px;
       background: rgba(19, 42, 84, 0.95);
       border-radius: 12px 0 0 12px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding-top: 20px;
+      gap: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
-    .sidebar-icon-link {
-      width: 42px;
-      height: 42px;
-      background: rgba(255, 255, 255, 0.09);
-      border-radius: 50%;
-      margin: 10px 0;
+    .contact-method {
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 1.2rem;
+      gap: 12px;
+      font-size: 0.9rem;
       text-decoration: none;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: background 0.2s ease;
     }
 
-    .bottom-icon {
-      margin-top: auto;
-      margin-bottom: 20px;
-      font-size: 1.2rem;
-      color: #fff;
+    .contact-method:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .contact-method img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .webex-logo {
+      margin-top: 12px;
+      align-self: center;
+      width: 100px;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
+
   <!-- Sidebar container -->
   <div id="sidebar-container">
     <!-- Contact Us tab -->
-    <div id="contact-us-tab" role="button">
+    <div id="contact-us-tab" role="button" aria-label="Toggle Contact Sidebar">
       <span class="vertical-label">Contact Us</span>
     </div>
 
     <!-- Sidebar panel -->
-    <div id="panel">
-      <a href="#" class="sidebar-icon-link" title="Call Us">📞</a>
-      <a href="#" class="sidebar-icon-link" title="Live Chat">💬</a>
-      <a href="#" class="sidebar-icon-link" title="Email Us">✉️</a>
-      <a href="#" class="sidebar-icon-link" title="Find Us">📍</a>
-      <div class="bottom-icon" title="Status">🟦</div>
+    <div id="panel" role="region" aria-label="Contact Options">
+      <a href="tel:+16692856683" class="contact-method">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/phone.png" alt="Phone" />
+        Phone Banking: +1 669 285 6683
+      </a>
+      <a href="https://wa.me/12076803464" target="_blank" class="contact-method">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" />
+        WhatsApp Banking: +1 (207) 680-3464
+      </a>
+      <a href="mailto:cxdemosc@gmail.com" class="contact-method">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/email.png" alt="Email" />
+        Email Banking: cxdemosc@gmail.com
+      </a>
+      <div class="contact-method" style="cursor: default;">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="Location" />
+        Office Address: 80 Pasir Panjang Road, Singapore 001001
+      </div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Webex_by_Cisco_logo.svg/2560px-Webex_by_Cisco_logo.svg.png" alt="Webex Logo" class="webex-logo" />
     </div>
   </div>
 
