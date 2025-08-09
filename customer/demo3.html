@@ -1,23 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sidebar Toggle</title>
   <style>
-    body { margin: 0; background: #333; }
+    body {
+      margin: 0;
+      background: #333;
+      font-family: sans-serif;
+    }
+
     /* Contact Us tab */
     #contact-us-tab {
       position: fixed;
-      top: 0;
+      top: 50%;
       right: 0;
+      transform: translateY(-50%);
       width: 54px;
       height: 100px;
-      background: rgba(19,42,84,0.75);
+      background: rgba(19, 42, 84, 0.75);
       border-radius: 12px 0 0 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 2;
+      z-index: 3;
     }
+
     .vertical-label {
       writing-mode: vertical-rl;
       font-size: 0.78rem;
@@ -25,39 +35,96 @@
       font-weight: bold;
       letter-spacing: 1px;
     }
+
+    /* Sidebar panel */
     #panel {
       position: fixed;
       top: 0;
-      right: 54px;
+      right: 0;
       width: 70px;
       height: 100vh;
-      background: rgba(19,42,84,0.75);
+      background: rgba(19, 42, 84, 0.95);
       border-radius: 12px 0 0 12px;
-      display: none;
+      display: flex;
       flex-direction: column;
       align-items: center;
-      z-index: 1;
       padding-top: 20px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 2;
     }
-    #panel.open { display: flex; }
-    .sidebar-icon-link { width: 42px; height: 42px; background: rgba(255,255,255,0.09); border-radius: 50%; margin: 10px 0; display: flex; align-items: center; justify-content: center; }
+
+    #panel.open {
+      transform: translateX(0);
+    }
+
+    .sidebar-icon-link {
+      width: 42px;
+      height: 42px;
+      background: rgba(255, 255, 255, 0.09);
+      border-radius: 50%;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+
+    /* Bottom icon */
+    .bottom-icon {
+      margin-top: auto;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      #panel {
+        width: 90px;
+      }
+      .sidebar-icon-link {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div id="contact-us-tab"><span class="vertical-label">Contact Us</span></div>
-  <div id="panel">
-    <a href="#" class="sidebar-icon-link"><span>📞</span></a>
-    <a href="#" class="sidebar-icon-link"><span>💬</span></a>
-    <a href="#" class="sidebar-icon-link"><span>✉️</span></a>
-    <a href="#" class="sidebar-icon-link"><span>📍</span></a>
-    <div style="margin-top:auto;margin-bottom:20px;"><span>🟦</span></div>
+  <!-- Toggle Tab -->
+  <div id="contact-us-tab" role="button" aria-expanded="false" aria-controls="panel">
+    <span class="vertical-label">Contact Us</span>
   </div>
+
+  <!-- Sidebar Panel -->
+  <div id="panel" aria-hidden="true">
+    <a href="#" class="sidebar-icon-link" title="Call Us">📞</a>
+    <a href="#" class="sidebar-icon-link" title="Live Chat">💬</a>
+    <a href="#" class="sidebar-icon-link" title="Email Us">✉️</a>
+    <a href="#" class="sidebar-icon-link" title="Find Us">📍</a>
+    <div class="bottom-icon" title="Status">🟦</div>
+  </div>
+
+  <!-- Script -->
   <script>
     const tab = document.getElementById('contact-us-tab');
     const panel = document.getElementById('panel');
-    tab.onclick = () => panel.classList.toggle('open');
+
+    tab.onclick = () => {
+      const isOpen = panel.classList.toggle('open');
+      tab.setAttribute('aria-expanded', isOpen);
+      panel.setAttribute('aria-hidden', !isOpen);
+    };
+
     document.onclick = e => {
-      if (!tab.contains(e.target) && !panel.contains(e.target)) panel.classList.remove('open');
+      if (!tab.contains(e.target) && !panel.contains(e.target)) {
+        panel.classList.remove('open');
+        tab.setAttribute('aria-expanded', false);
+        panel.setAttribute('aria-hidden', true);
+      }
     };
   </script>
 </body>
