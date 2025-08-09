@@ -1,53 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>demo3 - Final Contact Sidebar</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <title>demo3 - Final Sidebar (Open/Close)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     html, body {
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       background: #000;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
+
     .fullscreen-image {
-      width: 100vw; height: auto; display: block;
+      width: 100vw;
+      height: auto;
+      display: block;
     }
 
     :root {
       --sidebar-bg: rgba(19, 42, 84, 0.75);
+      --tab-width: 54px;
     }
 
-    /* Sidebar panel */
-    #contact-pane {
+    /* ==== Always-visible Contact Us Tab ==== */
+    #contact-us-tab {
       position: fixed;
       top: 0;
       right: 0;
-      width: 70px;
-      height: 100vh;
-      background: var(--sidebar-bg);
-      border-radius: 12px 0 0 12px;
-      color: white;
-      box-shadow: none;
-      transform: translateX(100%);
-      transition: transform 0.35s ease-in-out;
-      z-index: 10001;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 12px;
-      padding-bottom: 20px;
-      overflow: visible;
-    }
-
-    #contact-pane.open {
-      transform: translateX(0);
-    }
-
-    /* Contact Us tab merged with sidebar top */
-    .contact-tab {
-      width: 70px;
+      width: var(--tab-width);
       height: 100px;
       background: var(--sidebar-bg);
       border-radius: 12px 0 0 12px;
@@ -55,10 +37,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      flex-shrink: 0;
-      box-sizing: border-box;
-      margin-bottom: 28px;
-      user-select: none;
+      z-index: 10002;
     }
 
     .vertical-label {
@@ -73,17 +52,43 @@
       line-height: 1;
     }
 
-    /* Sidebar icon container */
+    /* ==== Sidebar Panel ==== */
+    #contact-pane {
+      position: fixed;
+      top: 0;
+      right: var(--tab-width);
+      width: 70px;
+      height: 100vh;
+      background: var(--sidebar-bg);
+      border-radius: 12px 0 0 12px;
+      color: white;
+      box-shadow: none;
+      transform: translateX(100%);
+      transition: transform 0.35s ease-in-out;
+      z-index: 10001;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    /* Open state */
+    #contact-pane.open {
+      transform: translateX(0);
+    }
+
+    /* Icon-only buttons inside panel */
     .sidebar-icons {
       display: flex;
       flex-direction: column;
       gap: 22px;
       align-items: center;
       width: 100%;
+      margin-top: 20px;
       flex-grow: 1;
     }
 
-    /* Individual icon links */
     .sidebar-icon-link {
       width: 42px;
       height: 42px;
@@ -106,7 +111,7 @@
       display: block;
     }
 
-    /* Bottom logo area */
+    /* Bottom-left logo */
     .sidebar-bottom {
       width: 100%;
       display: flex;
@@ -123,13 +128,12 @@
     }
 
     @media (max-width: 600px) {
+      :root {
+        --tab-width: 44px;
+      }
       #contact-pane {
         width: 60px;
-      }
-      .contact-tab {
-        width: 60px;
-        height: 90px;
-        margin-bottom: 20px;
+        right: var(--tab-width);
       }
       .sidebar-icon-link {
         width: 36px;
@@ -154,33 +158,38 @@
 </head>
 <body>
 
-  <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/111111/ffffff?text=Demo+Page" alt="Background" />
+  <!-- Background -->
+  <img class="fullscreen-image" src="https://via.placeholder.com/1600x900/111111/ffffff?text=Demo+Page" alt="Background">
 
+  <!-- Always-visible Contact Us tab -->
+  <div id="contact-us-tab" title="Contact Us">
+    <span class="vertical-label">Contact Us</span>
+  </div>
+
+  <!-- Sliding sidebar -->
   <div id="contact-pane">
-    <!-- Contact Us tab -->
-    <div id="contact-us-tab" class="contact-tab" title="Contact Us">
-      <span class="vertical-label">Contact Us</span>
-    </div>
-
-    <!-- Icon-only sidebar content -->
     <div class="sidebar-icons">
-      <a href="tel:+16692856683" class="sidebar-icon-link" title="Call +1 669 285 6683">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/phone.svg" alt="Call Icon" />
+      <!-- Call -->
+      <a href="tel:+16692856683" class="sidebar-icon-link" title="Call">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/phone.svg" alt="Phone">
       </a>
-      <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="sidebar-icon-link" title="WhatsApp +1 207 680 3464">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp Icon" />
+      <!-- WhatsApp -->
+      <a href="https://wa.me/12076803464" class="sidebar-icon-link" title="WhatsApp" target="_blank" rel="noopener">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
       </a>
-      <a href="mailto:cxdemosc@gmail.com" class="sidebar-icon-link" title="Email cxdemosc@gmail.com">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/maildotru.svg" alt="Email Icon" />
+      <!-- Email -->
+      <a href="mailto:cxdemosc@gmail.com" class="sidebar-icon-link" title="Email">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/maildotru.svg" alt="Email">
       </a>
-      <a href="https://www.google.com/maps/search/?api=1&query=80+Pasir+Panjang+Rd,+Singapore" target="_blank" rel="noopener" class="sidebar-icon-link" title="Map">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlemaps.svg" alt="Map Icon" />
+      <!-- Map -->
+      <a href="https://www.google.com/maps/search/?api=1&query=80+Pasir+Panjang+Rd,+Singapore" class="sidebar-icon-link" title="Map" target="_blank" rel="noopener">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlemaps.svg" alt="Map">
       </a>
     </div>
 
-    <!-- Bottom left logo -->
+    <!-- Bottom logo -->
     <div class="sidebar-bottom">
-      <img src="https://via.placeholder.com/28x28?text=W" alt="Webex Logo" />
+      <img src="https://via.placeholder.com/28x28?text=W" alt="Webex Logo">
     </div>
   </div>
 
@@ -213,15 +222,14 @@
       togglePane();
     });
 
-    // Close sidebar if clicking outside
     document.addEventListener("click", (e) => {
       if (!pane.contains(e.target) && !handle.contains(e.target)) {
         closePane();
       }
     });
 
-    ['mousemove', 'keydown', 'touchstart'].forEach(event =>
-      pane.addEventListener(event, resetTimer)
+    ['mousemove', 'keydown', 'touchstart'].forEach(evt =>
+      pane.addEventListener(evt, resetTimer)
     );
   </script>
 </body>
