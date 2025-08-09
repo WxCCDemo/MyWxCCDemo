@@ -9,44 +9,24 @@
       margin: 0;
       background: #333;
       font-family: sans-serif;
+      overflow-x: hidden;
     }
 
-    /* Sidebar container including tab */
-    #sidebar-container {
+    /* Sidebar wrapper */
+    #sidebar-wrapper {
       position: fixed;
       top: 0;
       right: 0;
-      width: 124px; /* Total width including tab */
+      width: 124px; /* Total width: 70px panel + 54px tab */
       height: 100vh;
       display: flex;
       transform: translateX(100%);
       transition: transform 0.3s ease;
-      z-index: 2;
+      z-index: 1000;
     }
 
-    #sidebar-container.open {
+    #sidebar-wrapper.open {
       transform: translateX(0);
-    }
-
-    /* Contact Us tab (now part of sidebar) */
-    #contact-us-tab {
-      width: 54px;
-      height: 100px;
-      background: rgba(19, 42, 84, 0.75);
-      border-radius: 12px 0 0 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .vertical-label {
-      writing-mode: vertical-rl;
-      font-size: 0.78rem;
-      color: #fff;
-      font-weight: bold;
-      letter-spacing: 1px;
     }
 
     /* Sidebar panel */
@@ -82,15 +62,36 @@
       color: #fff;
     }
 
+    /* Contact Us tab */
+    #contact-us-tab {
+      width: 54px;
+      height: 100px;
+      background: rgba(19, 42, 84, 0.75);
+      border-radius: 12px 0 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .vertical-label {
+      writing-mode: vertical-rl;
+      font-size: 0.78rem;
+      color: #fff;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
     @media (max-width: 600px) {
-      #sidebar-container {
+      #sidebar-wrapper {
         width: 100px;
-      }
-      #contact-us-tab {
-        width: 40px;
       }
       #panel {
         width: 60px;
+      }
+      #contact-us-tab {
+        width: 40px;
       }
       .sidebar-icon-link {
         width: 36px;
@@ -101,8 +102,8 @@
   </style>
 </head>
 <body>
-  <!-- Sidebar container -->
-  <div id="sidebar-container">
+  <!-- Sidebar wrapper -->
+  <div id="sidebar-wrapper">
     <!-- Sidebar panel -->
     <div id="panel">
       <a href="#" class="sidebar-icon-link" title="Call Us">📞</a>
@@ -112,23 +113,23 @@
       <div class="bottom-icon" title="Status">🟦</div>
     </div>
     <!-- Contact Us tab -->
-    <div id="contact-us-tab" role="button" aria-expanded="false" aria-controls="sidebar-container">
+    <div id="contact-us-tab" role="button" aria-expanded="false" aria-controls="sidebar-wrapper">
       <span class="vertical-label">Contact Us</span>
     </div>
   </div>
 
   <script>
     const tab = document.getElementById('contact-us-tab');
-    const container = document.getElementById('sidebar-container');
+    const wrapper = document.getElementById('sidebar-wrapper');
 
     tab.onclick = () => {
-      const isOpen = container.classList.toggle('open');
+      const isOpen = wrapper.classList.toggle('open');
       tab.setAttribute('aria-expanded', isOpen);
     };
 
     document.onclick = e => {
-      if (!container.contains(e.target)) {
-        container.classList.remove('open');
+      if (!wrapper.contains(e.target)) {
+        wrapper.classList.remove('open');
         tab.setAttribute('aria-expanded', false);
       }
     };
