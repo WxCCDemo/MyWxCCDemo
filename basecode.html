@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Floating Sidebar with Toggle</title>
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    font-family: sans-serif;
+  }
+
+  #sidebar-container {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    z-index: 1000;
+    transition: right 0.3s ease;
+  }
+
+  #sidebar-container.closed {
+    right: -70px; /* hide panel but leave tab visible */
+  }
+
+  #panel {
+    width: 70px;
+    background: rgba(19, 42, 84, 0.95);
+    border-radius: 12px 0 0 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .sidebar-icon-link {
+    width: 42px;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.09);
+    border-radius: 50%;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.2rem;
+    text-decoration: none;
+  }
+
+  .bottom-icon {
+    margin-top: auto;
+    font-size: 1.2rem;
+    color: #fff;
+  }
+
+  /* Toggle tab */
+  #toggle-tab {
+    background: rgba(19, 42, 84, 0.95);
+    border-radius: 12px 0 0 12px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    user-select: none;
+  }
+</style>
+</head>
+<body>
+
+<div id="sidebar-container" class="open">
+  <div id="toggle-tab">⮜</div>
+  <div id="panel">
+    <a href="#" class="sidebar-icon-link" title="Call Us">📞</a>
+    <a href="#" class="sidebar-icon-link" title="Live Chat">💬</a>
+    <a href="#" class="sidebar-icon-link" title="Email Us">✉️</a>
+    <a href="#" class="sidebar-icon-link" title="Find Us">📍</a>
+    <div class="bottom-icon" title="Status">🟦</div>
+  </div>
+</div>
+
+<script>
+  const container = document.getElementById('sidebar-container');
+  const toggleTab = document.getElementById('toggle-tab');
+
+  toggleTab.addEventListener('click', () => {
+    const isClosed = container.classList.toggle('closed');
+    toggleTab.textContent = isClosed ? '⮞' : '⮜';
+  });
+</script>
+
+</body>
+</html>
