@@ -3,26 +3,28 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Floating Sidebar - Open State</title>
+<title>Floating Sidebar with Toggle</title>
 <style>
   body {
     margin: 0;
-    background: #000; /* Page background like your mockup */
+    background: #000;
     font-family: sans-serif;
   }
 
-  /* Sidebar wrapper */
   #sidebar-container {
     position: fixed;
     top: 50%;
     right: 0;
-    transform: translateY(-50%); /* Vertically center */
+    transform: translateY(-50%);
     display: flex;
-    flex-direction: row-reverse; /* Tab (if any) would be outermost */
     z-index: 1000;
+    transition: right 0.3s ease;
   }
 
-  /* Contact panel - OPEN permanently */
+  #sidebar-container.closed {
+    right: -70px; /* hide panel but leave tab visible */
+  }
+
   #panel {
     width: 70px;
     background: rgba(19, 42, 84, 0.95);
@@ -30,8 +32,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 0;
     box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   }
 
@@ -54,12 +55,26 @@
     font-size: 1.2rem;
     color: #fff;
   }
+
+  /* Toggle tab */
+  #toggle-tab {
+    background: rgba(19, 42, 84, 0.95);
+    border-radius: 12px 0 0 12px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    user-select: none;
+  }
 </style>
 </head>
 <body>
 
-<!-- Sidebar in open state -->
-<div id="sidebar-container">
+<div id="sidebar-container" class="open">
+  <div id="toggle-tab">⮜</div>
   <div id="panel">
     <a href="#" class="sidebar-icon-link" title="Call Us">📞</a>
     <a href="#" class="sidebar-icon-link" title="Live Chat">💬</a>
@@ -68,6 +83,16 @@
     <div class="bottom-icon" title="Status">🟦</div>
   </div>
 </div>
+
+<script>
+  const container = document.getElementById('sidebar-container');
+  const toggleTab = document.getElementById('toggle-tab');
+
+  toggleTab.addEventListener('click', () => {
+    const isClosed = container.classList.toggle('closed');
+    toggleTab.textContent = isClosed ? '⮞' : '⮜';
+  });
+</script>
 
 </body>
 </html>
