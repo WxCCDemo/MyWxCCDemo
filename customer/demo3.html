@@ -6,21 +6,19 @@
     <title>Contact Us Sidebar</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
     <style>
         body {
             background-color: #f8f9fa;
             height: 200vh;
         }
 
-        /* Sidebar Container */
+        /* Sidebar Container (more transparent) */
         .contact-sidebar {
             position: fixed;
             top: 50%;
             right: 0;
             transform: translateY(-50%) translateX(calc(100% - 60px));
-            background-color: rgba(13, 27, 42, 0.4);
+            background-color: rgba(13, 27, 42, 0.2); /* Alpha changed from 0.4 to 0.2 */
             border-radius: 10px 0 0 10px;
             box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.2);
             z-index: 1000;
@@ -33,9 +31,9 @@
             transform: translateY(-50%) translateX(0);
         }
 
-        /* Sidebar Header */
+        /* Sidebar Header (more transparent) */
         .sidebar-header {
-            background: rgba(0, 53, 102, 0.7);
+            background: rgba(0, 53, 102, 0.5); /* Alpha changed from 0.7 to 0.5 */
             color: white;
             display: flex;
             align-items: center;
@@ -43,7 +41,7 @@
             font-weight: bold;
             cursor: pointer;
         }
-
+        
         /* Header Text */
         .header-text {
             margin-left: 10px;
@@ -60,6 +58,7 @@
             font-size: 18px;
             width: 30px;
             text-align: center;
+            color: white;
         }
 
         /* Contact Links */
@@ -84,11 +83,12 @@
             border-radius: 8px;
         }
 
-        .contact-link i {
-            font-size: 18px;
+        /* Custom styling for your new image icons */
+        .contact-link img {
             width: 30px;
-            text-align: center;
+            height: 30px;
             margin-right: 10px;
+            text-align: center;
         }
         
         .contact-sidebar:not(.expanded) .contact-text {
@@ -121,27 +121,26 @@
         
         <div class="contact-links">
             <a href="tel:+16692856683" class="contact-link" data-bs-toggle="tooltip" title="Call Us">
-                <i class="fas fa-phone"></i>
+                <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/Phone.jpg" alt="Phone Icon">
                 <span class="contact-text">+1 669 285 6683</span>
             </a>
             <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-link" data-bs-toggle="tooltip" title="WhatsApp">
-                <i class="fab fa-whatsapp"></i>
+                <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon">
                 <span class="contact-text">+1 (207) 680-3464</span>
             </a>
             <a href="mailto:cxdemosc@gmail.com" class="contact-link" data-bs-toggle="tooltip" title="Email">
-                <i class="fas fa-envelope"></i>
+                <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/contact-us-email.jpg" alt="Email Icon">
                 <span class="contact-text">cxdemosc@gmail.com</span>
             </a>
             <a href="#" class="contact-link" tabindex="0" data-bs-toggle="tooltip" title="Address">
-                <i class="fas fa-map-marker-alt"></i>
+                <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/adresspin.png" alt="Address Icon">
                 <span class="contact-text">80 Pasir Panjang Rd, SG 001001</span>
             </a>
             <a href="https://webex.com" target="_blank" rel="noopener" class="contact-link" data-bs-toggle="tooltip" title="Webex Meeting">
-                <i class="fab fa-webex"></i>
+                <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/webex-logo.png" alt="Webex Logo">
                 <span class="contact-text">Webex</span>
             </a>
         </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
