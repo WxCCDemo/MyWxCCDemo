@@ -1,122 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sidebar Contact Component</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Sidebar</title>
+<style>
+  body { margin:0; font-family:sans-serif; }
 
-    /* Sidebar container */
-    #sidebar-container {
-      position: fixed;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-      display: flex;
-      align-items: stretch;
-      transition: right 0.3s ease;
-      border-radius: 8px 0 0 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
+  /* Container */
+  .sidebar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    border-radius: 8px 0 0 8px;
+    overflow: hidden;
+    transition: right 0.3s ease;
+    z-index: 999;
+  }
 
-    /* Closed state = slim column only */
-    #sidebar-container.closed {
-      flex-direction: column;
-      background: transparent;
-      padding: 0;
-    }
+  /* Closed = tab + icons only */
+  .sidebar.closed {
+    flex-direction: column;
+    background: transparent;
+    align-items: center;
+    padding: 0;
+  }
 
-    /* Vertical toggle tab */
-    #toggle-button {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      background-color: #0078d4;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1rem;
-      padding: 0.5rem;
-      text-align: center;
-    }
+  /* Toggle tab */
+  .toggle-btn {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    background: #0078d4;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.5rem;
+    text-align: center;
+  }
+  .arrow {
+    display: block;
+    transition: transform 0.2s ease;
+    margin: 0 auto 0.25rem;
+  }
+  .sidebar:not(.closed) .arrow { transform: rotate(90deg); }
 
-    /* Arrow rotation */
-    #toggle-button .arrow {
-      display: block;
-      transition: transform 0.2s ease;
-      margin: 0 auto 0.25rem;
-    }
-    #sidebar-container:not(.closed) #toggle-button .arrow {
-      transform: rotate(90deg);
-    }
+  /* Closed-state icons stack */
+  .icon-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    background: transparent;
+  }
+  .icon-stack img {
+    width: 32px; height: 32px; display: block;
+  }
 
-    /* Icons stack in closed state */
-    .contact-icons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      background: transparent;
-      padding: 0.5rem 0;
-    }
-    .contact-icons img {
-      width: 32px;
-      height: 32px;
-      display: block;
-    }
-    .contact-icons .webex-logo img {
-      width: 32px;
-      height: auto;
-    }
+  /* Open panel */
+  .contact-panel {
+    display: none;
+    flex-direction: column;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(6px);
+    padding: 1rem;
+    min-width: 250px;
+    max-width: 300px;
+    gap: 0.75rem;
+  }
+  .sidebar:not(.closed) .contact-panel { display: flex; }
 
-    /* Panel content (open state) */
-    #contact-panel {
-      display: none;
-      flex-direction: column;
-      background: #fff;
-      padding: 1rem;
-      min-width: 250px;
-      max-width: 300px;
-    }
-    #sidebar-container:not(.closed) #contact-panel {
-      display: flex;
-    }
-  </style>
+  .contact-method {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+    background: rgba(0,0,0,0.03);
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+  .contact-method:hover { background: rgba(0,0,0,0.08); }
+  .contact-method img { width: 24px; height: 24px; }
+
+  .webex-panel img {
+    max-width: 120px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+</style>
 </head>
 <body>
 
-<div id="sidebar-container" class="closed">
-  <!-- Toggle Button -->
-  <button id="toggle-button">
-    <span class="arrow">▶</span>
-    Contact
+<div class="sidebar closed" id="sidebar">
+  <!-- Blue tab -->
+  <button class="toggle-btn" id="toggleBtn">
+    <span class="arrow">➤</span>Contact
   </button>
 
-  <!-- Icons -->
-  <div class="contact-icons">
-    <img src="icons/phone.png" alt="Phone">
-    <img src="icons/email.png" alt="Email">
-    <div class="webex-logo">
-      <img src="icons/webex.png" alt="Webex">
-    </div>
+  <!-- Closed-state icon stack -->
+  <div class="icon-stack">
+    <a href="tel:+16692856683"><img src="../assets/Phone.jpg" alt="Phone"></a>
+    <a href="https://wa.me/12076803464" target="_blank"><img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp"></a>
+    <a href="mailto:cxdemosc@gmail.com"><img src="../assets/contact-us-email.jpg" alt="Email"></a>
+    <a><img src="../assets/adresspin.png" alt="Address"></a>
+    <a href="../index.html"><img src="../assets/Webex-Logo.jpg" alt="Webex Logo"></a>
   </div>
 
-  <!-- Panel Content -->
-  <div id="contact-panel">
-    <h3>Contact Us</h3>
-    <p>Here’s your contact info or form area.</p>
+  <!-- Open-state full panel -->
+  <div class="contact-panel">
+    <a href="tel:+16692856683" class="contact-method">
+      <img src="../assets/Phone.jpg" alt="Phone">+1 669 285 6683
+    </a>
+    <a href="https://wa.me/12076803464" target="_blank" class="contact-method">
+      <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp">+1 (207) 680-3464
+    </a>
+    <a href="mailto:cxdemosc@gmail.com" class="contact-method">
+      <img src="../assets/contact-us-email.jpg" alt="Email">cxdemosc@gmail.com
+    </a>
+    <div class="contact-method">
+      <img src="../assets/adresspin.png" alt="Address">80 Pasir Panjang Rd, SG 001001
+    </div>
+    <div class="webex-panel">
+      <a href="../index.html"><img src="../assets/Webex-Logo.jpg" alt="Webex Logo"></a>
+    </div>
   </div>
 </div>
 
-<script>
-  const sidebar = document.getElementById('sidebar-container');
-  const toggleBtn = document.getElementById('toggle-button');
+<main>
+  <h1>Page Content</h1>
+  <p>Click the Contact tab to open/close the panel.</p>
+</main>
 
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('toggleBtn');
   toggleBtn.addEventListener('click', () => {
     sidebar.classList.toggle('closed');
   });
