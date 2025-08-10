@@ -71,14 +71,14 @@
 
         /* Every contact "button" */
         .contact-link {
-            background-color: #415a77; /* Button Blue */
-            color: #fff !important;
+            background-color: #ffffff; /* Button Blue */
+            color: #000000 !important;
             padding: 10px 16px;
             border-radius: 8px;
             font-size: 15px;
             display: flex;
             align-items: center;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
             text-decoration: none !important;
             border: none;
             outline: none;
@@ -87,9 +87,10 @@
         }
 
         /* Hover/focus state */
-        .contact-link:hover,
-        .contact-link:focus {
-            background-color: #225ea8; /* Accent Blue */
+.contact-link:hover,
+.contact-link:focus {
+    background-color: #e2e6ea; /* Light gray hover for contrast */
+    color: #000000 !important; /* Keep text black */
         }
 
         /* Contact icon size */
@@ -138,7 +139,7 @@
             </a>
             <a href="#" class="contact-link" tabindex="0" data-bs-toggle="tooltip" title="Address">
                 <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/adresspin.png" alt="Address Icon">
-                80 Pasir Panjang Rd, SG 001001
+                80 Pasir Panjang Rd
             </a>
             <a href="https://webex.com" target="_blank" rel="noopener" class="contact-link" data-bs-toggle="tooltip" title="Webex Meeting">
                 <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/webex-logo.png" alt="Webex Logo">
