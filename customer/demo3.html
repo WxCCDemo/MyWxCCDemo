@@ -3,62 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us Example</title>
+    <title>Contact Us Sidebar</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <style>
         body {
-            /* This is just for demonstration to show the transparency effect */
+            /* This is just for demonstration purposes */
             background-color: #f0f2f5;
+            min-height: 200vh; /* Adds scroll to show the fixed position */
         }
 
-        /* Container for the button and contact details */
+        /* Container for the button and contact icons */
         .contact-container {
             position: fixed;
             top: 50%;
-            right: 20px;
+            left: 0;
             transform: translateY(-50%);
             z-index: 1000;
-        }
-        
-        /* Styling for the contact button */
-        .btn-contact {
-            background-color: rgba(0, 123, 255, 0.7); /* Semi-transparent blue */
-            border: none;
-            color: white;
+            display: flex;
+            align-items: center;
         }
 
-        /* Styling for the collapsible contact box */
-        .contact-card {
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
-            border: 1px solid rgba(0, 0, 0, 0.125);
-            padding: 1rem;
-            border-radius: 0.25rem;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        /* Styling for the vertical "Contact Us" button */
+        .btn-contact-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            background-color: #0d47a1;
+            color: white;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            padding: 1rem 0.5rem;
+            border: none;
+        }
+
+        /* Styling for the collapsible icon box */
+        .contact-icons-card {
+            background-color: #1a237e;
+            padding: 1rem 0.5rem;
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Styling for each individual icon */
+        .contact-icon a {
+            display: block;
+            text-align: center;
+        }
+
+        .contact-icon img {
+            width: 32px;
+            height: 32px;
+            filter: invert(100%);
         }
     </style>
 </head>
 <body>
 
     <div class="container mt-5">
-        <h1>Your Website Content Here</h1>
-        <p>This is where the rest of your webpage content would go. The contact button will remain fixed on the right side.</p>
+        <h1>Your Main Webpage Content Here</h1>
+        <p>This is where the rest of your website content would be. The contact sidebar remains fixed on the left.</p>
     </div>
 
     <div class="contact-container">
-        <button class="btn btn-contact" type="button" data-bs-toggle="collapse" data-bs-target="#contactDetails" aria-expanded="false" aria-controls="contactDetails">
+        <button class="btn btn-contact-vertical" type="button" data-bs-toggle="collapse" data-bs-target="#contactDetails" aria-expanded="false" aria-controls="contactDetails">
             Contact Us
         </button>
 
-        <div class="collapse mt-2" id="contactDetails">
-            <div class="card card-body contact-card">
-                <p class="mb-1"><strong>Phone:</strong> +1 (123) 456-7890</p>
-                <p class="mb-1"><strong>WhatsApp:</strong> +1 (123) 456-7890</p>
-                <p class="mb-1"><strong>Email:</strong> contact@example.com</p>
-                <p class="mb-0"><strong>Address:</strong> 123 Main Street, Anytown, USA</p>
+        <div class="collapse collapse-horizontal" id="contactDetails">
+            <div class="contact-icons-card">
+                <div class="contact-icon">
+                    <a href="tel:1234567890"><img src="https://img.icons8.com/material-outlined/48/ffffff/phone.png" alt="Phone"></a>
+                </div>
+                <div class="contact-icon">
+                    <a href="https://wa.me/1234567890"><img src="https://img.icons8.com/material-outlined/48/ffffff/whatsapp.png" alt="WhatsApp"></a>
+                </div>
+                <div class="contact-icon">
+                    <a href="mailto:contact@example.com"><img src="https://img.icons8.com/material-outlined/48/ffffff/mail.png" alt="Email"></a>
+                </div>
+                <div class="contact-icon">
+                    <a href="#"><img src="https://img.icons8.com/material-outlined/48/ffffff/address.png" alt="Address"></a>
+                </div>
             </div>
         </div>
+    </div>
+
+    <div style="position: fixed; bottom: 20px; left: 20px; z-index: 1000;">
+        <img src="https://via.placeholder.com/100x50.png?text=Webex+Logo" alt="Webex Logo">
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
