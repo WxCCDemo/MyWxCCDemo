@@ -66,14 +66,14 @@
         .contact-links {
             display: flex;
             flex-direction: column;
-            padding-top: 10px;
+            padding-top: 20px; /* Adjusted padding */
         }
         
-        /* The key fix: This positions the icons correctly inside each link */
+        /* The key fix: This styles each link as a distinct button */
         .contact-link {
             display: flex;
             align-items: center;
-            padding: 12px;
+            padding: 10px;
             color: white;
             text-decoration: none;
             font-size: 14px;
@@ -81,17 +81,18 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-bottom: 5px; /* Spacing between "buttons" */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Light border */
+            border-left: none; /* No border on the left to align with sidebar */
         }
 
-        /* This ensures the icons are visible when collapsed */
         .contact-link i {
             font-size: 18px;
             width: 30px;
             text-align: center;
-            margin-right: 10px; /* Space between icon and text */
+            margin-right: 10px;
         }
         
-        /* This hides the text when the sidebar is collapsed */
         .contact-sidebar:not(.expanded) .contact-text {
             display: none;
         }
