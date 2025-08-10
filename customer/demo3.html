@@ -1,106 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us Sidebar</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
     <style>
         body {
             background-color: #f8f9fa;
             height: 200vh;
         }
 
-        /* Sidebar Container (more transparent) */
+        /* Sidebar main container */
         .contact-sidebar {
             position: fixed;
             top: 50%;
             right: 0;
             transform: translateY(-50%) translateX(calc(100% - 60px));
-            background-color: rgba(13, 27, 42, 0.2); /* Alpha changed from 0.4 to 0.2 */
+            background-color: #1b263b; /* Deep Navy */
             border-radius: 10px 0 0 10px;
-            box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: -2px 2px 12px rgba(33, 37, 41, 0.11);
             z-index: 1000;
-            transition: transform 0.4s ease;
+            transition: transform 0.4s cubic-bezier(.4,0,.2,1);
             width: 260px;
         }
 
-        /* Expanded Sidebar */
+        /* Expanded state */
         .contact-sidebar.expanded {
             transform: translateY(-50%) translateX(0);
         }
 
-        /* Sidebar Header (more transparent) */
+        /* Header section */
         .sidebar-header {
-            background: rgba(0, 53, 102, 0.5); /* Alpha changed from 0.7 to 0.5 */
+            background-color: #053566; /* Medium Blue */
             color: white;
             display: flex;
             align-items: center;
-            padding: 10px;
-            font-weight: bold;
+            padding: 10px 18px;
+            font-weight: 600;
             cursor: pointer;
-        }
-        
-        /* Header Text */
-        .header-text {
-            margin-left: 10px;
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            border-radius: 10px 0 0 0;
         }
 
+        /* Header icon size */
+        .toggle-btn img {
+            width: 26px;
+            height: 26px;
+        }
+
+        /* Header text show/hide effect */
+        .header-text {
+            margin-left: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
         .contact-sidebar.expanded .header-text {
             opacity: 1;
         }
 
-        /* Toggle Button */
-        .toggle-btn {
-            font-size: 18px;
-            width: 30px;
-            text-align: center;
-            color: white;
-        }
-
-        /* Contact Links */
+        /* Contact link container */
         .contact-links {
+            padding: 12px 0 8px 0;
             display: flex;
             flex-direction: column;
-            padding-top: 10px;
+            gap: 8px;
         }
-        
+
+        /* Every contact "button" */
         .contact-link {
+            background-color: #415a77; /* Button Blue */
+            color: #fff !important;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 15px;
             display: flex;
             align-items: center;
-            padding: 12px;
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            transition: background 0.2s;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 5px;
-            border-radius: 8px;
+            transition: background-color 0.3s;
+            text-decoration: none !important;
+            border: none;
+            outline: none;
+            box-shadow: 0 1px 4px rgba(33, 37, 41, 0.07);
+            margin: 0 10px;
         }
 
-        /* Custom styling for your new image icons */
+        /* Hover/focus state */
+        .contact-link:hover,
+        .contact-link:focus {
+            background-color: #225ea8; /* Accent Blue */
+        }
+
+        /* Contact icon size */
         .contact-link img {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-            text-align: center;
-        }
-        
-        .contact-sidebar:not(.expanded) .contact-text {
-            display: none;
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
         }
 
-        .contact-link:hover {
-            background: rgba(27, 38, 59, 0.9);
-        }
-
+        /* Main page content */
         .main-content {
-            padding: 20px;
+            padding: 20px 18px;
         }
     </style>
 </head>
@@ -111,43 +112,42 @@
         <p>The rest of your page content goes here. The contact sidebar remains fixed on the side.</p>
     </div>
 
+    <!-- Contact Sidebar -->
     <div class="contact-sidebar" id="contactSidebar">
+        <!-- Sidebar Header -->
         <div class="sidebar-header" onclick="toggleSidebar()">
-<!--            <div class="toggle-btn">
-                <i class="fas fa-bars"></i>
-            </div>  -->
+            <div class="toggle-btn">
+                <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/ContactUs.png" alt="Contact Us Icon">
+            </div>
+            <span class="header-text">Contact Us</span>
+        </div>
 
-    <div class="toggle-btn">
-        <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/ContactUs.png" alt="Contact Us Icon" style="width:24px; height:24px;">
-    </div>
-    <span class="header-text">Contact Us</span>
-</div>
-
-        
+        <!-- Contact Buttons -->
         <div class="contact-links">
             <a href="tel:+16692856683" class="contact-link" data-bs-toggle="tooltip" title="Call Us">
                 <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/Phone.jpg" alt="Phone Icon">
-                <span class="contact-text">+1 669 285 6683</span>
+                +1 669 285 6683
             </a>
             <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-link" data-bs-toggle="tooltip" title="WhatsApp">
                 <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon">
-                <span class="contact-text">+1 (207) 680-3464</span>
+                +1 (207) 680-3464
             </a>
             <a href="mailto:cxdemosc@gmail.com" class="contact-link" data-bs-toggle="tooltip" title="Email">
                 <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/contact-us-email.jpg" alt="Email Icon">
-                <span class="contact-text">cxdemosc@gmail.com</span>
+                cxdemosc@gmail.com
             </a>
             <a href="#" class="contact-link" tabindex="0" data-bs-toggle="tooltip" title="Address">
                 <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/adresspin.png" alt="Address Icon">
-                <span class="contact-text">80 Pasir Panjang Rd, SG 001001</span>
+                80 Pasir Panjang Rd, SG 001001
             </a>
             <a href="https://webex.com" target="_blank" rel="noopener" class="contact-link" data-bs-toggle="tooltip" title="Webex Meeting">
                 <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/webex-logo.png" alt="Webex Logo">
-                <span class="contact-text">Webex</span>
+                Webex
             </a>
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
@@ -156,10 +156,10 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
             tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-                new bootstrap.Tooltip(tooltipTriggerEl)
-            })
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
         });
     </script>
 </body>
