@@ -66,14 +66,15 @@
         .contact-links {
             display: flex;
             flex-direction: column;
-            padding-top: 20px; /* Adjusted padding */
+            padding-top: 10px;
+            /* New: Make this section completely transparent */
+            background-color: transparent; 
         }
         
-        /* The key fix: This styles each link as a distinct button */
         .contact-link {
             display: flex;
             align-items: center;
-            padding: 10px;
+            padding: 12px;
             color: white;
             text-decoration: none;
             font-size: 14px;
@@ -81,9 +82,8 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-bottom: 5px; /* Spacing between "buttons" */
-            border: 1px solid rgba(255, 255, 255, 0.3); /* Light border */
-            border-left: none; /* No border on the left to align with sidebar */
+            margin-bottom: 5px;
+            border-radius: 8px;
         }
 
         .contact-link i {
@@ -98,7 +98,8 @@
         }
 
         .contact-link:hover {
-            background: rgba(27, 38, 59, 0.9);
+            /* Adjusted for better visibility on hover */
+            background: rgba(27, 38, 59, 1);
         }
 
         .main-content {
