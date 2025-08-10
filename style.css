@@ -105,7 +105,7 @@ body.index .navbar .nav-link:hover {
   text-shadow: 0 0 2px #7df9ff44;
 }
 body.index .main-content {
-  min-height: 300vh; /* Ensures scroll */
+  min-height: auto; /* Ensures scroll */
 }
 body.index, html.index {
   height: auto;
