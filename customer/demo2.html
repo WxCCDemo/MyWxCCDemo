@@ -1,50 +1,102 @@
-
 <!DOCTYPE html>
 <html lang="en" class="demo2">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Demo2 - WxCC Demo</title>
+  <title>Webex Contact Center Demo - UOB</title>
+  
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <!-- Your shared style.css -->
   <link rel="stylesheet" href="../style.css" />
+  
+  <style>
+    /* Ensure background image scrolls */
+    .fullscreen-image {
+      position: absolute; /* scrolls with content */
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: auto;
+      min-height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+    }
+  </style>
 </head>
 <body class="demo2">
 
+  <!-- Scrolling fullscreen background -->
   <img class="fullscreen-image" src="../assets/UOB.png" alt="UOB" />
 
-  <div id="contact-pane-container" class="contact-us-pane-container closed" aria-expanded="false" aria-label="Contact Us Panel">
-    <div class="contact-us-pane" role="region" aria-label="Contact Us Information">
-      <a href="tel:+16692856683" class="contact-method-btn">
-        <img src="../assets/Phone.jpg" alt="Phone Icon" /> 
+  <!-- Bootstrap right-side contact sidebar -->
+  <div class="contact-sidebar" id="contactSidebar">
+    <!-- Sidebar Header -->
+    <div class="sidebar-header" onclick="toggleSidebar()" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle Contact Sidebar">
+      <div class="toggle-btn">
+        <img src="../assets/ContactUs.png" alt="Contact Us Icon" />
+      </div>
+      <span class="header-text">Contact Us</span>
+    </div>
+
+    <!-- Contact Links -->
+    <div class="contact-links">
+      <a href="tel:+16692856683" class="contact-link" data-bs-toggle="tooltip" title="Call Us">
+        <img src="../assets/Phone.jpg" alt="Phone Icon" />
         Phone Banking: +1 669 285 6683
       </a>
-      <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-method-btn">
-        <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" /> 
+      <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-link" data-bs-toggle="tooltip" title="WhatsApp">
+        <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" />
         WhatsApp Banking: +1 (207) 680-3464
       </a>
-      <a href="mailto:cxdemosc@gmail.com" class="contact-method-btn">
-        <img src="../assets/contact-us-email.jpg" alt="Email Icon" /> 
+      <a href="mailto:cxdemosc@gmail.com" class="contact-link" data-bs-toggle="tooltip" title="Email">
+        <img src="../assets/contact-us-email.jpg" alt="Email Icon" />
         Email Banking: cxdemosc@gmail.com
       </a>
-      <div class="contact-method-btn" style="cursor: default;" tabindex="0" aria-label="Office Address">
-        <img src="../assets/adresspin.png" alt="Address Icon" /> 
+      <a href="#" class="contact-link" tabindex="0" data-bs-toggle="tooltip" title="Office Address">
+        <img src="../assets/adresspin.png" alt="Address Icon" />
         Office Address: 80, Pasir Panjang Road, Singapore 001001
-      </div>
-      <a href="../index.html" aria-label="Back to Home">
-        <img src="../assets/Webex-Logo.jpg" alt="Webex Home" class="webex-logo-in-pane" />
       </a>
-    </div>
-    <div id="contact-us-handle" class="contact-us-handle" tabindex="0" role="button" aria-controls="contact-pane-container" aria-expanded="false" aria-label="Toggle Contact Us Panel">
-      <div class="hamburger-vertical">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <span class="vertical-label">Contact Us</span>
+      <a href="../index.html" class="contact-link" data-bs-toggle="tooltip" title="Back to Home">
+        <img src="../assets/webex-logo.png" alt="Webex Home" />
+        Back to Home
+      </a>
     </div>
   </div>
 
+  <!-- Live chat widget container -->
   <div id="live-chat-container"></div>
 
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Your custom JS including chat widget loader and sidebar toggle -->
   <script src="../script.js"></script>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('contactSidebar');
+      sidebar.classList.toggle('expanded');
+      const expanded = sidebar.classList.contains('expanded');
+      sidebar.setAttribute('aria-expanded', expanded);
+    }
+
+    // Keyboard accessibility for toggle
+    document.querySelector('.sidebar-header').addEventListener('keydown', function(event) {
+      if(event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleSidebar();
+      }
+    });
+
+    // Initialize Bootstrap tooltips
+    document.addEventListener('DOMContentLoaded', function () {
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    });
+  </script>
 </body>
 </html>
