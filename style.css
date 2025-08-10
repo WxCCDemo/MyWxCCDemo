@@ -5,45 +5,38 @@ html, body {
   font-family: Arial, sans-serif;
   background: transparent;
   overflow-x: hidden;
-  height: 200vh; /* demo scrolling */
 }
 
 /* ====== Fullscreen Background Image ====== */
 .fullscreen-image {
-  position: absolute;
+  position: absolute; /* scrolls with content */
   top: 0;
   left: 0;
   width: 100vw;
   height: auto;
-  min-height: 100vh; 
+  min-height: 100vh;
   object-fit: cover;
   z-index: 0;
 }
 
 /* ====== CONTACT US SIDEBAR (Bootstrap-based, Right Side) ====== */
-
-/* Sidebar container */
 .contact-sidebar {
   position: fixed;
   top: 50%;
   right: 0;
   transform: translateY(-50%) translateX(calc(100% - 60px));
-  background-color: transparent; /* Fully transparent background */
+  background-color: transparent;
   border-radius: 10px 0 0 10px;
   box-shadow: -2px 2px 12px rgba(33, 37, 41, 0.11);
   z-index: 1000;
   transition: transform 0.4s cubic-bezier(.4,0,.2,1);
   width: 260px;
 }
-
-/* Expanded state */
 .contact-sidebar.expanded {
   transform: translateY(-50%) translateX(0);
 }
-
-/* Sidebar header */
 .sidebar-header {
-  background-color: #053566; /* Medium Blue header */
+  background-color: #053566;
   color: white;
   display: flex;
   align-items: center;
@@ -52,34 +45,27 @@ html, body {
   cursor: pointer;
   border-radius: 10px 0 0 0;
 }
-
 .toggle-btn img {
   width: 26px;
   height: 26px;
 }
-
 .header-text {
   margin-left: 12px;
   opacity: 0;
   transition: opacity 0.3s;
 }
-
 .contact-sidebar.expanded .header-text {
   opacity: 1;
 }
-
-/* Contact buttons container */
 .contact-links {
   padding: 12px 0 8px 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-
-/* Individual contact button */
 .contact-link {
-  background-color: #ffffff; /* White */
-  color: #000000 !important; /* Black text */
+  background-color: #ffffff;
+  color: #000000 !important;
   padding: 10px 16px;
   border-radius: 8px;
   font-size: 15px;
@@ -87,26 +73,32 @@ html, body {
   align-items: center;
   transition: background-color 0.3s, color 0.3s;
   text-decoration: none !important;
-  border: none;
-  outline: none;
   box-shadow: 0 1px 4px rgba(33, 37, 41, 0.07);
   margin: 0 10px;
 }
-
 .contact-link:hover,
 .contact-link:focus {
-  background-color: #e2e6ea; /* Light gray hover */
+  background-color: #e2e6ea;
   color: #000000 !important;
 }
-
-/* Contact icon size */
 .contact-link img {
   width: 28px;
   height: 28px;
   margin-right: 12px;
 }
-
-/* Optional: main page padding */
 .main-content {
   padding: 20px 18px;
+}
+
+/* ====== Navbar Styling - Index Page Only ====== */
+body.index .navbar {
+  background-color: #111 !important;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.4);
+}
+body.index .navbar .nav-link {
+  color: #eee !important;
+}
+body.index .navbar .nav-link:hover {
+  color: #7df9ff !important;
+  text-shadow: 0 0 2px #7df9ff44;
 }
