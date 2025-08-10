@@ -1,3 +1,12 @@
+Yes, you can easily add a Webex logo as the last item in the sidebar. This is a great way to link to a Webex meeting or a Webex Calling number.
+
+To do this, you just need to add a new link item to the HTML and use the correct icon from Font Awesome. I've added a new `<a>` tag with the Webex icon (`fab fa-webex`) to the bottom of the `.contact-links` section.
+
+Here is the complete code with the Webex logo included as the last item.
+
+-----
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,8 +76,6 @@
             display: flex;
             flex-direction: column;
             padding-top: 10px;
-            /* New: Make this section completely transparent */
-            background-color: transparent; 
         }
         
         .contact-link {
@@ -98,8 +105,7 @@
         }
 
         .contact-link:hover {
-            /* Adjusted for better visibility on hover */
-            background: rgba(27, 38, 59, 1);
+            background: rgba(27, 38, 59, 0.9);
         }
 
         .main-content {
@@ -139,6 +145,10 @@
                 <i class="fas fa-map-marker-alt"></i>
                 <span class="contact-text">80 Pasir Panjang Rd, SG 001001</span>
             </a>
+            <a href="https://webex.com" target="_blank" rel="noopener" class="contact-link" data-bs-toggle="tooltip" title="Webex Meeting">
+                <i class="fab fa-webex"></i>
+                <span class="contact-text">Webex</span>
+            </a>
         </div>
 
     </div>
@@ -159,3 +169,4 @@
     </script>
 </body>
 </html>
+```
