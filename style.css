@@ -125,19 +125,43 @@ body.index .main-content {
 }
 
 /* ===== START Notification Sidebar (Left Aligned, Independent) ===== */
-#notificationSidebarIndependent {
+/* This section now targets the Bootstrap Offcanvas component directly */
+#notificationOffcanvasIndependent {
+  /* Bootstrap's .offcanvas class provides initial positioning, transitions, and z-index */
+  /* We define custom properties here that are not handled by Bootstrap's base Offcanvas */
+  top: 40%; /* Custom vertical positioning */
+  left: 0px; /* Ensures it starts from the left edge */
+  width: 300px; /* Sets the width of the offcanvas */
+  box-shadow: 2px 2px 12px rgba(33, 37, 41, 0.11); /* Custom shadow for depth */
+  border-radius: 0 10px 10px 0; /* Custom border-radius for one side */
+  /* Background color is already handled by Bootstrap's .offcanvas-body or can be set here if needed for the whole panel */
+  background-color: white; /* Ensure background is white as per original intent */
+}
+
+/* No .expanded class is needed for #notificationOffcanvasIndependent */
+/* Bootstrap handles the open/close state via its own classes like .showing, .show */
+
+/* Styling for the trigger icon */
+#notificationSidebarIconTrigger {
+  /* No changes needed here, as its inline styles handle its appearance */
+  /* but if you wanted to move them, this is where they'd go: */
+  /*
   position: fixed;
   top: 40%;
-  left: 20px;                  /* Left-side alignment */
-  width: 300px;
-  z-index: 1050;
-  box-shadow: 2px 2px 12px rgba(33, 37, 41, 0.11);
-  border-radius: 0 10px 10px 0;
-  background-color: white;
-  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
-  transform: translateX(-100%); /* Fully hidden off-screen to the left */
-}
-#notificationSidebarIndependent.expanded {
-  transform: translateX(0);     /* Slides in fully visible */
+  left: 0px;
+  z-index: 1060;
+  width: 44px;
+  height: 44px;
+  border-radius: 0 50% 50% 0;
+  border: none;
+  background-color: #0a4e8a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 2px 2px 12px rgba(33,37,41,0.11);
+  */
 }
 /* ===== END Notification Sidebar (Left Aligned, Independent) ===== */
