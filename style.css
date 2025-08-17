@@ -125,43 +125,67 @@ body.index .main-content {
 }
 
 /* ===== START Notification Sidebar (Left Aligned, Independent) ===== */
-/* This section now targets the Bootstrap Offcanvas component directly */
+/* This section targets the Bootstrap Offcanvas component directly */
 #notificationOffcanvasIndependent {
-  /* Bootstrap's .offcanvas class provides initial positioning, transitions, and z-index */
-  /* We define custom properties here that are not handled by Bootstrap's base Offcanvas */
   top: 40%; /* Custom vertical positioning */
   left: 0px; /* Ensures it starts from the left edge */
   width: 300px; /* Sets the width of the offcanvas */
   box-shadow: 2px 2px 12px rgba(33, 37, 41, 0.11); /* Custom shadow for depth */
-  border-radius: 0 10px 10px 0; /* Custom border-radius for one side */
-  /* Background color is already handled by Bootstrap's .offcanvas-body or can be set here if needed for the whole panel */
+  border-radius: 0 10px 10px 0; /* Rounded on the right exposed side */
   background-color: white; /* Ensure background is white as per original intent */
 }
 
-/* No .expanded class is needed for #notificationOffcanvasIndependent */
-/* Bootstrap handles the open/close state via its own classes like .showing, .show */
-
-/* Styling for the trigger icon */
-#notificationSidebarIconTrigger {
-  /* No changes needed here, as its inline styles handle its appearance */
-  /* but if you wanted to move them, this is where they'd go: */
-  /*
-  position: fixed;
-  top: 40%;
-  left: 0px;
-  z-index: 1060;
-  width: 44px;
-  height: 44px;
-  border-radius: 0 50% 50% 0;
-  border: none;
-  background-color: #0a4e8a;
+/* New CSS for the integrated handle/tab */
+.notification-offcanvas-handle {
+  position: absolute;
+  top: 0; /* Aligned with the top of the offcanvas */
+  left: 100%; /* Positions it right at the edge of the offcanvas */
+  transform: translateY(120px); /* Adjust vertical position to match right sidebar handle based on image */
+  width: 60px; /* Width of the visible tab */
+  height: 48px; /* Height of the tab, adjust to match right sidebar if needed */
+  background-color: #053566; /* Dark blue background to match right sidebar handle */
+  color: #fff;
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #fff;
+  justify-content: center; /* Center icon/text */
   cursor: pointer;
   user-select: none;
+  border-radius: 0 10px 10px 0; /* Rounded on the right exposed side to match right sidebar's left rounding */
   box-shadow: 2px 2px 12px rgba(33,37,41,0.11);
-  */
+  transition: opacity 0.4s ease-in-out, width 0.3s ease-in-out, padding 0.3s ease-in-out; /* Added width and padding transitions for hover effect */
+  z-index: 10; /* Ensure it's above other elements in offcanvas */
+  padding: 0 10px; /* Initial padding */
+  overflow: hidden; /* Hide overflowing text initially */
 }
+
+.notification-offcanvas-handle .handle-text {
+  opacity: 0; /* Hide text initially */
+  width: 0; /* Collapse text width */
+  overflow: hidden; /* Prevent text from showing */
+  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+  white-space: nowrap; /* Keep text on single line */
+}
+
+.notification-offcanvas-handle svg {
+  margin-right: 0; /* No margin initially */
+  transition: margin-right 0.3s ease-in-out;
+}
+
+/* On hover, expand the handle text and icon spacing */
+.notification-offcanvas-handle:hover {
+  width: 100px; /* Expand handle width on hover */
+  justify-content: space-between; /* Space out icon and text */
+}
+
+.notification-offcanvas-handle:hover .handle-text {
+  opacity: 1; /* Show text on hover */
+  width: auto; /* Allow text to take natural width */
+  margin-left: 8px; /* Add space for text */
+}
+
+.notification-offcanvas-handle:hover svg {
+  margin-right: 8px; /* Push icon to the left */
+}
+
+
 /* ===== END Notification Sidebar (Left Aligned, Independent) ===== */
