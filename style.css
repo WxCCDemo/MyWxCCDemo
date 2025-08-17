@@ -125,79 +125,87 @@ body.index .main-content {
 }
 
 /* ===== START Notification Sidebar (Left Aligned, Independent) ===== */
-/* This section targets the Bootstrap Offcanvas component directly */
-#notificationOffcanvasIndependent {
-  top: 40%; /* Custom vertical positioning */
-  left: 0px; /* Ensures it starts from the left edge */
-  width: 300px; /* Sets the width of the offcanvas */
-  box-shadow: 2px 2px 12px rgba(33, 37, 41, 0.11); /* Custom shadow for depth */
+/* This section styles the left-aligned .contact-sidebar to mimic the right one */
+.contact-sidebar.left-aligned {
+  position: fixed;
+  top: 50%; /* Aligned vertically in the middle */
+  left: 0; /* Positioned at the left edge */
+  transform: translateY(-50%) translateX(calc(-100% + 60px)); /* Shows 60px tab from left when closed */
+  background-color: transparent; /* Main sidebar background */
   border-radius: 0 10px 10px 0; /* Rounded on the right exposed side */
-  background-color: white; /* Ensure background is white as per original intent */
-  transition: transform 0.4s cubic-bezier(.4,0,.2,1); /* Added transition for smooth override */
+  box-shadow: 2px 2px 12px rgba(33, 37, 41, 0.11); /* Shadow for depth */
+  z-index: 1000;
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1); /* Smooth sliding animation */
+  width: 260px; /* Adjust width to match the right sidebar */
+}
+.contact-sidebar.left-aligned.expanded {
+  transform: translateY(-50%) translateX(0); /* Slides fully into view when expanded */
 }
 
-/* Override Bootstrap's hidden state to make the handle visible */
-#notificationOffcanvasIndependent.offcanvas-start:not(.show) {
-    /* When offcanvas-start is hidden (doesn't have .show class), move it less than 100% off-screen */
-    transform: translateX(calc(-100% + 60px)) !important; /* 60px is the handle width */
-}
-
-/* Ensure the offcanvas slides fully when shown */
-#notificationOffcanvasIndependent.offcanvas-start.show {
-    transform: translateX(0) !important;
-}
-
-/* New CSS for the integrated handle/tab */
-.notification-offcanvas-handle {
-  position: absolute;
-  top: 0; /* Aligned with the top of the offcanvas */
-  left: 100%; /* Positions it right at the edge of the offcanvas */
-  transform: translateY(120px); /* Adjust vertical position to match right sidebar handle based on image */
-  width: 60px; /* Width of the visible tab */
-  height: 48px; /* Height of the tab, adjust to match right sidebar if needed */
-  background-color: #053566; /* Dark blue background to match right sidebar handle */
-  color: #fff;
+.sidebar-header.left-aligned-header { /* This is the handle for the left sidebar */
+  background-color: #053566; /* Dark blue header to match right sidebar */
+  color: white;
   display: flex;
   align-items: center;
-  justify-content: center; /* Center icon/text */
+  padding: 10px 18px;
+  font-weight: 600;
   cursor: pointer;
-  user-select: none;
-  border-radius: 0 10px 10px 0; /* Rounded on the right exposed side to match right sidebar's left rounding */
-  box-shadow: 2px 2px 12px rgba(33,37,41,0.11);
-  transition: opacity 0.4s ease-in-out, width 0.3s ease-in-out, padding 0.3s ease-in-out; /* Added width and padding transitions for hover effect */
-  z-index: 10; /* Ensure it's above other elements in offcanvas */
-  padding: 0 10px; /* Initial padding */
-  overflow: hidden; /* Hide overflowing text initially */
+  border-radius: 0 0 10px 0; /* Rounded at the bottom-right for a consistent "tab" look */
+  /* Adjustments for icon/text alignment and hover effects for left sidebar */
+  flex-direction: row-reverse; /* Puts icon on the right for left tab */
+  justify-content: flex-end; /* Aligns content to the right edge when closed */
 }
 
-.notification-offcanvas-handle .handle-text {
-  opacity: 0; /* Hide text initially */
-  width: 0; /* Collapse text width */
-  overflow: hidden; /* Prevent text from showing */
-  transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out;
-  white-space: nowrap; /* Keep text on single line */
+.contact-sidebar.left-aligned.expanded .left-aligned-header {
+  justify-content: flex-start; /* Aligns content to the left when open */
 }
 
-.notification-offcanvas-handle svg {
-  margin-right: 0; /* No margin initially */
-  transition: margin-right 0.3s ease-in-out;
+.sidebar-header.left-aligned-header svg {
+  margin-left: 12px; /* Space between icon and text (reverse of right sidebar) */
+  margin-right: 0; /* No right margin */
 }
 
-/* On hover, expand the handle text and icon spacing */
-.notification-offcanvas-handle:hover {
-  width: 100px; /* Expand handle width on hover */
-  justify-content: space-between; /* Space out icon and text */
+.sidebar-header.left-aligned-header .header-text {
+  margin-left: 0; /* No left margin initially for text */
+  margin-right: 12px; /* Space on the right for text */
 }
 
-.notification-offcanvas-handle:hover .handle-text {
-  opacity: 1; /* Show text on hover */
-  width: auto; /* Allow text to take natural width */
-  margin-left: 8px; /* Add space for text */
-}
-
-.notification-offcanvas-handle:hover svg {
-  margin-right: 8px; /* Push icon to the left */
+/* Overriding right sidebar hover for consistent left sidebar hover */
+.sidebar-header.left-aligned-header:hover .header-text {
+  opacity: 1; /* Make text visible on hover */
 }
 
 
+/* General styling for contact links within the sidebar - applies to both */
+.contact-sidebar .contact-links {
+  padding: 12px 0 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.contact-sidebar .contact-link {
+  background-color: #ffffff;
+  color: #000000 !important;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s, color 0.3s;
+  text-decoration: none !important;
+  border: none;
+  outline: none;
+  box-shadow: 0 1px 4px rgba(33, 37, 41, 0.07);
+  margin: 0 10px;
+}
+.contact-sidebar .contact-link:hover,
+.contact-sidebar .contact-link:focus {
+  background-color: #e2e6ea;
+  color: #000000 !important;
+}
+.contact-sidebar .contact-link img {
+  width: 28px;
+  height: 28px;
+  margin-right: 12px;
+}
 /* ===== END Notification Sidebar (Left Aligned, Independent) ===== */
