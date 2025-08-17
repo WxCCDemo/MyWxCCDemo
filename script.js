@@ -179,117 +179,131 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/* ===== START Notification Sidebar (Left Aligned, Independent) ===== */
-/* This section styles the Bootstrap Offcanvas component for the left sidebar */
-#notificationOffcanvasIndependent {
-  top: 40%; /* Custom vertical positioning */
-  left: 0px; /* Ensures it starts from the left edge */
-  width: 260px; /* Width of the sidebar content */
-  box-shadow: 2px 2px 12px rgba(33, 37, 41, 0.11); /* Shadow for depth */
-  border-radius: 0 10px 10px 0; /* Rounded on the right exposed side when open */
-  background-color: white; /* Ensure background is white */
-  /* Bootstrap's .offcanvas-start and .show classes handle transform and transition */
-}
+// ===== START Independent Notification Sidebar (Left Aligned) Logic =====
+document.addEventListener("DOMContentLoaded", () => {
+  // Ensure Bootstrap JavaScript is loaded
+  if (typeof bootstrap === 'undefined') {
+    console.warn('Bootstrap JavaScript is not loaded. The Offcanvas notification sidebar may not function correctly. Please ensure bootstrap.bundle.min.js is included.');
+  }
 
-/* Ensure the entire offcanvas is truly hidden when not shown */
-/* This overrides any partial visibility due to previous custom transforms */
-#notificationOffcanvasIndependent.offcanvas-start:not(.show) {
-    transform: translateX(-100%) !important; /* Move fully off-screen */
-    visibility: hidden !important; /* Ensure it's not visible at all */
-}
+  // Insert Offcanvas sidebar HTML if missing
+  if (!document.getElementById("notificationOffcanvasIndependent")) {
+    const offcanvasHtml = `
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="notificationOffcanvasIndependent" aria-labelledby="notificationOffcanvasLabel" style="width: 260px;">
+        <div class="offcanvas-header" style="background-color:#053566; color:#fff;">
+          <h5 class="offcanvas-title" id="notificationOffcanvasLabel">Notifications & Offers</h5>
+          <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <form id="notificationFormIndependent">
+            <div class="mb-3">
+              <label for="nameSelectIndependent" class="form-label fw-semibold">Name</label>
+              <select class="form-select" id="nameSelectIndependent" required>
+                <option value="" disabled selected>Select Name</option>
+                <option value="Grace">Grace Loh</option>
+                <option value="Shailesh">Shailesh C</option>
+                <option value="Aaron">Aaron S</option>
+                <option value="Prasanna">Prasanna A</option>
+                <option value="Surapong">Surapong N</option>
+                <option value="Kenny">Kenny L</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="phoneInputIndependent" class="form-label fw-semibold">Phone Number</label>
+              <input list="phoneOptionsIndependent" class="form-control" id="phoneInputIndependent" placeholder="Enter or select phone" required />
+              <datalist id="phoneOptionsIndependent">
+                <option value="6587832760"></option>
+                <option value="6589485304"></option>
+                <option value="6598250480"></option>
+                <option value="6594691615"></option>
+              </datalist>
+            </div>
+            <div class="mb-3">
+              <label for="messageTypeSelectIndependent" class="form-label fw-semibold">Message Type</label>
+              <select class="form-select" id="messageTypeSelectIndependent" required>
+                <option value="" disabled selected>Select Type</option>
+                <option value="Notification">Notification</option>
+                <option value="Offer">Offer</option>
+                <option value="Reminder">Reminder</option>
+                <option value="Chat">Chat</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send</button>
+          </form>
+          <div id="formStatusIndependent" class="mt-2 text-success" style="display:none;">Message sent!</div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML("beforeend", offcanvasHtml);
+  }
 
-/* This ensures the offcanvas slides fully into view when shown */
-#notificationOffcanvasIndependent.offcanvas-start.show {
-    transform: translateX(0) !important;
-    visibility: visible !important;
-}
+  // Insert fixed "i" icon trigger if missing (re-introducing this)
+  if (!document.getElementById("notificationSidebarIconTrigger")) {
+    const iconHtml = `
+      <button id="notificationSidebarIconTrigger" aria-label="Toggle Notification Sidebar" type="button"
+              data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvasIndependent" aria-controls="notificationOffcanvasIndependent">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+          <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.057.435.183.435.37v.296c0 .27-.107.394-.356.474l-.45.084-.082.38 2.29-.287.082-.38-.45-.083c-.294-.057-.435-.183-.435-.37V7.23c0-.27.107-.394.356-.474z"/>
+          <path d="M7.004 11.352a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0"/>
+        </svg>
+      </button>
+    `;
+    document.body.insertAdjacentHTML("beforeend", iconHtml);
+  }
 
-/* Styling for the fixed "i" icon trigger on the left */
-#notificationSidebarIconTrigger {
-  position: fixed;
-  top: 50%; /* Center vertically, similar to right sidebar handle */
-  left: 0px; /* Positioned at the absolute left edge */
-  transform: translateY(-50%); /* For perfect vertical centering */
-  z-index: 1060; /* Higher z-index to be above the sidebar when closed */
-  width: 60px; /* Width of the button/tab */
-  height: 48px; /* Height of the button/tab */
-  border-radius: 0 10px 10px 0; /* Rounded on the right side */
-  border: none;
-  background-color: #053566; /* Dark blue to match sidebar headers */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  user-select: none;
-  box-shadow: 2px 2px 12px rgba(33,37,41,0.11); /* Consistent shadow */
-  color: #fff; /* White icon color */
-  font-size: 24px; /* Size for the SVG icon */
-  transition: background-color 0.3s ease; /* Smooth hover effect */
-  padding: 0; /* Remove default button padding */
-}
+  // Get form references after insertion
+  const nameSelectInd = document.getElementById("nameSelectIndependent");
+  const phoneInputInd = document.getElementById("phoneInputIndependent");
+  const messageTypeSelectInd = document.getElementById("messageTypeSelectIndependent");
+  const formInd = document.getElementById("notificationFormIndependent");
+  const formStatusInd = document.getElementById("formStatusIndependent");
 
-/* Hover effect for the fixed "i" icon */
-#notificationSidebarIconTrigger:hover {
-  background-color: #074075; /* Slightly darker on hover */
-}
+  // Prepopulate phone input from name selection
+  const phoneLookupInd = {
+    Grace: "6587832760",
+    Shailesh: "6589485304",
+    Aaron: "6598250480",
+    Prasanna: "6594691615",
+    Surapong: "",
+    Kenny: "",
+  };
+  nameSelectInd.addEventListener("change", () => {
+    phoneInputInd.value = phoneLookupInd[nameSelectInd.value] || "";
+  });
 
-#notificationSidebarIconTrigger svg {
-    display: block; /* Ensure SVG takes full space and is centered */
-}
-
-/* Remove styling for the now unused integrated handle */
-/* The following section is removed as the handle is no longer part of the sliding sidebar */
-/*
-.notification-offcanvas-handle { ... }
-.notification-offcanvas-handle .handle-text { ... }
-.notification-offcanvas-handle svg { ... }
-.notification-offcanvas-handle:hover { ... }
-.notification-offcanvas-handle:hover .handle-text { ... }
-.notification-offcanvas-handle:hover svg { ... }
-*/
-
-/* No longer needed as we're not using the left-aligned .contact-sidebar directly for the tab behavior */
-/*
-.contact-sidebar.left-aligned { ... }
-.contact-sidebar.left-aligned.expanded { ... }
-.sidebar-header.left-aligned-header { ... }
-.contact-sidebar.left-aligned.expanded .left-aligned-header { ... }
-.sidebar-header.left-aligned-header svg { ... }
-.sidebar-header.left-aligned-header .header-text { ... }
-.sidebar-header.left-aligned-header:hover .header-text { ... }
-*/
-
-/* General styling for contact links within the sidebar - applies to both */
-/* (This section is kept as it applies to the content inside the sidebar forms) */
-.contact-sidebar .contact-links {
-  padding: 12px 0 8px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.contact-sidebar .contact-link {
-  background-color: #ffffff;
-  color: #000000 !important;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  transition: background-color 0.3s, color 0.3s;
-  text-decoration: none !important;
-  border: none;
-  outline: none;
-  box-shadow: 0 1px 4px rgba(33, 37, 41, 0.07);
-  margin: 0 10px;
-}
-.contact-sidebar .contact-link:hover,
-.contact-sidebar .contact-link:focus {
-  background-color: #e2e6ea;
-  color: #000000 !important;
-}
-.contact-sidebar .contact-link img {
-  width: 28px;
-  height: 28px;
-  margin-right: 12px;
-}
-/* ===== END Notification Sidebar (Left Aligned, Independent) ===== */
+  // Form submit handler with webhook POST
+  formInd.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = {
+      Name: nameSelectInd.value,
+      Phone: phoneInputInd.value,
+      messageType: messageTypeSelectInd.value,
+    };
+    fetch("https://hooks.us.webexconnect.io/events/PLI95JDMQF", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Network response was not ok");
+        return response.json();
+      })
+      .then((result) => {
+        console.log("Webhook success:", result);
+        formStatusInd.textContent = "Message sent successfully!";
+        formStatusInd.style.display = "block";
+      })
+      .catch((error) => {
+        console.error("Webhook error:", error);
+        formStatusInd.textContent = "Message failed!";
+        formStatusInd.style.display = "block";
+      });
+    setTimeout(() => {
+      formStatusInd.style.display = "none";
+      formStatusInd.textContent = "Message sent!";
+    }, 3000);
+    formInd.reset();
+  });
+});
+// ===== END Independent Notification Sidebar (Left Aligned) Logic =====
