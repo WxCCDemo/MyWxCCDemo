@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
         <!-- Submit -->
-        <button type="submit" class="btn btn-danger w-100">Send Message</button>
+        <button type="submit" class="btn btn-primary w-100">Send Message</button>
       </form>
     </div>
   `;
@@ -230,13 +230,13 @@ document.addEventListener("DOMContentLoaded", function () {
   // Add to body
   document.body.appendChild(proactiveSidebar);
 
-  // Floating trigger button
+  // Floating trigger button (with custom icon)
   const proactiveTrigger = document.createElement("button");
   proactiveTrigger.id = "notificationSidebarIconTrigger";
   proactiveTrigger.setAttribute("data-bs-toggle", "offcanvas");
   proactiveTrigger.setAttribute("data-bs-target", "#notificationOffcanvasIndependent");
   proactiveTrigger.setAttribute("aria-controls", "notificationOffcanvasIndependent");
-  proactiveTrigger.innerHTML = `<i class="bi bi-chat-dots"></i>`; // Bootstrap chat icon
+  proactiveTrigger.innerHTML = `<img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/informationicon.png" alt="Info Icon">`;
 
   document.body.appendChild(proactiveTrigger);
 });
