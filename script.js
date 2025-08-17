@@ -179,31 +179,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// ===== START Independent Notification Sidebar + Icon Injection & Logic =====
+// ===== START Independent Notification Sidebar (Left Aligned) Logic =====
 document.addEventListener("DOMContentLoaded", () => {
-
-  // Check if Bootstrap is loaded. If not, log a warning.
-  if (typeof bootstrap === 'undefined') {
-    console.warn('Bootstrap JavaScript is not loaded. The Offcanvas notification sidebar may not function correctly. Please ensure bootstrap.bundle.min.js is included.');
-  }
-
-  // Insert Offcanvas sidebar HTML if missing
-  if (!document.getElementById("notificationOffcanvasIndependent")) {
-    const offcanvasHtml = `
-      <div class="offcanvas offcanvas-start" tabindex="-1" id="notificationOffcanvasIndependent" aria-labelledby="notificationOffcanvasLabel" style="width: 300px;">
-        <div class="notification-offcanvas-handle" id="notificationOffcanvasHandle" tabindex="0" role="button" aria-label="Toggle Notification Sidebar">
+  // Insert sidebar HTML if missing
+  if (!document.getElementById("notificationSidebarIndependent")) {
+    const sidebarHtml = `
+      <div class="contact-sidebar left-aligned" id="notificationSidebarIndependent" aria-expanded="false">
+        <div class="sidebar-header left-aligned-header" id="notificationSidebarHandle" tabindex="0" role="button" aria-label="Toggle Notification Sidebar">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
             <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.057.435.183.435.37v.296c0 .27-.107.394-.356.474l-.45.084-.082.38 2.29-.287.082-.38-.45-.083c-.294-.057-.435-.183-.435-.37V7.23c0-.27.107-.394.356-.474z"/>
             <path d="M7.004 11.352a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0"/>
           </svg>
-          <span class="handle-text">Info</span>
+          <span class="header-text">Info</span>
         </div>
-        <div class="offcanvas-header" style="background-color:#053566; color:#fff;">
-          <h5 class="offcanvas-title" id="notificationOffcanvasLabel">Notifications & Offers</h5>
-          <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
+        <div class="contact-links p-3">
           <form id="notificationFormIndependent">
             <div class="mb-3">
               <label for="nameSelectIndependent" class="form-label fw-semibold">Name</label>
@@ -243,50 +233,85 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
     `;
-    document.body.insertAdjacentHTML("beforeend", offcanvasHtml);
+    document.body.insertAdjacentHTML("beforeend", sidebarHtml);
   }
 
-  // No separate icon trigger HTML needed anymore
-  const notificationOffcanvas = new bootstrap.Offcanvas(document.getElementById('notificationOffcanvasIndependent'));
-  const notificationOffcanvasElement = document.getElementById('notificationOffcanvasIndependent');
-  const notificationOffcanvasHandle = document.getElementById('notificationOffcanvasHandle');
-
-  // Add click listener to the new handle
-  if (notificationOffcanvasHandle) {
-    notificationOffcanvasHandle.addEventListener('click', () => {
-      notificationOffcanvas.show();
-    });
-  }
-
-  // Hide the handle when Offcanvas is shown
-  notificationOffcanvasElement.addEventListener('show.bs.offcanvas', () => {
-    if (notificationOffcanvasHandle) {
-      notificationOffcanvasHandle.style.opacity = '0';
-      notificationOffcanvasHandle.style.pointerEvents = 'none'; // Disable clicks when hidden
-    }
-  });
-
-  // Show the handle when Offcanvas is hidden
-  notificationOffcanvasElement.addEventListener('hidden.bs.offcanvas', () => {
-    if (notificationOffcanvasHandle) {
-      notificationOffcanvasHandle.style.opacity = '1';
-      notificationOffcanvasHandle.style.pointerEvents = 'auto'; // Enable clicks when visible
-    }
-  });
-
-
-  // Get form references after insertion (rest of your form logic)
+  // Get references after insertion
+  const sidebarInd = document.getElementById("notificationSidebarIndependent");
+  const handleInd = document.getElementById("notificationSidebarHandle");
   const nameSelectInd = document.getElementById("nameSelectIndependent");
   const phoneInputInd = document.getElementById("phoneInputIndependent");
   const messageTypeSelectInd = document.getElementById("messageTypeSelectIndependent");
   const formInd = document.getElementById("notificationFormIndependent");
   const formStatusInd = document.getElementById("formStatusIndependent");
 
+  // Logic for the left sidebar
+  let expandedInd = false;
+  let inactivityTimerInd = null;
+  const INACTIVITY_TIMEOUT_IND = 60000; // 60 seconds
+
+  function openSidebarInd() {
+    sidebarInd.classList.add("expanded");
+    sidebarInd.setAttribute("aria-expanded", "true");
+    expandedInd = true;
+    startInactivityTimerInd();
+  }
+
+  function closeSidebarInd() {
+    sidebarInd.classList.remove("expanded");
+    sidebarInd.setAttribute("aria-expanded", "false");
+    expandedInd = false;
+    clearTimeout(inactivityTimerInd);
+    inactivityTimerInd = null;
+  }
+
+  function toggleSidebarInd() {
+    expandedInd ? closeSidebarInd() : openSidebarInd();
+  }
+
+  function startInactivityTimerInd() {
+    clearTimeout(inactivityTimerInd);
+    inactivityTimerInd = setTimeout(() => {
+      if (expandedInd) {
+        closeSidebarInd();
+      }
+    }, INACTIVITY_TIMEOUT_IND);
+  }
+
+  // Handle click to toggle left sidebar
+  handleInd.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleSidebarInd();
+  });
+
+  // Close left sidebar when clicking elsewhere
+  document.addEventListener("click", (e) => {
+    if (!sidebarInd.contains(e.target) && expandedInd) {
+      closeSidebarInd();
+    }
+  });
+
+  // Reset timer on user activity on left sidebar
+  ["mousemove", "keydown", "touchstart"].forEach((eventType) => {
+    sidebarInd.addEventListener(eventType, () => {
+      if (expandedInd) {
+        startInactivityTimerInd();
+      }
+    });
+  });
+
+  // Ensure left sidebar is closed on load
+  window.addEventListener("load", () => {
+    closeSidebarInd();
+  });
+
+
   // Prepopulate phone input from name selection
   const phoneLookupInd = {
     Grace: "6587832760",
     Shailesh: "6589485304",
     Aaron: "6598250480",
+    Shailesh: "6589485304",
     Prasanna: "6594691615",
     Surapong: "",
     Kenny: "",
@@ -329,4 +354,4 @@ document.addEventListener("DOMContentLoaded", () => {
     formInd.reset();
   });
 });
-// ===== END Independent Notification Sidebar + Icon Injection & Logic =====
+// ===== END Independent Notification Sidebar (Left Aligned) Logic =====
