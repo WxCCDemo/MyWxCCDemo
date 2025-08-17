@@ -133,6 +133,18 @@ body.index .main-content {
   box-shadow: 2px 2px 12px rgba(33, 37, 41, 0.11); /* Custom shadow for depth */
   border-radius: 0 10px 10px 0; /* Rounded on the right exposed side */
   background-color: white; /* Ensure background is white as per original intent */
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1); /* Added transition for smooth override */
+}
+
+/* Override Bootstrap's hidden state to make the handle visible */
+#notificationOffcanvasIndependent.offcanvas-start:not(.show) {
+    /* When offcanvas-start is hidden (doesn't have .show class), move it less than 100% off-screen */
+    transform: translateX(calc(-100% + 60px)) !important; /* 60px is the handle width */
+}
+
+/* Ensure the offcanvas slides fully when shown */
+#notificationOffcanvasIndependent.offcanvas-start.show {
+    transform: translateX(0) !important;
 }
 
 /* New CSS for the integrated handle/tab */
