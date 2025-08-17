@@ -179,67 +179,163 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// ===== START Notification Sidebar Transparent "i" Icon Trigger (Left Aligned) =====
+// ===== START Independent Notification Sidebar + Icon Injection & Logic =====
+document.addEventListener("DOMContentLoaded", () => {
+  // Insert sidebar if missing
+  if (!document.getElementById("notificationSidebarIndependent")) {
+    const sidebarHtml = `
+      <div class="contact-sidebar" id="notificationSidebarIndependent" aria-expanded="false" style="
+        position: fixed; top: 40%; left: 20px; width: 300px; z-index: 1050;
+        box-shadow: 2px 2px 12px rgba(33,37,41,0.11); border-radius: 0 10px 10px 0;
+        background-color: white; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+      ">
+        <div class="sidebar-header" id="notificationToggleIndependent" tabindex="0" role="button" aria-label="Toggle Notification Sidebar Independent" style="background-color:#0a4e8a; cursor:pointer; user-select:none; padding: 10px 15px; color:#fff; font-weight:600;">
+          Notification
+        </div>
+        <div class="contact-links p-3">
+          <form id="notificationFormIndependent">
+            <div class="mb-3">
+              <label for="nameSelectIndependent" class="form-label fw-semibold">Name</label>
+              <select class="form-select" id="nameSelectIndependent" required>
+                <option value="" disabled selected>Select Name</option>
+                <option value="Grace">Grace Loh</option>
+                <option value="Shailesh">Shailesh C</option>
+                <option value="Aaron">Aaron S</option>
+                <option value="Prasanna">Prasanna A</option>
+                <option value="Surapong">Surapong N</option>
+                <option value="Kenny">Kenny L</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="phoneInputIndependent" class="form-label fw-semibold">Phone Number</label>
+              <input list="phoneOptionsIndependent" class="form-control" id="phoneInputIndependent" placeholder="Enter or select phone" required />
+              <datalist id="phoneOptionsIndependent">
+                <option value="6587832760"></option>
+                <option value="6589485304"></option>
+                <option value="6598250480"></option>
+                <option value="6594691615"></option>
+              </datalist>
+            </div>
+            <div class="mb-3">
+              <label for="messageTypeSelectIndependent" class="form-label fw-semibold">Message Type</label>
+              <select class="form-select" id="messageTypeSelectIndependent" required>
+                <option value="" disabled selected>Select Type</option>
+                <option value="Notification">Notification</option>
+                <option value="Offer">Offer</option>
+                <option value="Reminder">Reminder</option>
+                <option value="Chat">Chat</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send</button>
+          </form>
+          <div id="formStatusIndependent" class="mt-2 text-success" style="display:none;">Message sent!</div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML("beforeend", sidebarHtml);
+  }
 
-// Icon button HTML: transparent background, shows only "i"
-if (!document.getElementById("notificationSidebarIconTrigger")) {
-  const iconHtml = `
-    <button id="notificationSidebarIconTrigger"
-            aria-label="Open Notification Sidebar"
-            style="
-              position: fixed;
-              top: 40%;
-              left: 10px;
-              z-index: 1060;
-              width: 44px;
-              height: 44px;
-              border-radius: 50%;
-              border: none;
-              background: transparent;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size: 24px;
-              color: #0a4e8a;
-              cursor: pointer;">
-      <span style="font-family:sans-serif; font-weight:bold;">i</span>
-    </button>
-  `;
-  document.body.insertAdjacentHTML("beforeend", iconHtml);
-}
+  // Insert icon if missing
+  if (!document.getElementById("notificationSidebarIconTrigger")) {
+    const iconHtml = `
+      <button id="notificationSidebarIconTrigger" aria-label="Toggle Notification Sidebar" style="
+        position: fixed; top: 40%; left: 10px; z-index: 1060;
+        width: 44px; height: 44px; border-radius: 50%; border: none;
+        background: transparent; display: flex; align-items: center; justify-content: center;
+        font-size: 24px; color: #0a4e8a; cursor: pointer; user-select: none;
+      ">
+        <span style="font-family:sans-serif; font-weight:bold;">i</span>
+      </button>
+    `;
+    document.body.insertAdjacentHTML("beforeend", iconHtml);
+  }
 
-// Sidebar toggle logic
-const sidebarInd = document.getElementById("notificationSidebarIndependent");
-const iconTrigger = document.getElementById("notificationSidebarIconTrigger");
+  // Get references after insertion
+  const sidebarInd = document.getElementById("notificationSidebarIndependent");
+  const iconTrigger = document.getElementById("notificationSidebarIconTrigger");
+  const nameSelectInd = document.getElementById("nameSelectIndependent");
+  const phoneInputInd = document.getElementById("phoneInputIndependent");
+  const messageTypeSelectInd = document.getElementById("messageTypeSelectIndependent");
+  const formInd = document.getElementById("notificationFormIndependent");
+  const formStatusInd = document.getElementById("formStatusIndependent");
 
-let expandedInd = false;
-function toggleSidebarInd() {
-  expandedInd = !expandedInd;
-  sidebarInd.classList.toggle("expanded", expandedInd);
-  sidebarInd.setAttribute("aria-expanded", expandedInd);
-}
+  // Toggle sidebar visibility
+  let expandedInd = false;
+  function toggleSidebarInd() {
+    expandedInd = !expandedInd;
+    sidebarInd.classList.toggle("expanded", expandedInd);
+    sidebarInd.setAttribute("aria-expanded", expandedInd);
+  }
 
-// Make icon clickable (opens/closes sidebar)
-iconTrigger.addEventListener("click", (e) => {
-  e.stopPropagation();
-  toggleSidebarInd();
-});
-iconTrigger.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" || e.key === " ") {
+  // Icon click & keyboard handlers
+  iconTrigger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleSidebarInd();
+  });
+  iconTrigger.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleSidebarInd();
+    }
+  });
+
+  // Close sidebar when clicking outside (except icon)
+  document.addEventListener("click", (e) => {
+    if (
+      expandedInd &&
+      !sidebarInd.contains(e.target) &&
+      e.target !== iconTrigger
+    ) {
+      toggleSidebarInd();
+    }
+  });
+
+  // Prepopulate phone input from name selection
+  const phoneLookupInd = {
+    Grace: "6587832760",
+    Shailesh: "6589485304",
+    Aaron: "6598250480",
+    Prasanna: "6594691615",
+    Surapong: "",
+    Kenny: "",
+  };
+  nameSelectInd.addEventListener("change", () => {
+    phoneInputInd.value = phoneLookupInd[nameSelectInd.value] || "";
+  });
+
+  // Form submit handler with webhook POST
+  formInd.addEventListener("submit", (e) => {
     e.preventDefault();
-    toggleSidebarInd();
-  }
+    const data = {
+      Name: nameSelectInd.value,
+      Phone: phoneInputInd.value,
+      messageType: messageTypeSelectInd.value,
+    };
+    fetch("https://hooks.us.webexconnect.io/events/PLI95JDMQF", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Network response was not ok");
+        return response.json();
+      })
+      .then((result) => {
+        console.log("Webhook success:", result);
+        formStatusInd.textContent = "Message sent successfully!";
+        formStatusInd.style.display = "block";
+      })
+      .catch((error) => {
+        console.error("Webhook error:", error);
+        formStatusInd.textContent = "Message failed!";
+        formStatusInd.style.display = "block";
+      });
+    setTimeout(() => {
+      formStatusInd.style.display = "none";
+      formStatusInd.textContent = "Message sent!";
+    }, 3000);
+    formInd.reset();
+  });
 });
+// ===== END Independent Notification Sidebar + Icon Injection & Logic =====
 
-// Optional: close sidebar by clicking outside
-document.addEventListener("click", function(e) {
-  if (
-    expandedInd &&
-    !sidebarInd.contains(e.target) &&
-    e.target !== iconTrigger
-  ) {
-    toggleSidebarInd();
-  }
-});
-
-// ===== END Notification Sidebar Transparent "i" Icon Trigger (Left Aligned) =====
