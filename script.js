@@ -179,131 +179,65 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// ===== START Independent Notification Sidebar (Left Aligned) Logic =====
-document.addEventListener("DOMContentLoaded", () => {
-  // Ensure Bootstrap JavaScript is loaded
-  if (typeof bootstrap === 'undefined') {
-    console.warn('Bootstrap JavaScript is not loaded. The Offcanvas notification sidebar may not function correctly. Please ensure bootstrap.bundle.min.js is included.');
-  }
+// ===== START Proactive Messaging (Independent Left Sidebar) =====
+document.addEventListener("DOMContentLoaded", function () {
+  // Create offcanvas container
+  const proactiveSidebar = document.createElement("div");
+  proactiveSidebar.className =
+    "offcanvas custom-offcanvas offcanvas-start";
+  proactiveSidebar.id = "notificationOffcanvasIndependent";
+  proactiveSidebar.setAttribute("tabindex", "-1");
+  proactiveSidebar.setAttribute("aria-labelledby", "proactiveSidebarLabel");
+  proactiveSidebar.setAttribute("data-bs-backdrop", "false");
 
-  // Insert Offcanvas sidebar HTML if missing
-  if (!document.getElementById("notificationOffcanvasIndependent")) {
-    const offcanvasHtml = `
-      <div class="offcanvas offcanvas-start" tabindex="-1" id="notificationOffcanvasIndependent" aria-labelledby="notificationOffcanvasLabel" style="width: 260px;">
-        <div class="offcanvas-header" style="background-color:#053566; color:#fff;">
-          <h5 class="offcanvas-title" id="notificationOffcanvasLabel">Notifications & Offers</h5>
-          <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  // Offcanvas content
+  proactiveSidebar.innerHTML = `
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="proactiveSidebarLabel">Proactive Messaging</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <form>
+        <!-- Name field -->
+        <div class="mb-3">
+          <label for="proactiveName" class="form-label">Name</label>
+          <input type="text" class="form-control" id="proactiveName" placeholder="Enter Name or Select">
         </div>
-        <div class="offcanvas-body">
-          <form id="notificationFormIndependent">
-            <div class="mb-3">
-              <label for="nameSelectIndependent" class="form-label fw-semibold">Name</label>
-              <select class="form-select" id="nameSelectIndependent" required>
-                <option value="" disabled selected>Select Name</option>
-                <option value="Grace">Grace Loh</option>
-                <option value="Shailesh">Shailesh C</option>
-                <option value="Aaron">Aaron S</option>
-                <option value="Prasanna">Prasanna A</option>
-                <option value="Surapong">Surapong N</option>
-                <option value="Kenny">Kenny L</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="phoneInputIndependent" class="form-label fw-semibold">Phone Number</label>
-              <input list="phoneOptionsIndependent" class="form-control" id="phoneInputIndependent" placeholder="Enter or select phone" required />
-              <datalist id="phoneOptionsIndependent">
-                <option value="6587832760"></option>
-                <option value="6589485304"></option>
-                <option value="6598250480"></option>
-                <option value="6594691615"></option>
-              </datalist>
-            </div>
-            <div class="mb-3">
-              <label for="messageTypeSelectIndependent" class="form-label fw-semibold">Message Type</label>
-              <select class="form-select" id="messageTypeSelectIndependent" required>
-                <option value="" disabled selected>Select Type</option>
-                <option value="Notification">Notification</option>
-                <option value="Offer">Offer</option>
-                <option value="Reminder">Reminder</option>
-                <option value="Chat">Chat</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Send</button>
-          </form>
-          <div id="formStatusIndependent" class="mt-2 text-success" style="display:none;">Message sent!</div>
+
+        <!-- Phone field -->
+        <div class="mb-3">
+          <label for="proactivePhone" class="form-label">Phone</label>
+          <input type="tel" class="form-control" id="proactivePhone" placeholder="Enter or Select Phone">
         </div>
-      </div>
-    `;
-    document.body.insertAdjacentHTML("beforeend", offcanvasHtml);
-  }
 
-  // Insert fixed "i" icon trigger if missing (re-introducing this)
-  if (!document.getElementById("notificationSidebarIconTrigger")) {
-    const iconHtml = `
-      <button id="notificationSidebarIconTrigger" aria-label="Toggle Notification Sidebar" type="button"
-              data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvasIndependent" aria-controls="notificationOffcanvasIndependent">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-          <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.057.435.183.435.37v.296c0 .27-.107.394-.356.474l-.45.084-.082.38 2.29-.287.082-.38-.45-.083c-.294-.057-.435-.183-.435-.37V7.23c0-.27.107-.394.356-.474z"/>
-          <path d="M7.004 11.352a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0"/>
-        </svg>
-      </button>
-    `;
-    document.body.insertAdjacentHTML("beforeend", iconHtml);
-  }
+        <!-- Message Type field -->
+        <div class="mb-3">
+          <label for="proactiveType" class="form-label">Message Type</label>
+          <select class="form-select" id="proactiveType">
+            <option selected>Select Message Type</option>
+            <option value="welcome">Welcome</option>
+            <option value="reminder">Reminder</option>
+            <option value="promotion">Promotion</option>
+          </select>
+        </div>
 
-  // Get form references after insertion
-  const nameSelectInd = document.getElementById("nameSelectIndependent");
-  const phoneInputInd = document.getElementById("phoneInputIndependent");
-  const messageTypeSelectInd = document.getElementById("messageTypeSelectIndependent");
-  const formInd = document.getElementById("notificationFormIndependent");
-  const formStatusInd = document.getElementById("formStatusIndependent");
+        <!-- Submit -->
+        <button type="submit" class="btn btn-danger w-100">Send Message</button>
+      </form>
+    </div>
+  `;
 
-  // Prepopulate phone input from name selection
-  const phoneLookupInd = {
-    Grace: "6587832760",
-    Shailesh: "6589485304",
-    Aaron: "6598250480",
-    Prasanna: "6594691615",
-    Surapong: "",
-    Kenny: "",
-  };
-  nameSelectInd.addEventListener("change", () => {
-    phoneInputInd.value = phoneLookupInd[nameSelectInd.value] || "";
-  });
+  // Add to body
+  document.body.appendChild(proactiveSidebar);
 
-  // Form submit handler with webhook POST
-  formInd.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const data = {
-      Name: nameSelectInd.value,
-      Phone: phoneInputInd.value,
-      messageType: messageTypeSelectInd.value,
-    };
-    fetch("https://hooks.us.webexconnect.io/events/PLI95JDMQF", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json();
-      })
-      .then((result) => {
-        console.log("Webhook success:", result);
-        formStatusInd.textContent = "Message sent successfully!";
-        formStatusInd.style.display = "block";
-      })
-      .catch((error) => {
-        console.error("Webhook error:", error);
-        formStatusInd.textContent = "Message failed!";
-        formStatusInd.style.display = "block";
-      });
-    setTimeout(() => {
-      formStatusInd.style.display = "none";
-      formStatusInd.textContent = "Message sent!";
-    }, 3000);
-    formInd.reset();
-  });
+  // Floating trigger button
+  const proactiveTrigger = document.createElement("button");
+  proactiveTrigger.id = "notificationSidebarIconTrigger";
+  proactiveTrigger.setAttribute("data-bs-toggle", "offcanvas");
+  proactiveTrigger.setAttribute("data-bs-target", "#notificationOffcanvasIndependent");
+  proactiveTrigger.setAttribute("aria-controls", "notificationOffcanvasIndependent");
+  proactiveTrigger.innerHTML = `<i class="bi bi-chat-dots"></i>`; // Bootstrap chat icon
+
+  document.body.appendChild(proactiveTrigger);
 });
-// ===== END Independent Notification Sidebar (Left Aligned) Logic =====
+// ===== END Proactive Messaging (Independent Left Sidebar) =====
