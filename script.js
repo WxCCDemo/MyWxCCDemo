@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!document.getElementById("notificationOffcanvasIndependent")) {
     const offcanvasHtml = `
       <div class="offcanvas offcanvas-start" tabindex="-1" id="notificationOffcanvasIndependent" aria-labelledby="notificationOffcanvasLabel" style="width: 300px;">
-        <div class="offcanvas-header" style="background-color:#0a4e8a; color:#fff;">
+        <div class="offcanvas-header" style="background-color:#053566; color:#fff;">
           <h5 class="offcanvas-title" id="notificationOffcanvasLabel">Notifications & Offers</h5>
           <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
