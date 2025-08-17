@@ -178,9 +178,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// ===== START Notification Sidebar Icon Trigger (Left Aligned) =====
 
-// Insert icon button HTML for left trigger
+// ===== START Notification Sidebar Transparent "i" Icon Trigger (Left Aligned) =====
+
+// Icon button HTML: transparent background, shows only "i"
 if (!document.getElementById("notificationSidebarIconTrigger")) {
   const iconHtml = `
     <button id="notificationSidebarIconTrigger"
@@ -190,27 +191,27 @@ if (!document.getElementById("notificationSidebarIconTrigger")) {
               top: 40%;
               left: 10px;
               z-index: 1060;
-              width: 48px;
-              height: 48px;
+              width: 44px;
+              height: 44px;
               border-radius: 50%;
               border: none;
-              background: #0a4e8a;
+              background: transparent;
               display: flex;
               align-items: center;
               justify-content: center;
-              box-shadow: 2px 2px 10px rgba(0,0,0,.14);
+              font-size: 24px;
+              color: #0a4e8a;
               cursor: pointer;">
-      <img src="../assets/notification-icon.png" alt="Notification" style="width:26px;height:26px;">
+      <span style="font-family:sans-serif; font-weight:bold;">i</span>
     </button>
   `;
   document.body.insertAdjacentHTML("beforeend", iconHtml);
 }
 
-// Notification sidebar toggle logic
+// Sidebar toggle logic
 const sidebarInd = document.getElementById("notificationSidebarIndependent");
 const iconTrigger = document.getElementById("notificationSidebarIconTrigger");
 
-// Handle icon button click for opening/closing sidebar
 let expandedInd = false;
 function toggleSidebarInd() {
   expandedInd = !expandedInd;
@@ -218,8 +219,11 @@ function toggleSidebarInd() {
   sidebarInd.setAttribute("aria-expanded", expandedInd);
 }
 
-// Open panel when icon clicked
-iconTrigger.addEventListener("click", toggleSidebarInd);
+// Make icon clickable (opens/closes sidebar)
+iconTrigger.addEventListener("click", (e) => {
+  e.stopPropagation();
+  toggleSidebarInd();
+});
 iconTrigger.addEventListener("keydown", (e) => {
   if (e.key === "Enter" || e.key === " ") {
     e.preventDefault();
@@ -227,7 +231,7 @@ iconTrigger.addEventListener("keydown", (e) => {
   }
 });
 
-// Optionally, clicking anywhere outside sidebar closes it
+// Optional: close sidebar by clicking outside
 document.addEventListener("click", function(e) {
   if (
     expandedInd &&
@@ -237,4 +241,5 @@ document.addEventListener("click", function(e) {
     toggleSidebarInd();
   }
 });
-// ===== END Notification Sidebar Icon Trigger (Left Aligned) =====
+
+// ===== END Notification Sidebar Transparent "i" Icon Trigger (Left Aligned) =====
