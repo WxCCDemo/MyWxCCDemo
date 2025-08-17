@@ -141,37 +141,44 @@ body.index .main-content {
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-/* Header styling */
+/* Header styling (neutral, same as right sidebar) */
 #notificationOffcanvasIndependent .offcanvas-header {
-  background-color: #053566;
-  color: #fff;
+  background-color: #f8f9fa; /* light neutral */
+  color: #333;
   border-radius: 0 12px 0 0;
+  border-bottom: 1px solid #ddd;
 }
 
 /* Close button */
 #notificationOffcanvasIndependent .btn-close {
-  filter: invert(1);
+  filter: none;
 }
 
-/* Floating trigger button (bottom left) */
+/* Floating trigger button (bottom left, neutral with icon) */
 #notificationSidebarIconTrigger {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  background: #e60000;
-  color: white;
+  background: transparent;
   border: none;
   border-radius: 50%;
-  padding: 14px;
   cursor: pointer;
   z-index: 1060;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  font-size: 22px;
-  line-height: 1;
-  transition: background 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
 }
 
 #notificationSidebarIconTrigger:hover {
-  background: #b80000;
+  transform: scale(1.1);
+}
+
+#notificationSidebarIconTrigger img {
+  width: 28px;
+  height: 28px;
 }
 /* ===== END Proactive Messaging (Independent Left Sidebar) ===== */
