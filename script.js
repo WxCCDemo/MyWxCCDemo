@@ -184,11 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Insert sidebar if missing
   if (!document.getElementById("notificationSidebarIndependent")) {
     const sidebarHtml = `
-      <div class="contact-sidebar" id="notificationSidebarIndependent" aria-expanded="false" style="
-        position: fixed; top: 40%; left: 20px; width: 300px; z-index: 1050;
-        box-shadow: 2px 2px 12px rgba(33,37,41,0.11); border-radius: 0 10px 10px 0;
-        background-color: white; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(.4,0,.2,1);
-      ">
+      <div class="contact-sidebar" id="notificationSidebarIndependent" aria-expanded="false">
         <div class="sidebar-header" id="notificationToggleIndependent" tabindex="0" role="button" aria-label="Toggle Notification Sidebar Independent" style="background-color:#0a4e8a; cursor:pointer; user-select:none; padding: 10px 15px; color:#fff; font-weight:600;">
           Notification
         </div>
@@ -338,4 +334,3 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 // ===== END Independent Notification Sidebar + Icon Injection & Logic =====
-
