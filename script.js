@@ -181,14 +181,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ===== START Independent Notification Sidebar + Icon Injection & Logic =====
 document.addEventListener("DOMContentLoaded", () => {
-  // Insert sidebar if missing
-  if (!document.getElementById("notificationSidebarIndependent")) {
-    const sidebarHtml = `
-      <div class="contact-sidebar" id="notificationSidebarIndependent" aria-expanded="false">
-        <div class="sidebar-header" id="notificationToggleIndependent" tabindex="0" role="button" aria-label="Toggle Notification Sidebar Independent" style="background-color:#0a4e8a; cursor:pointer; user-select:none; padding: 10px 15px; color:#fff; font-weight:600;">
-          Notification
+
+  // Check if Bootstrap is loaded. If not, log a warning.
+  if (typeof bootstrap === 'undefined') {
+    console.warn('Bootstrap JavaScript is not loaded. The Offcanvas notification sidebar may not function correctly. Please ensure bootstrap.bundle.min.js is included.');
+  }
+
+  // Insert Offcanvas sidebar HTML if missing
+  if (!document.getElementById("notificationOffcanvasIndependent")) {
+    const offcanvasHtml = `
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="notificationOffcanvasIndependent" aria-labelledby="notificationOffcanvasLabel" style="width: 300px;">
+        <div class="offcanvas-header" style="background-color:#0a4e8a; color:#fff;">
+          <h5 class="offcanvas-title" id="notificationOffcanvasLabel">Notifications & Offers</h5>
+          <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="contact-links p-3">
+        <div class="offcanvas-body">
           <form id="notificationFormIndependent">
             <div class="mb-3">
               <label for="nameSelectIndependent" class="form-label fw-semibold">Name</label>
@@ -228,63 +235,36 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
     `;
-    document.body.insertAdjacentHTML("beforeend", sidebarHtml);
+    document.body.insertAdjacentHTML("beforeend", offcanvasHtml);
   }
 
-  // Insert icon if missing
+  // Insert icon (trigger button) if missing
   if (!document.getElementById("notificationSidebarIconTrigger")) {
     const iconHtml = `
-      <button id="notificationSidebarIconTrigger" aria-label="Toggle Notification Sidebar" style="
-        position: fixed; top: 40%; left: 10px; z-index: 1060;
-        width: 44px; height: 44px; border-radius: 50%; border: none;
-        background: transparent; display: flex; align-items: center; justify-content: center;
-        font-size: 24px; color: #0a4e8a; cursor: pointer; user-select: none;
+      <button class="btn p-0" id="notificationSidebarIconTrigger" aria-label="Toggle Notification Sidebar" type="button" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvasIndependent" aria-controls="notificationOffcanvasIndependent" style="
+        position: fixed; top: 40%; left: 0px; z-index: 1060;
+        width: 44px; height: 44px; border-radius: 0 50% 50% 0; border: none;
+        background-color: #0a4e8a; display: flex; align-items: center; justify-content: center;
+        color: #fff; cursor: pointer; user-select: none;
+        box-shadow: 2px 2px 12px rgba(33,37,41,0.11);
       ">
-        <span style="font-family:sans-serif; font-weight:bold;">i</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+          <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.057.435.183.435.37v.296c0 .27-.107.394-.356.474l-.45.084-.082.38 2.29-.287.082-.38-.45-.083c-.294-.057-.435-.183-.435-.37V7.23c0-.27.107-.394.356-.474z"/>
+          <path d="M7.004 11.352a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0"/>
+        </svg>
       </button>
     `;
     document.body.insertAdjacentHTML("beforeend", iconHtml);
   }
 
   // Get references after insertion
-  const sidebarInd = document.getElementById("notificationSidebarIndependent");
-  const iconTrigger = document.getElementById("notificationSidebarIconTrigger");
+  // Note: We no longer need to manually toggle classes for sliding
   const nameSelectInd = document.getElementById("nameSelectIndependent");
   const phoneInputInd = document.getElementById("phoneInputIndependent");
   const messageTypeSelectInd = document.getElementById("messageTypeSelectIndependent");
   const formInd = document.getElementById("notificationFormIndependent");
   const formStatusInd = document.getElementById("formStatusIndependent");
-
-  // Toggle sidebar visibility
-  let expandedInd = false;
-  function toggleSidebarInd() {
-    expandedInd = !expandedInd;
-    sidebarInd.classList.toggle("expanded", expandedInd);
-    sidebarInd.setAttribute("aria-expanded", expandedInd);
-  }
-
-  // Icon click & keyboard handlers
-  iconTrigger.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleSidebarInd();
-  });
-  iconTrigger.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      toggleSidebarInd();
-    }
-  });
-
-  // Close sidebar when clicking outside (except icon)
-  document.addEventListener("click", (e) => {
-    if (
-      expandedInd &&
-      !sidebarInd.contains(e.target) &&
-      e.target !== iconTrigger
-    ) {
-      toggleSidebarInd();
-    }
-  });
 
   // Prepopulate phone input from name selection
   const phoneLookupInd = {
