@@ -124,117 +124,54 @@ body.index .main-content {
   min-height: 180vh; /* ensures scroll even with little content */
 }
 
-/* ===== START Notification Sidebar (Left Aligned, Independent) ===== */
-/* This section styles the Bootstrap Offcanvas component for the left sidebar */
-#notificationOffcanvasIndependent {
-  top: 40%; /* Custom vertical positioning */
-  left: 0px; /* Ensures it starts from the left edge */
-  width: 260px; /* Width of the sidebar content */
-  box-shadow: 2px 2px 12px rgba(33, 37, 41, 0.11); /* Shadow for depth */
-  border-radius: 0 10px 10px 0; /* Rounded on the right exposed side when open */
-  background-color: white; /* Ensure background is white */
-  /* Bootstrap's .offcanvas-start and .show classes handle transform and transition */
+/* ===== START Proactive Messaging (Independent Left Sidebar) ===== */
+#notificationOffcanvasIndependent.custom-offcanvas {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 300px;
+  max-width: 90vw;
+  height: auto;
+  background: rgba(255, 255, 255, 0.95); /* transparent effect */
+  border-radius: 0 12px 12px 0;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+  border: none;
+  z-index: 1055;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-/* Ensure the entire offcanvas is truly hidden when not shown */
-/* This overrides any partial visibility due to previous custom transforms */
-#notificationOffcanvasIndependent.offcanvas-start:not(.show) {
-    transform: translateX(-100%) !important; /* Move fully off-screen */
-    visibility: hidden !important; /* Ensure it's not visible at all */
+/* Header styling */
+#notificationOffcanvasIndependent .offcanvas-header {
+  background-color: #053566;
+  color: #fff;
+  border-radius: 0 12px 0 0;
 }
 
-/* This ensures the offcanvas slides fully into view when shown */
-#notificationOffcanvasIndependent.offcanvas-start.show {
-    transform: translateX(0) !important;
-    visibility: visible !important;
+/* Close button */
+#notificationOffcanvasIndependent .btn-close {
+  filter: invert(1);
 }
 
-/* Styling for the fixed "i" icon trigger on the left */
+/* Floating trigger button (bottom left) */
 #notificationSidebarIconTrigger {
   position: fixed;
-  top: 50%; /* Center vertically, similar to right sidebar handle */
-  left: 0px; /* Positioned at the absolute left edge */
-  transform: translateY(-50%); /* For perfect vertical centering */
-  z-index: 1060; /* Higher z-index to be above the sidebar when closed */
-  width: 60px; /* Width of the button/tab */
-  height: 48px; /* Height of the button/tab */
-  border-radius: 0 10px 10px 0; /* Rounded on the right side */
+  bottom: 20px;
+  left: 20px;
+  background: #e60000;
+  color: white;
   border: none;
-  background-color: #053566; /* Dark blue to match sidebar headers */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 50%;
+  padding: 14px;
   cursor: pointer;
-  user-select: none;
-  box-shadow: 2px 2px 12px rgba(33,37,41,0.11); /* Consistent shadow */
-  color: #fff; /* White icon color */
-  font-size: 24px; /* Size for the SVG icon */
-  transition: background-color 0.3s ease; /* Smooth hover effect */
-  padding: 0; /* Remove default button padding */
+  z-index: 1060;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  font-size: 22px;
+  line-height: 1;
+  transition: background 0.3s ease;
 }
 
-/* Hover effect for the fixed "i" icon */
 #notificationSidebarIconTrigger:hover {
-  background-color: #074075; /* Slightly darker on hover */
+  background: #b80000;
 }
-
-#notificationSidebarIconTrigger svg {
-    display: block; /* Ensure SVG takes full space and is centered */
-}
-
-/* Remove styling for the now unused integrated handle */
-/* The following section is removed as the handle is no longer part of the sliding sidebar */
-/*
-.notification-offcanvas-handle { ... }
-.notification-offcanvas-handle .handle-text { ... }
-.notification-offcanvas-handle svg { ... }
-.notification-offcanvas-handle:hover { ... }
-.notification-offcanvas-handle:hover .handle-text { ... }
-.notification-offcanvas-handle:hover svg { ... }
-*/
-
-/* No longer needed as we're not using the left-aligned .contact-sidebar directly for the tab behavior */
-/*
-.contact-sidebar.left-aligned { ... }
-.contact-sidebar.left-aligned.expanded { ... }
-.sidebar-header.left-aligned-header { ... }
-.contact-sidebar.left-aligned.expanded .left-aligned-header { ... }
-.sidebar-header.left-aligned-header svg { ... }
-.sidebar-header.left-aligned-header .header-text { ... }
-.sidebar-header.left-aligned-header:hover .header-text { ... }
-*/
-
-/* General styling for contact links within the sidebar - applies to both */
-/* (This section is kept as it applies to the content inside the sidebar forms) */
-.contact-sidebar .contact-links {
-  padding: 12px 0 8px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.contact-sidebar .contact-link {
-  background-color: #ffffff;
-  color: #000000 !important;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  transition: background-color 0.3s, color 0.3s;
-  text-decoration: none !important;
-  border: none;
-  outline: none;
-  box-shadow: 0 1px 4px rgba(33, 37, 41, 0.07);
-  margin: 0 10px;
-}
-.contact-sidebar .contact-link:hover,
-.contact-sidebar .contact-link:focus {
-  background-color: #e2e6ea;
-  color: #000000 !important;
-}
-.contact-sidebar .contact-link img {
-  width: 28px;
-  height: 28px;
-  margin-right: 12px;
-}
-/* ===== END Notification Sidebar (Left Aligned, Independent) ===== */
+/* ===== END Proactive Messaging (Independent Left Sidebar) ===== */
