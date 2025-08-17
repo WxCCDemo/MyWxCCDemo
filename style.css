@@ -123,3 +123,21 @@ body.index .main-content {
   z-index: 10;
   min-height: 180vh; /* ensures scroll even with little content */
 }
+
+/* ===== START Notification Sidebar (Left Aligned, Independent) ===== */
+#notificationSidebarIndependent {
+  position: fixed;
+  top: 40%;
+  left: 20px;                  /* Left-side alignment */
+  width: 300px;
+  z-index: 1050;
+  box-shadow: 2px 2px 12px rgba(33, 37, 41, 0.11);
+  border-radius: 0 10px 10px 0;
+  background-color: white;
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  transform: translateX(-100%); /* Fully hidden off-screen to the left */
+}
+#notificationSidebarIndependent.expanded {
+  transform: translateX(0);     /* Slides in fully visible */
+}
+/* ===== END Notification Sidebar (Left Aligned, Independent) ===== */
