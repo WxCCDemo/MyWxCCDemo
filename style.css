@@ -125,58 +125,87 @@ body.index .main-content {
 }
 
 /* ===== START Notification Sidebar (Left Aligned, Independent) ===== */
-/* This section styles the left-aligned .contact-sidebar to mimic the right one */
-.contact-sidebar.left-aligned {
-  position: fixed;
-  top: 50%; /* Aligned vertically in the middle */
-  left: 0; /* Positioned at the left edge */
-  transform: translateY(-50%) translateX(calc(-100% + 60px)); /* Shows 60px tab from left when closed */
-  background-color: transparent; /* Main sidebar background */
-  border-radius: 0 10px 10px 0; /* Rounded on the right exposed side */
+/* This section styles the Bootstrap Offcanvas component for the left sidebar */
+#notificationOffcanvasIndependent {
+  top: 40%; /* Custom vertical positioning */
+  left: 0px; /* Ensures it starts from the left edge */
+  width: 260px; /* Width of the sidebar content */
   box-shadow: 2px 2px 12px rgba(33, 37, 41, 0.11); /* Shadow for depth */
-  z-index: 1000;
-  transition: transform 0.4s cubic-bezier(.4,0,.2,1); /* Smooth sliding animation */
-  width: 260px; /* Adjust width to match the right sidebar */
-}
-.contact-sidebar.left-aligned.expanded {
-  transform: translateY(-50%) translateX(0); /* Slides fully into view when expanded */
+  border-radius: 0 10px 10px 0; /* Rounded on the right exposed side when open */
+  background-color: white; /* Ensure background is white */
+  /* Bootstrap's .offcanvas-start and .show classes handle transform and transition */
 }
 
-.sidebar-header.left-aligned-header { /* This is the handle for the left sidebar */
-  background-color: #053566; /* Dark blue header to match right sidebar */
-  color: white;
+/* Ensure the entire offcanvas is truly hidden when not shown */
+/* This overrides any partial visibility due to previous custom transforms */
+#notificationOffcanvasIndependent.offcanvas-start:not(.show) {
+    transform: translateX(-100%) !important; /* Move fully off-screen */
+    visibility: hidden !important; /* Ensure it's not visible at all */
+}
+
+/* This ensures the offcanvas slides fully into view when shown */
+#notificationOffcanvasIndependent.offcanvas-start.show {
+    transform: translateX(0) !important;
+    visibility: visible !important;
+}
+
+/* Styling for the fixed "i" icon trigger on the left */
+#notificationSidebarIconTrigger {
+  position: fixed;
+  top: 50%; /* Center vertically, similar to right sidebar handle */
+  left: 0px; /* Positioned at the absolute left edge */
+  transform: translateY(-50%); /* For perfect vertical centering */
+  z-index: 1060; /* Higher z-index to be above the sidebar when closed */
+  width: 60px; /* Width of the button/tab */
+  height: 48px; /* Height of the button/tab */
+  border-radius: 0 10px 10px 0; /* Rounded on the right side */
+  border: none;
+  background-color: #053566; /* Dark blue to match sidebar headers */
   display: flex;
   align-items: center;
-  padding: 10px 18px;
-  font-weight: 600;
+  justify-content: center;
   cursor: pointer;
-  border-radius: 0 0 10px 0; /* Rounded at the bottom-right for a consistent "tab" look */
-  /* Adjustments for icon/text alignment and hover effects for left sidebar */
-  flex-direction: row-reverse; /* Puts icon on the right for left tab */
-  justify-content: flex-end; /* Aligns content to the right edge when closed */
+  user-select: none;
+  box-shadow: 2px 2px 12px rgba(33,37,41,0.11); /* Consistent shadow */
+  color: #fff; /* White icon color */
+  font-size: 24px; /* Size for the SVG icon */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  padding: 0; /* Remove default button padding */
 }
 
-.contact-sidebar.left-aligned.expanded .left-aligned-header {
-  justify-content: flex-start; /* Aligns content to the left when open */
+/* Hover effect for the fixed "i" icon */
+#notificationSidebarIconTrigger:hover {
+  background-color: #074075; /* Slightly darker on hover */
 }
 
-.sidebar-header.left-aligned-header svg {
-  margin-left: 12px; /* Space between icon and text (reverse of right sidebar) */
-  margin-right: 0; /* No right margin */
+#notificationSidebarIconTrigger svg {
+    display: block; /* Ensure SVG takes full space and is centered */
 }
 
-.sidebar-header.left-aligned-header .header-text {
-  margin-left: 0; /* No left margin initially for text */
-  margin-right: 12px; /* Space on the right for text */
-}
+/* Remove styling for the now unused integrated handle */
+/* The following section is removed as the handle is no longer part of the sliding sidebar */
+/*
+.notification-offcanvas-handle { ... }
+.notification-offcanvas-handle .handle-text { ... }
+.notification-offcanvas-handle svg { ... }
+.notification-offcanvas-handle:hover { ... }
+.notification-offcanvas-handle:hover .handle-text { ... }
+.notification-offcanvas-handle:hover svg { ... }
+*/
 
-/* Overriding right sidebar hover for consistent left sidebar hover */
-.sidebar-header.left-aligned-header:hover .header-text {
-  opacity: 1; /* Make text visible on hover */
-}
-
+/* No longer needed as we're not using the left-aligned .contact-sidebar directly for the tab behavior */
+/*
+.contact-sidebar.left-aligned { ... }
+.contact-sidebar.left-aligned.expanded { ... }
+.sidebar-header.left-aligned-header { ... }
+.contact-sidebar.left-aligned.expanded .left-aligned-header { ... }
+.sidebar-header.left-aligned-header svg { ... }
+.sidebar-header.left-aligned-header .header-text { ... }
+.sidebar-header.left-aligned-header:hover .header-text { ... }
+*/
 
 /* General styling for contact links within the sidebar - applies to both */
+/* (This section is kept as it applies to the content inside the sidebar forms) */
 .contact-sidebar .contact-links {
   padding: 12px 0 8px 0;
   display: flex;
