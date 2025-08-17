@@ -180,64 +180,130 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ===== START Proactive Messaging (Independent Left Sidebar) =====
-document.addEventListener("DOMContentLoaded", function () {
-  // Create offcanvas container
-  const proactiveSidebar = document.createElement("div");
-  proactiveSidebar.className =
-    "offcanvas custom-offcanvas offcanvas-start";
-  proactiveSidebar.id = "notificationOffcanvasIndependent";
-  proactiveSidebar.setAttribute("tabindex", "-1");
-  proactiveSidebar.setAttribute("aria-labelledby", "proactiveSidebarLabel");
-  proactiveSidebar.setAttribute("data-bs-backdrop", "false");
-
-  // Offcanvas content
-  proactiveSidebar.innerHTML = `
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="proactiveSidebarLabel">Proactive Messaging</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <form>
-        <!-- Name field -->
-        <div class="mb-3">
-          <label for="proactiveName" class="form-label">Name</label>
-          <input type="text" class="form-control" id="proactiveName" placeholder="Enter Name or Select">
+// ===== START Independent Notification Sidebar (Left Aligned) =====
+document.addEventListener("DOMContentLoaded", () => {
+  // ---------------------------
+  // Insert Sidebar HTML
+  // ---------------------------
+  if (!document.getElementById("notificationOffcanvasIndependent")) {
+    const offcanvasHtml = `
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="notificationOffcanvasIndependent" aria-labelledby="notificationOffcanvasLabel" style="width: 260px;">
+        <div class="offcanvas-header" style="background-color:#053566; color:#fff;">
+          <h5 class="offcanvas-title" id="notificationOffcanvasLabel">Notifications & Offers</h5>
+          <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-
-        <!-- Phone field -->
-        <div class="mb-3">
-          <label for="proactivePhone" class="form-label">Phone</label>
-          <input type="tel" class="form-control" id="proactivePhone" placeholder="Enter or Select Phone">
+        <div class="offcanvas-body">
+          <form id="notificationFormIndependent">
+            <div class="mb-3">
+              <label for="nameSelectIndependent" class="form-label fw-semibold">Name</label>
+              <select class="form-select" id="nameSelectIndependent" required>
+                <option value="" disabled selected>Select Name</option>
+                <option value="Grace">Grace Loh</option>
+                <option value="Shailesh">Shailesh C</option>
+                <option value="Aaron">Aaron S</option>
+                <option value="Prasanna">Prasanna A</option>
+                <option value="Surapong">Surapong N</option>
+                <option value="Kenny">Kenny L</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="phoneInputIndependent" class="form-label fw-semibold">Phone Number</label>
+              <input list="phoneOptionsIndependent" class="form-control" id="phoneInputIndependent" placeholder="Enter or select phone" required />
+              <datalist id="phoneOptionsIndependent">
+                <option value="6587832760"></option>
+                <option value="6589485304"></option>
+                <option value="6598250480"></option>
+                <option value="6594691615"></option>
+              </datalist>
+            </div>
+            <div class="mb-3">
+              <label for="messageTypeSelectIndependent" class="form-label fw-semibold">Message Type</label>
+              <select class="form-select" id="messageTypeSelectIndependent" required>
+                <option value="" disabled selected>Select Type</option>
+                <option value="Notification">Notification</option>
+                <option value="Offer">Offer</option>
+                <option value="Reminder">Reminder</option>
+                <option value="Chat">Chat</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send</button>
+          </form>
+          <div id="formStatusIndependent" class="mt-2 text-success" style="display:none;">Message sent!</div>
         </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML("beforeend", offcanvasHtml);
+  }
 
-        <!-- Message Type field -->
-        <div class="mb-3">
-          <label for="proactiveType" class="form-label">Message Type</label>
-          <select class="form-select" id="proactiveType">
-            <option selected>Select Message Type</option>
-            <option value="welcome">Welcome</option>
-            <option value="reminder">Reminder</option>
-            <option value="promotion">Promotion</option>
-          </select>
-        </div>
+  // ---------------------------
+  // Insert floating "i" icon
+  // ---------------------------
+  if (!document.getElementById("notificationSidebarIconTrigger")) {
+    const iconHtml = `
+      <button id="notificationSidebarIconTrigger" aria-label="Toggle Notification Sidebar" type="button" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvasIndependent" aria-controls="notificationOffcanvasIndependent">
+        <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/informationicon.png" alt="Info" style="width:24px; height:24px;">
+      </button>
+    `;
+    document.body.insertAdjacentHTML("beforeend", iconHtml);
+  }
 
-        <!-- Submit -->
-        <button type="submit" class="btn btn-primary w-100">Send Message</button>
-      </form>
-    </div>
-  `;
+  // ---------------------------
+  // Setup Form Logic
+  // ---------------------------
+  const nameSelectInd = document.getElementById("nameSelectIndependent");
+  const phoneInputInd = document.getElementById("phoneInputIndependent");
+  const messageTypeSelectInd = document.getElementById("messageTypeSelectIndependent");
+  const formInd = document.getElementById("notificationFormIndependent");
+  const formStatusInd = document.getElementById("formStatusIndependent");
 
-  // Add to body
-  document.body.appendChild(proactiveSidebar);
+  const phoneLookupInd = {
+    Grace: "6587832760",
+    Shailesh: "6589485304",
+    Aaron: "6598250480",
+    Prasanna: "6594691615",
+    Surapong: "",
+    Kenny: ""
+  };
 
-  // Floating trigger button (with custom icon)
-  const proactiveTrigger = document.createElement("button");
-  proactiveTrigger.id = "notificationSidebarIconTrigger";
-  proactiveTrigger.setAttribute("data-bs-toggle", "offcanvas");
-  proactiveTrigger.setAttribute("data-bs-target", "#notificationOffcanvasIndependent");
-  proactiveTrigger.setAttribute("aria-controls", "notificationOffcanvasIndependent");
-  proactiveTrigger.innerHTML = `<img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/informationicon.png" alt="Info Icon">`;
+  // Auto-fill phone
+  nameSelectInd.addEventListener("change", () => {
+    phoneInputInd.value = phoneLookupInd[nameSelectInd.value] || "";
+  });
 
-  document.body.appendChild(proactiveTrigger);
+  // Form submit via webhook
+  formInd.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = {
+      Name: nameSelectInd.value,
+      Phone: phoneInputInd.value,
+      messageType: messageTypeSelectInd.value,
+    };
+
+    fetch("https://hooks.us.webexconnect.io/events/PLI95JDMQF", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Network response was not ok");
+        return response.json();
+      })
+      .then(() => {
+        formStatusInd.textContent = "Message sent successfully!";
+        formStatusInd.style.display = "block";
+      })
+      .catch(() => {
+        formStatusInd.textContent = "Message failed!";
+        formStatusInd.style.display = "block";
+      })
+      .finally(() => {
+        setTimeout(() => {
+          formStatusInd.style.display = "none";
+          formStatusInd.textContent = "Message sent!";
+        }, 3000);
+        formInd.reset();
+      });
+  });
 });
+// ===== END Independent Notification Sidebar =====
 // ===== END Proactive Messaging (Independent Left Sidebar) =====
