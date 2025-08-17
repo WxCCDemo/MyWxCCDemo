@@ -72,30 +72,31 @@
   </div>
 
   <!-- Live Chat Widget Container -->
-  <div id="live-chat-container"></div>
-  // =======================================
-//  Live Chat Widget Loader for DEMO4 ONLY
-// =======================================
-if (window.location.pathname.endsWith('demo4.html')) {
-  const liveChatContainer = document.getElementById('live-chat-container');
+ <!-- Live chat widget container for Demo4 -->
+<div id="live-chat-container-demo4"></div>
+
+<script>
+  // Live Chat Widget Loader for DEMO4 ONLY
+  const liveChatContainer = document.getElementById('live-chat-container-demo4');
 
   if (liveChatContainer) {
-    const divicw = document.createElement("div");
-    divicw.id = "divicw";
-    divicw.setAttribute("data-bind", "A0993777-C0CF-4DE8-BF2D-57859A20A5A7");  // Different ID as per your earlier code
-    divicw.setAttribute("data-org", "");
-    liveChatContainer.appendChild(divicw);
+    // Create chat widget root div with unique ID for demo4
+    const divicwDemo4 = document.createElement("div");
+    divicwDemo4.id = "divicw-demo4";
+    divicwDemo4.setAttribute("data-bind", "A0993777-C0CF-4DE8-BF2D-57859A20A5A7"); // Demo4-specific bind ID
+    divicwDemo4.setAttribute("data-org", "");
+    liveChatContainer.appendChild(divicwDemo4);
 
-    const i = {
+    const chatLoaderDemo4 = {
       t: function () {
-        const url = "https://attachments.apac2.webexengage.com/widget/js/imichatinit.js";
+        const url = "https://attachments.apac2.webexengage.com/widget/js/imichatinit.js"; // Demo4 widget URL
         try {
-          const o = new XMLHttpRequest();
-          o.onreadystatechange = function () {
+          const xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
             if (this.readyState == 4) {
-              const t = document.getElementById("divicw");
+              const t = document.getElementById("divicw-demo4");
               if (this.status == 0) {
-                i.o(t);
+                chatLoaderDemo4.o(t);
                 return;
               }
               const e = document.createElement("script");
@@ -103,27 +104,28 @@ if (window.location.pathname.endsWith('demo4.html')) {
               t.parentNode.insertBefore(e, t.nextSibling);
             }
           };
-          o.open("GET", url, true);
-          o.send();
+          xhr.open("GET", url, true);
+          xhr.send();
         } catch (s) {
-          console.error(s);
+          console.error("Chat Widget Error:", s);
         }
       },
       o: function (t) {
         t.insertAdjacentHTML(
           "afterend",
-          '<iframe id="tls_al_frm" frameborder="0" style="overflow: hidden;height: 208px;width: 394px;position: fixed;display: block;right: 48px;bottom: 12px;z-index: 99999; display:none;"></iframe>'
+          '<iframe id="tls_al_frm_demo4" frameborder="0" style="overflow: hidden;height: 208px;width: 394px;position: fixed;display: block;right: 48px;bottom: 12px;z-index: 99999; display:none;"></iframe>'
         );
       },
       s: function () {
-        const t = document.getElementById("tls_al_frm");
+        const t = document.getElementById("tls_al_frm_demo4");
         if (t) t.remove();
       },
     };
 
-    i.t();
+    chatLoaderDemo4.t();
   }
-}
+  // End Live Chat Widget Loader for DEMO4
+</script>
 // =======================================
 // [2] End Live Chat Widget Loader for DEMO4 ONLY
 // =======================================
