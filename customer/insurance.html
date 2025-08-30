@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ACME Bank - Insurance</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Your shared style.css -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    /* Override fullscreen image so it scrolls with page content */
+    .fullscreen-image {
+      position: absolute;  /* scrolls with the page */
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: auto;
+      min-height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+    }
+    /* Added for main content styling */
+    .main-content {
+      position: relative;
+      z-index: 10;
+      padding: 50px; /* Add some padding */
+      background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+      margin-top: 100px; /* Push content down from top */
+      margin-left: 5%;
+      margin-right: 5%;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .card-link {
+        text-decoration: none;
+        color: inherit;
+    }
+    .card-link:hover .card {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .card {
+        transition: all 0.3s ease;
+        border: none; /* Remove default card border */
+    }
+    .card-img-top {
+        height: 180px; /* Fixed height for images */
+        object-fit: contain; /* Ensure image fits within bounds */
+        padding: 15px;
+    }
+    .footer-nav {
+        margin-top: 40px;
+        text-align: center;
+    }
+    .footer-nav a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+    .footer-nav a:hover {
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fullscreen background image for Acme Bank -->
+  <img class="fullscreen-image" src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/ACMEBank.png" alt="Acme Bank" />
+
+  <!-- Main content -->
+  <div class="container main-content">
+    <div class="text-center mb-5">
+        <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/ACME%20Bank.jpg" alt="ACME Bank Logo" class="img-fluid" style="max-height: 100px;">
+        <h1 class="display-4 mt-3">ACME Bank Insurance Services</h1>
+        <p class="lead">Protect what matters most with our comprehensive range of insurance solutions.</p>
+    </div>
+
+    <hr class="my-5">
+
+    <h2 class="mb-4 text-center">Our Insurance Products</h2>
+    <div class="row text-center">
+      <div class="col-md-6 col-lg-3 mb-4">
+        <a href="#" class="card-link">
+            <div class="card shadow-sm h-100">
+                <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/Home%20Content%20Insurance.webp" class="card-img-top" alt="Home Content Insurance">
+                <div class="card-body">
+                    <h5 class="card-title">Home & Content Insurance</h5>
+                    <p class="card-text">Safeguard your home and belongings against unexpected events.</p>
+                </div>
+            </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-4">
+        <a href="#" class="card-link">
+            <div class="card shadow-sm h-100">
+                <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/Accident%20Insurance.webp" class="card-img-top" alt="Accident Insurance">
+                <div class="card-body">
+                    <h5 class="card-title">Accident Insurance</h5>
+                    <p class="card-text">Financial protection for you and your family in case of an accident.</p>
+                </div>
+            </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-4">
+        <a href="#" class="card-link">
+            <div class="card shadow-sm h-100">
+                <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/Travel%20Insurance.webp" class="card-img-top" alt="Travel Insurance">
+                <div class="card-body">
+                    <h5 class="card-title">Travel Insurance</h5>
+                    <p class="card-text">Travel with peace of mind, knowing you're covered for any journey.</p>
+                </div>
+            </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-4">
+        <a href="#" class="card-link">
+            <div class="card shadow-sm h-100">
+                <!-- Placeholder for Car Insurance image -->
+                <img src="https://via.placeholder.com/180?text=Car+Insurance" class="card-img-top" alt="Car Insurance Placeholder">
+                <div class="card-body">
+                    <h5 class="card-title">Car Insurance</h5>
+                    <p class="card-text">Comprehensive coverage for your vehicle and peace of mind on the road. (Image to be found)</p>
+                </div>
+            </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-nav">
+      <p class="fs-5">Explore more of ACME Bank:</p>
+      <a href="demo4.html">Back to Home (Banking)</a> |
+      <a href="about.html">About Us</a>
+    </div>
+  </div>
+
+  <!-- Contact Sidebar with accessible toggle -->
+  <div class="contact-sidebar" id="contactSidebar">
+    <div class="sidebar-header" onclick="toggleSidebar()" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle Contact Sidebar">
+      <div class="toggle-btn">
+        <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/ContactUs.png" alt="Contact Us Icon" />
+      </div>
+      <span class="header-text">Contact Us</span>
+    </div>
+
+    <!-- Contact links with tooltips -->
+    <div class="contact-links">
+      <a href="tel:+16692856683" class="contact-link" data-bs-toggle="tooltip" title="Call Us">
+        <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/Phone.jpg" alt="Phone Icon" />
+        +1 669 285 6683
+      </a>
+      <a href="https://wa.me/12076803464" target="_blank" rel="noopener" class="contact-link" data-bs-toggle="tooltip" title="WhatsApp">
+        <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" />
+        +1 (207) 680-3464
+      </a>
+      <a href="mailto:cxdemosc@gmail.com" class="contact-link" data-bs-toggle="tooltip" title="Email">
+        <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/contact-us-email.jpg" alt="Email Icon" />
+        cxdemosc@gmail.com
+      </a>
+      <a href="#" class="contact-link" tabindex="0" data-bs-toggle="tooltip" title="Address">
+        <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/adresspin.png" alt="Address Icon" />
+        80 Pasir Panjang Rd
+      </a>
+      <a href="demo4.html" class="contact-link" data-bs-toggle="tooltip" title="Back to Home">
+        <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/webex-logo.png" alt="Webex Logo" />
+        Back to Home
+      </a>
+    </div>
+  </div>
+
+  <!-- Chat Widget Container: This is the div where the live chat widget will be loaded -->
+  <div id="divicw" data-bind="A0993777-C0CF-4DE8-BF2D-57859A20A5A7" data-org=""></div>
+
+  <!-- Inline script to dynamically load the live chat widget -->
+  <script>
+    var i = {
+      // Function to initialize chat widget by loading external script
+      t: function (t) {
+        var e = "https://attachments.apac2.webexengage.com/widget/js/imichatinit.js";
+        try {
+          var o = new XMLHttpRequest();
+          o.onreadystatechange = function () {
+            if (this.readyState == 4) {
+              var t = document.getElementById("divicw");
+              if (this.status == 0) {
+                i.o(t);   // fallback if loading fails
+                return;
+              }
+              var e = document.createElement("script");
+              e.innerHTML = this.responseText;  // insert chat widget code
+              t.parentNode.insertBefore(e, t.nextSibling);
+            }
+          };
+          o.open("GET", e, true);
+          o.send();
+        } catch (s) {
+          console.error(s);
+        }
+      },
+      // Fallback: create iframe with browser compatibility message if widget can't load
+      o: function (t) {
+        t.insertAdjacentHTML(
+          "afterend",
+          '<iframe id="tls_al_frm" frameborder="0" style="overflow: hidden; height: 208px; width: 394px; position: fixed; display: block; right: 48px; bottom: 12px; z-index: 99999; display:none;"></iframe>'
+        );
+        var e = document.getElementById("tls_al_frm");
+        var o = e.contentWindow || (e.contentDocument.document || e.contentDocument);
+        o.document.open();
+        o.document.write(
+          '<!doctype html><html><head><meta charset="utf-8"><title>Browser Not Supported</title><style>body{font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #99a0b0; font-size: 14px;}.popover__content{background-color: #fbfbfe; padding: 1.5rem; border-radius: 5px; width: 300px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26); position: relative;}.popover__message{font-weight: 600; color:#56627c; font-size: 16px;}.pull-left{float: left;}.clearfix{clear: both;}.hdr-txt{width: 218px; margin-top: 3px;}.para-txt a{text-decoration: none; color: #005cde;}.close-btn{position: absolute; right: 15px; top: 15px;}.close-btn a{text-decoration: none; font-weight: 400; color: #56627c; font-size: 16px;}</style></head><body><div class="popover__content"><div class="close-btn"><a href="#" onclick="closeTLSAlert();">X</a></div><div class="popover__message"><div class="pull-left hdr-txt">This browser version is not supported on LiveChat.</div></div><div class="clearfix"></div><p class="para-txt">Please update your browser to the latest version and re-open the website to access the widget. </p></div><script>function closeTLSAlert(){window.parent.postMessage({key: "close_tls_alert", value: "close_tls_alert", action: "close_tls_alert"}, "*");}<\/script></body></html>'
+        );
+        o.document.close();
+        e.style.display = "block";
+
+        // Close iframe if parent sends close message
+        window.addEventListener("message", function (t) {
+          if (t.data.action == "close_tls_alert") {
+            i.s();
+          }
+        });
+      },
+      // Remove the fallback iframe from DOM
+      s: function () {
+        var t = document.getElementById("tls_al_frm");
+        if (t) t.remove();
+      },
+    };
+
+    // Start chat widget initialization
+    i.t();
+  </script>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Your shared script.js for sidebar toggle and tooltip -->
+  <script src="../script.js"></script>
+
+  <!-- Sidebar toggle and accessibility script -->
+  <script>
+    // Toggle sidebar open/close state and update aria-expanded
+    function toggleSidebar() {
+      const sidebar = document.getElementById("contactSidebar");
+      sidebar.classList.toggle("expanded");
+      const expanded = sidebar.classList.contains("expanded");
+      sidebar.setAttribute("aria-expanded", expanded);
+    }
+
+    // Enable keyboard accessibility for sidebar toggle button
+    document.querySelector(".sidebar-header").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleSidebar();
+      }
+    });
+
+    // Initialize Bootstrap tooltips on all eligible elements
+    document.addEventListener("DOMContentLoaded", function () {
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll("[data-bs-toggle='tooltip']"));
+      tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    });
+  </script>
+</body>
+</html>
