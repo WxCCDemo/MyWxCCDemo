@@ -12,16 +12,9 @@
   <link rel="stylesheet" href="../style.css" />
 
   <style>
-    /* Override fullscreen image so it scrolls with page content */
-    .fullscreen-image {
-      position: absolute;  /* scrolls with the page */
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: auto;
-      min-height: 100vh;
-      object-fit: cover;
-      z-index: 0;
+    /* Removed fullscreen-image style as the image is gone */
+    body {
+        background-color: #f8f9fa; /* A light background color for the page */
     }
     /* Added for main content styling */
     .main-content {
@@ -29,7 +22,8 @@
       z-index: 10;
       padding: 50px; /* Add some padding */
       background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
-      margin-top: 100px; /* Push content down from top */
+      margin-top: 50px; /* Adjust margin since no image pushes it down */
+      margin-bottom: 50px; /* Add bottom margin */
       margin-left: 5%;
       margin-right: 5%;
       border-radius: 8px;
@@ -68,9 +62,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Fullscreen background image for Acme Bank -->
-  <img class="fullscreen-image" src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/ACMEBank.png" alt="Acme Bank" />
 
   <!-- Main content -->
   <div class="container main-content">
