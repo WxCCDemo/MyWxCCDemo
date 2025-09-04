@@ -201,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <option value="" disabled selected>Select Name</option>
                 <option value="Christopher">Christopher</option>
                 <option value="Shailesh">Shailesh</option>
+                <option value="Joshua">Joshua</option>
               </select>
             </div>
             <div class="mb-3">
@@ -246,7 +247,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const phoneLookupInd = {
     Christopher: "6589485304",
-    Shailesh: "6598250480"
+    Shailesh: "6598250480",
+    Joshua: "6591438487"
   };
 
   // Auto-fill phone on name select change
