@@ -202,6 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <option value="Christopher">Christopher</option>
                 <option value="Shailesh">Shailesh</option>
                 <option value="Joshua">Joshua</option>
+                <option value="Grace">Grace</option>
               </select>
             </div>
             <div class="mb-3">
@@ -248,7 +249,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneLookupInd = {
     Christopher: "6589485304",
     Shailesh: "6598250480",
-    Joshua: "6591438487"
+    Joshua: "6591438487",
+    Grace: "6587832760"
   };
 
   // Auto-fill phone on name select change
@@ -269,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Webhook URLs for SG and US
     const webhookUrls = {
       sg: "https://hooks.sg.webexconnect.io/events/121EZ3LMW7",
-      us: "https://hooks.us.webexconnect.io/events/PLI95JDMQF"
+      us: "https://hooks.us.webexconnect.io/events/K2PYR77SOP"
     };
 
     const selectedWebhook = webhookUrls[webhookSelectInd.value] || webhookUrls.sg;
