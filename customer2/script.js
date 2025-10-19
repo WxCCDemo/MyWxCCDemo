@@ -1,204 +1,133 @@
-// =======================================
-// [1] Live Chat Widget Loader (Do Not Remove)
-// =======================================
-//const liveChatContainer = document.getElementById('live-chat-container');
-//if (liveChatContainer) {
-//  const divicw = document.createElement("div");
-//  divicw.id = "divicw";
-//  divicw.setAttribute("data-bind", "3FBA03BF-7CDC-4DBE-97E8-F581949FC34C");
-//  divicw.setAttribute("data-org", "");
-//  liveChatContainer.appendChild(divicw);
-//  const i = {
-//    t: function () {
-//      const url = "https://media.imi.chat/widget/js/imichatinit.js";
-//      try {
-//        const o = new XMLHttpRequest();
-//        o.onreadystatechange = function () {
-//          if (this.readyState == 4) {
-//            const t = document.getElementById("divicw");
-//            if (this.status == 0) {
-//              i.o(t);
-//              return;
-//            }
-//            const e = document.createElement("script");
-//            e.innerHTML = this.responseText;
-//            t.parentNode.insertBefore(e, t.nextSibling);
-//          }
-//        };
-//        o.open("GET", url, true);
-//        o.send();
-//      } catch (e) {
-//       console.error("Chat Widget Error:", e);
-//     }
-//    },
-//    o: function (t) {
-//     t.insertAdjacentHTML(
-//       "afterend",
-//       '<iframe id="tls_al_frm" frameborder="0" style="overflow:hidden;height:208px;width:394px;position:fixed;left:48px;bottom:12px;z-index:99999;"></iframe>'
-//     );
-//    },
-//    s: function () {
-//      const t = document.getElementById("tls_al_frm");
-//      if (t) t.remove();
-//    },
-//  };
-//  i.t();
-//}
-// =======================================
-// [1] End Live Chat Widget Loader for DEMO1 ONLY
-// =======================================
-// =======================================
-//  Live Chat Widget Loader for DEMO4 ONLY
-// =======================================
-//if (window.location.pathname.endsWith('demo4.html')) {
-//  const liveChatContainer = document.getElementById('live-chat-container');
-//
-//  if (liveChatContainer) {
-//    const divicw = document.createElement("div");
-//    divicw.id = "divicw";
-//    divicw.setAttribute("data-bind", "A0993777-C0CF-4DE8-BF2D-57859A20A5A7");  // Different ID as per your earlier code
-//    divicw.setAttribute("data-org", "");
-//    liveChatContainer.appendChild(divicw);
-//
-//    const i = {
-//      t: function () {
-//        const url = "https://attachments.apac2.webexengage.com/widget/js/imichatinit.js";
-//        try {
-//          const o = new XMLHttpRequest();
-//          o.onreadystatechange = function () {
-//            if (this.readyState == 4) {
-//              const t = document.getElementById("divicw");
-//              if (this.status == 0) {
-//                i.o(t);
-//                return;
-//              }
-//              const e = document.createElement("script");
-//              e.innerHTML = this.responseText;
-//              t.parentNode.insertBefore(e, t.nextSibling);
-//            }
-//          };
-//          o.open("GET", url, true);
-//          o.send();
-//        } catch (s) {
-//          console.error(s);
-//        }
-//      },
-//      o: function (t) {
-//        t.insertAdjacentHTML(
-//          "afterend",
-//          '<iframe id="tls_al_frm" frameborder="0" style="overflow: hidden;height: 208px;width: 394px;position: fixed;display: block;right: 48px;bottom: 12px;z-index: 99999; display:none;"></iframe>'
-//        );
-//      },
-//      s: function () {
-//        const t = document.getElementById("tls_al_frm");
-//        if (t) t.remove();
-//      },
-//    };
-//
-//    i.t();
-//  }
-//}
-// =======================================
-// [2] End Live Chat Widget Loader for DEMO4 ONLY
-// =======================================
-
-// =======================================
-// [2] Sidebar Toggle + Auto-Close Logic
-// =======================================
+// ==========================================================
+// [1] Live Chat Widget Loader (Updated for UOB / APAC2 Region)
+// ==========================================================
 document.addEventListener("DOMContentLoaded", () => {
-  const pane = document.getElementById("contact-pane-container");
-  const handle = document.getElementById("contact-us-handle");
+  const liveChatContainer = document.getElementById("live-chat-container");
+  if (liveChatContainer) {
+    // Inject the widget div and script
+    const widgetHTML = `
+      <div id="divicw" data-bind="A0993777-C0CF-4DE8-BF2D-57859A20A5A7" data-org=""></div>
+      <script>
+        var i = {
+          t: function(t) {
+            var e = "https://attachments.apac2.webexengage.com/widget/js/imichatinit.js";
+            try {
+              var o = new XMLHttpRequest();
+              o.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                  var t = document.getElementById("divicw");
+                  if (this.status == 0) {
+                    i.o(t);
+                    return;
+                  }
+                  var e = document.createElement("script");
+                  e.innerHTML = this.responseText;
+                  t.parentNode.insertBefore(e, t.nextSibling);
+                }
+              };
+              o.open("GET", e, true);
+              o.send();
+            } catch (s) {
+              console.error(s);
+            }
+          },
+          o: function(t) {
+            t.insertAdjacentHTML(
+              "afterend",
+              '<iframe id="tls_al_frm" frameborder="0" style="overflow:hidden;height:208px;width:394px;position:fixed;right:48px;bottom:12px;z-index:99999;display:none;"></iframe>'
+            );
+            var e = document.getElementById("tls_al_frm");
+            var o = e.contentWindow || (e.contentDocument.document || e.contentDocument);
+            o.document.open();
+            o.document.write(
+              '<!doctype html><html><head><meta charset="utf-8"><title>Browser Unsupported</title>' +
+                '<style>body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#99a0b0;font-size:14px;}' +
+                '.popover__content{background-color:#fbfbfe;padding:1.5rem;border-radius:5px;width:300px;box-shadow:0 2px 5px 0 rgba(0,0,0,0.26);position:relative;}' +
+                '.popover__message{font-weight:600;color:#56627c;font-size:16px;}.pull-left{float:left;}.clearfix{clear:both;}' +
+                '.hdr-txt{width:218px;margin-top:3px;}.para-txt a{text-decoration:none;color:#005cde;}' +
+                '.close-btn{position:absolute;right:15px;top:15px;}.close-btn a{text-decoration:none;font-weight:400;color:#56627c;font-size:16px;}</style>' +
+                "</head><body>" +
+                '<div class="popover__content">' +
+                '<div class="close-btn"><a href="#" onclick="closeTLSAlert();">X</a></div>' +
+                '<div class="popover__message"><div class="pull-left hdr-txt">This browser version is not supported on LiveChat.</div></div>' +
+                '<div class="clearfix"></div>' +
+                '<p class="para-txt">Please update your browser to the latest version and re-open the website to access the widget.</p>' +
+                "</div>" +
+                '<script>function closeTLSAlert(){window.parent.postMessage({key:"close_tls_alert",value:"close_tls_alert",action:"close_tls_alert"},"*");}<\/script>' +
+                "</body></html>"
+            );
+            o.document.close();
+            e.style.display = "block";
+            window.addEventListener("message", function(t) {
+              if (t.data.action == "close_tls_alert") {
+                i.s();
+              }
+            });
+          },
+          s: function() {
+            var t = document.getElementById("tls_al_frm");
+            if (t) t.remove();
+          },
+        };
+        i.t(function(t){});
+      <\/script>`;
+    liveChatContainer.insertAdjacentHTML("beforeend", widgetHTML);
+  }
+});
 
-  let paneOpen = false;
-  let inactivityTimer = null;
-  const INACTIVITY_TIMEOUT = 60000; // 60 seconds
+// ==========================================================
+// [2] Contact Sidebar Toggle
+// ==========================================================
+document.addEventListener("DOMContentLoaded", () => {
+  const sidebar = document.getElementById("contactSidebar");
+  const header = document.querySelector(".sidebar-header");
 
-  // Show sidebar
-  function openPane() {
-    pane.classList.add("open");
-    pane.classList.remove("closed");
-    pane.setAttribute("aria-expanded", "true");
-    paneOpen = true;
-    startInactivityTimer();
+  if (!sidebar || !header) return;
+
+  function toggleSidebar() {
+    sidebar.classList.toggle("expanded");
+    const expanded = sidebar.classList.contains("expanded");
+    sidebar.setAttribute("aria-expanded", expanded);
   }
 
-  // Hide sidebar
-  function closePane() {
-    pane.classList.remove("open");
-    pane.classList.add("closed");
-    pane.setAttribute("aria-expanded", "false");
-    paneOpen = false;
-    clearTimeout(inactivityTimer);
-    inactivityTimer = null;
-  }
-
-  // Handle toggle click
-  function togglePane() {
-    paneOpen ? closePane() : openPane();
-  }
-
-  // Start/reset inactivity timer
-  function startInactivityTimer() {
-    clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(() => {
-      if (paneOpen) {
-        closePane();
-      }
-    }, INACTIVITY_TIMEOUT);
-  }
-
-  // Click to toggle handle
-  handle.addEventListener("click", (e) => {
-    e.stopPropagation();
-    togglePane();
-  });
-
-  // Close when clicking elsewhere
-  document.addEventListener("click", (e) => {
-    if (!pane.contains(e.target) && paneOpen) {
-      closePane();
+  header.addEventListener("click", toggleSidebar);
+  header.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleSidebar();
     }
   });
 
-  // Reset timer on user activity
-  ["mousemove", "keydown", "touchstart"].forEach((eventType) => {
-    pane.addEventListener(eventType, () => {
-      if (paneOpen) {
-        startInactivityTimer();
-      }
-    });
-  });
-
-  // Ensure pane is closed on load
-  window.addEventListener("load", () => {
-    closePane();
-  });
+  // Initialize Bootstrap tooltips
+  const tooltipTriggers = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+  tooltipTriggers.forEach((el) => new bootstrap.Tooltip(el));
 });
 
-// ===== START Proactive Messaging (Independent Left Sidebar) =====
-// ===== START Independent Notification Sidebar (Left Aligned) =====
+// ==========================================================
+// [3] Optional: Proactive Notification Sidebar
+// ==========================================================
 document.addEventListener("DOMContentLoaded", () => {
-  // Insert Sidebar HTML
   if (!document.getElementById("notificationOffcanvasIndependent")) {
     const offcanvasHtml = `
-      <div class="offcanvas offcanvas-start" tabindex="-1" id="notificationOffcanvasIndependent" aria-labelledby="notificationOffcanvasLabel" style="width: 260px;">
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="notificationOffcanvasIndependent"
+        aria-labelledby="notificationOffcanvasLabel" style="width:260px;">
         <div class="offcanvas-header" style="background-color:#053566; color:#fff;">
           <h5 class="offcanvas-title" id="notificationOffcanvasLabel">Notifications & Offers</h5>
-          <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body">
           <form id="notificationFormIndependent">
             <div class="mb-3">
-              <label for="webhookSelectIndependent" class="form-label fw-semibold">Select Region</label>
-              <select class="form-select" id="webhookSelectIndependent" required>
+              <label class="form-label fw-semibold">Select Region</label>
+              <select class="form-select" id="webhookSelectIndependent">
                 <option value="sg" selected>Singapore</option>
                 <option value="us">USA</option>
               </select>
             </div>
             <div class="mb-3">
-              <label for="nameSelectIndependent" class="form-label fw-semibold">Name</label>
-              <select class="form-select" id="nameSelectIndependent" required>
-                <option value="" disabled selected>Select Name</option>
+              <label class="form-label fw-semibold">Name</label>
+              <select class="form-select" id="nameSelectIndependent">
+                <option disabled selected>Select Name</option>
                 <option value="Christopher">Christopher</option>
                 <option value="Shailesh">Shailesh</option>
                 <option value="Joshua">Joshua</option>
@@ -206,13 +135,13 @@ document.addEventListener("DOMContentLoaded", () => {
               </select>
             </div>
             <div class="mb-3">
-              <label for="phoneInputIndependent" class="form-label fw-semibold">Phone Number</label>
-              <input class="form-control" id="phoneInputIndependent" placeholder="Enter or select phone" readonly required />
+              <label class="form-label fw-semibold">Phone Number</label>
+              <input class="form-control" id="phoneInputIndependent" placeholder="Auto-filled" readonly />
             </div>
             <div class="mb-3">
-              <label for="messageTypeSelectIndependent" class="form-label fw-semibold">Message Type</label>
-              <select class="form-select" id="messageTypeSelectIndependent" required>
-                <option value="" disabled selected>Select Type</option>
+              <label class="form-label fw-semibold">Message Type</label>
+              <select class="form-select" id="messageTypeSelectIndependent">
+                <option disabled selected>Select Type</option>
                 <option value="Notification">Notification</option>
                 <option value="Offer">Offer</option>
                 <option value="Reminder">Reminder</option>
@@ -223,84 +152,71 @@ document.addEventListener("DOMContentLoaded", () => {
           </form>
           <div id="formStatusIndependent" class="mt-2 text-success" style="display:none;">Message sent!</div>
         </div>
-      </div>
-    `;
+      </div>`;
     document.body.insertAdjacentHTML("beforeend", offcanvasHtml);
-  }
 
-  // Insert floating "i" icon for sidebar toggle if missing
-  if (!document.getElementById("notificationSidebarIconTrigger")) {
     const iconHtml = `
-      <button id="notificationSidebarIconTrigger" aria-label="Toggle Notification Sidebar" type="button" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvasIndependent" aria-controls="notificationOffcanvasIndependent">
-        <img src="https://raw.githubusercontent.com/WxCCDemo/MyWxCCDemo/refs/heads/main/assets/informationicon.png" alt="Info" style="width:24px; height:24px;">
-      </button>
-    `;
+      <button id="notificationSidebarIconTrigger" type="button"
+        data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvasIndependent"
+        style="position:fixed;left:20px;bottom:20px;z-index:1000;border-radius:50%;background:#fff;border:none;box-shadow:0 2px 6px rgba(0,0,0,0.3);">
+        <img src="../assets/informationicon.png" alt="Info" style="width:24px;height:24px;">
+      </button>`;
     document.body.insertAdjacentHTML("beforeend", iconHtml);
   }
 
-  // Setup Form Logic
-  const webhookSelectInd = document.getElementById("webhookSelectIndependent");
-  const nameSelectInd = document.getElementById("nameSelectIndependent");
-  const phoneInputInd = document.getElementById("phoneInputIndependent");
-  const messageTypeSelectInd = document.getElementById("messageTypeSelectIndependent");
-  const formInd = document.getElementById("notificationFormIndependent");
-  const formStatusInd = document.getElementById("formStatusIndependent");
-
-  const phoneLookupInd = {
+  const phoneLookup = {
     Christopher: "6589485304",
     Shailesh: "6598250480",
     Joshua: "6591438487",
-    Grace: "6587832760"
+    Grace: "6587832760",
   };
 
-  // Auto-fill phone on name select change
-  nameSelectInd.addEventListener("change", () => {
-    phoneInputInd.value = phoneLookupInd[nameSelectInd.value] || "";
+  const nameSelect = document.getElementById("nameSelectIndependent");
+  const phoneInput = document.getElementById("phoneInputIndependent");
+  const form = document.getElementById("notificationFormIndependent");
+  const formStatus = document.getElementById("formStatusIndependent");
+
+  nameSelect?.addEventListener("change", () => {
+    phoneInput.value = phoneLookup[nameSelect.value] || "";
   });
 
-  // Form submit handler with dynamic webhook URL by region
-  formInd.addEventListener("submit", (e) => {
+  form?.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    const region = document.getElementById("webhookSelectIndependent").value;
+    const messageType = document.getElementById("messageTypeSelectIndependent").value;
+
     const data = {
-      Name: nameSelectInd.value,
-      Phone: phoneInputInd.value,
-      messageType: messageTypeSelectInd.value,
+      Name: nameSelect.value,
+      Phone: phoneInput.value,
+      messageType,
     };
 
-    // Webhook URLs for SG and US
     const webhookUrls = {
       sg: "https://hooks.sg.webexconnect.io/events/121EZ3LMW7",
-      us: "https://hooks.us.webexconnect.io/events/K2PYR77SOP"
+      us: "https://hooks.us.webexconnect.io/events/K2PYR77SOP",
     };
 
-    const selectedWebhook = webhookUrls[webhookSelectInd.value] || webhookUrls.sg;
-
-    fetch(selectedWebhook, {
+    fetch(webhookUrls[region] || webhookUrls.sg, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
-      .then((response) => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json();
+      .then((res) => {
+        if (!res.ok) throw new Error("Network error");
+        return res.json();
       })
       .then(() => {
-        formStatusInd.textContent = "Message sent successfully!";
-        formStatusInd.style.display = "block";
+        formStatus.textContent = "Message sent successfully!";
+        formStatus.style.display = "block";
       })
       .catch(() => {
-        formStatusInd.textContent = "Message failed!";
-        formStatusInd.style.display = "block";
+        formStatus.textContent = "Failed to send message!";
+        formStatus.style.display = "block";
       })
       .finally(() => {
-        setTimeout(() => {
-          formStatusInd.style.display = "none";
-          formStatusInd.textContent = "Message sent!";
-        }, 3000);
-        formInd.reset();
+        setTimeout(() => (formStatus.style.display = "none"), 3000);
+        form.reset();
       });
   });
 });
-// ===== END Independent Notification Sidebar =====
-// ===== END Proactive Messaging (Independent Left Sidebar) =====
