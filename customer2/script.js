@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const webhookUrls = {
-      sg: "https://hooks.sg.webexconnect.io/events/121EZ3LMW7",
+      sg: "https://hooks.sg.webexconnect.io/events/CSWMWVJ81X",
       us: "https://hooks.us.webexconnect.io/events/K2PYR77SOP",
     };
 
