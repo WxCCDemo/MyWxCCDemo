@@ -4,7 +4,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const liveChatContainer = document.getElementById("live-chat-container");
   if (!liveChatContainer) return;
-
+   
   const widgetDiv = document.createElement("div");
   widgetDiv.id = "divicw";
   widgetDiv.setAttribute("data-bind", "A0993777-C0CF-4DE8-BF2D-57859A20A5A7");
