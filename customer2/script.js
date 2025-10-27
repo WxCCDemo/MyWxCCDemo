@@ -234,6 +234,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Show the video iframe
     videoFrame.style.display = "block";
-    openVideoBtn.style.display = "none"; // optional: hide button after starting
   });
 });
