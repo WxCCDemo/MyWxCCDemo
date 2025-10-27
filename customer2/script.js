@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================================================== */
 document.addEventListener("DOMContentLoaded", () => {
   const openVideoBtn = document.getElementById("openVideoCall");
-  const openVideoBtn = document.getElementById("openVoiceCall");
+  const openVoiceBtn = document.getElementById("openVoiceCall");
   const videoFrame = document.getElementById("videoCallFrame");
 
   if (!openVideoBtn || !videoFrame) return;
