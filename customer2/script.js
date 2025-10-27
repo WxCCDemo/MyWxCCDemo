@@ -222,6 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================================================== */
 document.addEventListener("DOMContentLoaded", () => {
   const openVideoBtn = document.getElementById("openVideoCall");
+  const openVideoBtn = document.getElementById("openVoiceCall");
   const videoFrame = document.getElementById("videoCallFrame");
 
   if (!openVideoBtn || !videoFrame) return;
@@ -229,7 +230,17 @@ document.addEventListener("DOMContentLoaded", () => {
   openVideoBtn.addEventListener("click", () => {
     // Lazy-load the iframe source only once
     if (!videoFrame.src) {
-      videoFrame.src = "https://univcxpro.consiliumapps.com/univcx/customerLogin?platform=wxcc";
+      videoFrame.src = "https://univcxpro.consiliumapps.com/univcx/customerLogin?platform=wxcc&callInfo=videoCall";
+    }
+
+    // Show the video iframe
+    videoFrame.style.display = "block";
+  });
+
+  openVoiceBtn.addEventListener("click", () => {
+    // Lazy-load the iframe source only once
+    if (!videoFrame.src) {
+      videoFrame.src = "https://univcxpro.consiliumapps.com/univcx/customerLogin?platform=wxcc&callInfo=voiceCall";
     }
 
     // Show the video iframe
