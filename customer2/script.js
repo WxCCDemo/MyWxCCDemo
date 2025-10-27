@@ -216,3 +216,24 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 });
+
+/* ==========================================================
+   [4] Video Call Button and Frame Loader
+========================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const openVideoBtn = document.getElementById("openVideoCall");
+  const videoFrame = document.getElementById("videoCallFrame");
+
+  if (!openVideoBtn || !videoFrame) return;
+
+  openVideoBtn.addEventListener("click", () => {
+    // Lazy-load the iframe source only once
+    if (!videoFrame.src) {
+      videoFrame.src = "https://univcxpro.consiliumapps.com/univcx/customerLogin?platform=wxcc";
+    }
+
+    // Show the video iframe
+    videoFrame.style.display = "block";
+    openVideoBtn.style.display = "none"; // optional: hide button after starting
+  });
+});
