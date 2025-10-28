@@ -229,9 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   openVideoBtn.addEventListener("click", () => {
     // Lazy-load the iframe source only once
-    if (!videoFrame.src) {
       videoFrame.src = "https://univcxpro.consiliumapps.com/univcx/customerLogin?platform=wxcc&callInfo=videoCall";
-    }
 
     // Show the video iframe
     videoFrame.style.display = "block";
@@ -239,11 +237,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   openVoiceBtn.addEventListener("click", () => {
     // Lazy-load the iframe source only once
-    if (!videoFrame.src) {
       videoFrame.src = "https://univcxpro.consiliumapps.com/univcx/customerLogin?platform=wxcc&callInfo=voiceCall";
-    }
 
     // Show the video iframe
     videoFrame.style.display = "block";
   });
 });
+
+/* ==========================================================
+   [5] Listen for messages coming from the call iframe
+========================================================== */
+    window.addEventListener("message", (event) => {
+      // Optionally, check the origin for security
+      // if (event.origin !== "https://your-iframe-origin.com") return;
+
+      const data = event.data;
+
+      if (data.type === "CallEnded") {
+        console.log("Message received from iframe:", data.payload);
+        const videoFrame = document.getElementById("videoCallFrame");
+
+        // Show the video iframe
+        videoFrame.style.display = "none";
+
+        // Send a response back to the iframe
+        // const iframe = document.getElementById("myIframe");
+        // iframe.contentWindow.postMessage(
+        //   { type: "PARENT_REPLY", payload: "Got your message!" },
+        //   "*"
+        // );
+      }
+    });
