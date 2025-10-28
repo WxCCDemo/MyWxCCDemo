@@ -273,38 +273,38 @@ document.addEventListener("DOMContentLoaded", () => {
    [5] Drag and drop module for webrtc call iframe
 ========================================================== */
 
-(function() {
-  const dragElement = document.getElementById("video-call-container");
-  let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0, dragging = false;
+// (function() {
+//   const dragElement = document.getElementById("video-call-container");
+//   let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0, dragging = false;
 
-  dragElement.addEventListener("mousedown", dragMouseDown);
+//   dragElement.addEventListener("mousedown", dragMouseDown);
 
-  function dragMouseDown(e) {
-    e.preventDefault();
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dragging = true;
-    document.addEventListener("mousemove", elementDrag);
-    document.addEventListener("mouseup", closeDragElement);
-  }
+//   function dragMouseDown(e) {
+//     e.preventDefault();
+//     mouseX = e.clientX;
+//     mouseY = e.clientY;
+//     dragging = true;
+//     document.addEventListener("mousemove", elementDrag);
+//     document.addEventListener("mouseup", closeDragElement);
+//   }
 
-  function elementDrag(e) {
-    if (!dragging) return;
-    e.preventDefault();
-    offsetX = mouseX - e.clientX;
-    offsetY = mouseY - e.clientY;
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+//   function elementDrag(e) {
+//     if (!dragging) return;
+//     e.preventDefault();
+//     offsetX = mouseX - e.clientX;
+//     offsetY = mouseY - e.clientY;
+//     mouseX = e.clientX;
+//     mouseY = e.clientY;
 
-    dragElement.style.top = (dragElement.offsetTop - offsetY) + "px";
-    dragElement.style.left = (dragElement.offsetLeft - offsetX) + "px";
-    dragElement.style.right = "auto"; // remove 'right' positioning
-    dragElement.style.transform = "none"; // disable center transform after move
-  }
+//     dragElement.style.top = (dragElement.offsetTop - offsetY) + "px";
+//     dragElement.style.left = (dragElement.offsetLeft - offsetX) + "px";
+//     dragElement.style.right = "auto"; // remove 'right' positioning
+//     dragElement.style.transform = "none"; // disable center transform after move
+//   }
 
-  function closeDragElement() {
-    dragging = false;
-    document.removeEventListener("mousemove", elementDrag);
-    document.removeEventListener("mouseup", closeDragElement);
-  }
-})();
+//   function closeDragElement() {
+//     dragging = false;
+//     document.removeEventListener("mousemove", elementDrag);
+//     document.removeEventListener("mouseup", closeDragElement);
+//   }
+// })();
