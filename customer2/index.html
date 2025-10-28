@@ -78,7 +78,7 @@
     </div>
   </div>
 
-  <div id="video-call-container" class="text-center my-3" style="
+  <!-- <div id="video-call-container" class="text-center my-3" style="
     position: absolute;
     top: 50%;
     width: 900px;
@@ -93,7 +93,26 @@
       allowfullscreen
       scrolling="yes">
     </iframe>
-  </div>
+  </div> -->
+
+  <div id="video-call-container" class="text-center my-3" style="
+    position: absolute;
+    top: 50%;
+    width: 900px;
+    right: 50%;
+    transform: translate(50%, -50%);
+    z-index: 1000;
+    cursor: move; /* visual cue for dragging */
+">
+  <iframe
+    id="videoCallFrame"
+    style="display:none; width:100%; height:500px; border:none;"
+    allow="camera; microphone; fullscreen; clipboard-read; clipboard-write; autoplay; encrypted-media"
+    allowfullscreen
+    scrolling="yes">
+  </iframe>
+</div>
+
 
   <!-- Live Chat Widget Container -->
   <div id="live-chat-container"></div>
