@@ -108,9 +108,31 @@ async function fetchStatus(interactionId) {
   return res.json();
 }
 
+function readFrameDataProvider() {
+  const frame = window.frameElement;
+  if (!frame) return null;
+
+  if (frame.dataProvider && typeof frame.dataProvider === "object") {
+    return frame.dataProvider;
+  }
+
+  const attr =
+    frame.getAttribute("data-provider") ||
+    frame.getAttribute("dataProvider") ||
+    frame.getAttribute("data-provider-json");
+
+  if (!attr) return null;
+
+  try {
+    return JSON.parse(attr);
+  } catch {
+    return null;
+  }
+}
+
 function getInteractionId() {
-  const fromFrame = window.frameElement?.dataProvider?.interactionId;
-  if (fromFrame) return fromFrame;
+  const provider = readFrameDataProvider();
+  if (provider?.interactionId) return provider.interactionId;
   const params = new URLSearchParams(window.location.search);
   return params.get("interactionId");
 }
