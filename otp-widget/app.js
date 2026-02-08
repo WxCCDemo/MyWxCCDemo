@@ -17,6 +17,7 @@ const progressLabel = document.getElementById("progressLabel");
 const progressValue = document.getElementById("progressValue");
 const badge = document.getElementById("badge");
 const hint = document.getElementById("hint");
+const meta = document.getElementById("meta");
 
 function normalizeBool(value) {
   if (typeof value === "boolean") return value;
@@ -96,6 +97,7 @@ async function poll() {
 
   if (!interactionId) {
     hint.textContent = "Missing interactionId in the URL. Example: ?interactionId=abc123";
+    meta.textContent = "Interaction: — | Last update: —";
     return;
   }
 
@@ -103,8 +105,10 @@ async function poll() {
     const data = await fetchStatus(interactionId);
     const stateKey = mapStatusToState(data);
     setStateByKey(stateKey);
+    meta.textContent = `Interaction: ${interactionId} | Last update: ${data.updatedAt || "just now"}`;
   } catch (err) {
     hint.textContent = "Waiting for OTP status...";
+    meta.textContent = `Interaction: ${interactionId} | Last update: —`;
   }
 }
 
