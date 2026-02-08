@@ -29,6 +29,7 @@ function normalizeBool(value) {
 
 function mapStatusToState(data) {
   const status = (data.SC_OTP_Status || "").toString().trim().toUpperCase();
+  if (status === "VERIFIED" || status === "AUTHENTICATED") return "verified";
   if (status.includes("VERIFY") || status.includes("AUTH")) return "verified";
   if (status.includes("ENTER")) return "entered";
   if (status.includes("SENT")) return "sent";
@@ -105,10 +106,11 @@ async function poll() {
     const data = await fetchStatus(interactionId);
     const stateKey = mapStatusToState(data);
     setStateByKey(stateKey);
-    meta.textContent = `Interaction: ${interactionId} | Last update: ${data.updatedAt || "just now"}`;
+    const status = (data.SC_OTP_Status || "—").toString();
+    meta.textContent = `Interaction: ${interactionId} | Status: ${status} | Last update: ${data.updatedAt || "just now"}`;
   } catch (err) {
     hint.textContent = "Waiting for OTP status...";
-    meta.textContent = `Interaction: ${interactionId} | Last update: —`;
+    meta.textContent = `Interaction: ${interactionId} | Status: — | Last update: —`;
   }
 }
 
