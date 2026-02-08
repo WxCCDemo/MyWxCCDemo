@@ -19,6 +19,22 @@ const badge = document.getElementById("badge");
 const hint = document.getElementById("hint");
 const meta = document.getElementById("meta");
 
+function formatSingaporeTime(isoString) {
+  if (!isoString) return "—";
+  const date = new Date(isoString);
+  if (Number.isNaN(date.getTime())) return "—";
+  return new Intl.DateTimeFormat("en-SG", {
+    timeZone: "Asia/Singapore",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).format(date);
+}
+
 function normalizeBool(value) {
   if (typeof value === "boolean") return value;
   if (typeof value === "string") {
@@ -107,10 +123,12 @@ async function poll() {
     const stateKey = mapStatusToState(data);
     setStateByKey(stateKey);
     const status = (data.SC_OTP_Status || "—").toString();
-    meta.textContent = `Interaction: ${interactionId} | Status: ${status} | Last update: ${data.updatedAt || "just now"}`;
+    const apiInteractionId = data.interactionId || "—";
+    const lastUpdate = formatSingaporeTime(data.updatedAt);
+    meta.textContent = `Interaction (URL): ${interactionId} | Interaction (API): ${apiInteractionId} | Status: ${status} | SG time: ${lastUpdate}`;
   } catch (err) {
     hint.textContent = "Waiting for OTP status...";
-    meta.textContent = `Interaction: ${interactionId} | Status: — | Last update: —`;
+    meta.textContent = `Interaction (URL): ${interactionId} | Interaction (API): — | Status: — | SG time: —`;
   }
 }
 
