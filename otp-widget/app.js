@@ -108,13 +108,19 @@ async function fetchStatus(interactionId) {
   return res.json();
 }
 
-async function poll() {
+function getInteractionId() {
+  const fromFrame = window.frameElement?.dataProvider?.interactionId;
+  if (fromFrame) return fromFrame;
   const params = new URLSearchParams(window.location.search);
-  const interactionId = params.get("interactionId");
+  return params.get("interactionId");
+}
+
+async function poll() {
+  const interactionId = getInteractionId();
 
   if (!interactionId) {
     hint.textContent = "Missing interactionId in the URL. Example: ?interactionId=abc123";
-    meta.textContent = "Interaction: — | Last update: —";
+    meta.textContent = "Interaction (URL): — | Interaction (API): — | Status: — | SG time: —";
     return;
   }
 
