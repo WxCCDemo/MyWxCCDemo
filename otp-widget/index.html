@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OTP Authentication Status</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="card" aria-live="polite">
+      <header class="header">
+        <div>
+          <p class="eyebrow">Customer Security</p>
+          <h1>OTP Authentication</h1>
+        </div>
+        <div class="badge" id="badge">Waiting</div>
+      </header>
+
+      <section class="progress">
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="progressLabel">Preparing OTP</span>
+          <span id="progressValue">0%</span>
+        </div>
+      </section>
+
+      <section class="steps">
+        <div class="step" data-step="requested">
+          <div class="dot"></div>
+          <div>
+            <p class="step-title">Request Created</p>
+            <p class="step-sub">OTP request initiated</p>
+          </div>
+        </div>
+        <div class="step" data-step="sent">
+          <div class="dot"></div>
+          <div>
+            <p class="step-title">OTP Sent</p>
+            <p class="step-sub">Message sent to customer</p>
+          </div>
+        </div>
+        <div class="step" data-step="entered">
+          <div class="dot"></div>
+          <div>
+            <p class="step-title">OTP Entered</p>
+            <p class="step-sub">Waiting for verification</p>
+          </div>
+        </div>
+        <div class="step" data-step="verified">
+          <div class="dot"></div>
+          <div>
+            <p class="step-title">Verified</p>
+            <p class="step-sub">Customer authenticated</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="footer">
+        <p class="hint" id="hint">This panel will update automatically when the OTP status changes.</p>
+        <div class="actions">
+          <button class="ghost" id="simulate">Simulate Next</button>
+          <button class="ghost" id="reset">Reset</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
