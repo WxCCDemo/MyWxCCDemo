@@ -137,12 +137,20 @@ function getInteractionId() {
   return params.get("interactionId");
 }
 
+function getUrlDebug() {
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl = params.get("interactionId") || "—";
+  const query = window.location.search || "—";
+  return { fromUrl, query };
+}
+
 async function poll() {
   const interactionId = getInteractionId();
 
   if (!interactionId) {
     hint.textContent = "Missing interactionId in the URL. Example: ?interactionId=abc123";
-    meta.textContent = "Interaction (URL): — | Interaction (API): — | Status: — | SG time: —";
+    const debug = getUrlDebug();
+    meta.textContent = `Query: ${debug.query} | URL interactionId: ${debug.fromUrl} | API: — | Status: — | SG time: —`;
     return;
   }
 
@@ -153,10 +161,12 @@ async function poll() {
     const status = (data.SC_OTP_Status || "—").toString();
     const apiInteractionId = data.interactionId || "—";
     const lastUpdate = formatSingaporeTime(data.updatedAt);
-    meta.textContent = `Interaction (URL): ${interactionId} | Interaction (API): ${apiInteractionId} | Status: ${status} | SG time: ${lastUpdate}`;
+    const debug = getUrlDebug();
+    meta.textContent = `Query: ${debug.query} | URL interactionId: ${debug.fromUrl} | API: ${apiInteractionId} | Status: ${status} | SG time: ${lastUpdate}`;
   } catch (err) {
     hint.textContent = "Waiting for OTP status...";
-    meta.textContent = `Interaction (URL): ${interactionId} | Interaction (API): — | Status: — | SG time: —`;
+    const debug = getUrlDebug();
+    meta.textContent = `Query: ${debug.query} | URL interactionId: ${debug.fromUrl} | API: — | Status: — | SG time: —`;
   }
 }
 
