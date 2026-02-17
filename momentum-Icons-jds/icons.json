@@ -1,1 +1,569 @@
-{ "Generic": { "name": "meeting-summary-bold", "color": "grey" }, "Chat": { "name": "chat-filled", "color": "cobalt" }, "WhatsApp": { "name": "social-whatsapp-color", "color": "green", "iconSet": "momentumBrandVisuals" }, "Messenger": { "name": "social-fbmessenger-color", "color": "cobalt", "iconSet": "momentumBrandVisuals" }, "Facebook": { "name": "social-facebook-color", "color": "grey", "iconSet": "momentumBrandVisuals" }, "Apple": { "name": "apple-filled", "color": "black" }, "Activity": { "name": "meetings-bold", "color": "grey" }, "Email": { "name": "email-bold", "color": "violet" }, "SMS": { "name": "sms-filled", "color": "mint" }, "Telephony": { "name": "handset-filled", "color": "green" }, "Voice": { "name": "handset-filled", "color": "green" }, "Call": { "name": "handset-filled", "color": "green" }, "outbound-call": { "name": "outgoing-call-legacy-filled", "color": "green" }, "inbound-call": { "name": "incoming-call-legacy-filled", "color": "green" }, "Phone": { "name": "handset-filled", "color": "green" }, "wrapup": { "name": "close-space-bold", "color": "red" }, "agent": { "name": "headset-bold", "color": "pink" }, "social": { "name": "queue-contact-bold", "color": "mint" }, "task": { "name": "check-bold", "color": "yellow" }, "Login": { "name": "sign-in-bold", "color": "yellow" }, "Page Visit": { "name": "mouse-cursor-bold", "color": "grey" }, "Entered ZipCode": { "name": "location-bold", "color": "cyan" }, "Identify": { "name": "user-bold", "color": "blue" }, "Quote": { "name": "document-bold", "color": "cobalt" }, "NPS.*": { "name": "analysis-filled", "color": "red" }, "Video": { "name": "camera-bold", "color": "orange" }, "Initiated Walk In": { "name": "camera-bold", "color": "orange" }, "IMI_Inbound": { "name": "incoming-call-legacy-filled", "color": "green" }, "IMI_Outbound": { "name": "outgoing-call-legacy-filled", "color": "darkmint" }, "Trigger Sent to Server": { "name": "send-bold", "color": "violet" }, "Survey Response Collected": { "name": "survey-bold", "color": "yellow" }, "multi events single day": { "name": "calendar-day-bold", "color": "yellow" }, "calendarDate": { "name": "calendar-month-bold", "color": "green" }, "calendarDateCancel": { "name": "calendar-month-bold", "color": "red" }, "calendarDateChange": { "name": "calendar-month-bold", "color": "blue" }, "calendarDateCreate": { "name": "calendar-month-bold", "color": "green" }, "emoticon-passive": { "name": "emoji-passive-filled", "color": "yellow" }, "emoticon-sad": { "name": "emoji-sad-filled", "color": "blue" }, "emoticon-mad": { "name": "emoji-unhappy-filled", "color": "red" }, "OTP-pass": { "name": "private-circle-bold", "color": "green" }, "OTP-fail": { "name": "private-circle-bold", "color": "red" }, "Information": { "name": "info-circle-filled", "color": "yellow" }, "Webex": { "name": "webex-teams-bold", "color": "purple" }, "FBbot": { "name": "bot-customer-assistant-bold", "color": "blue" }, "bot": { "name": "bot-customer-assistant-bold", "color": "orange" }, "botmad": { "name": "bot-expert-assistant-bold", "color": "red" }, "Callback": { "name": "audio-call-bold", "color": "purple" }, "CallbackDigital": { "name": "audio-call-bold", "color": "blue" }, "CallbackRetry": { "name": "audio-call-bold", "color": "orange" }, "CallbackFail": { "name": "audio-call-bold", "color": "red" }, "WrapCode": { "name": "favorite-filled", "color": "orange" }, "Location": { "name": "location-bold", "color": "green" }, "Pending": { "name": "magic-pen-bold", "color": "blue" }, "Review": { "name": "magic-pen-bold", "color": "red" }, "In Progress": { "name": "magic-pen-bold", "color": "yellow" }, "Completed": { "name": "magic-pen-bold", "color": "green" }, "Weather": { "name": "cloud-bold", "color": "blue" }, "Bill Pay Success": { "name": "magic-pen-bold", "color": "green" }, "Bill Pay Fail": { "name": "magic-pen-bold", "color": "red" }, "Payment": { "name": "magic-pen-bold", "color": "blue" }, "Payment Paid": { "name": "check-circle-bold", "color": "green" }, "Payment Notify": { "name": "magic-pen-bold", "color": "red" }, "Attendance": { "name": "calendar-month-bold", "color": "yellow" }, "WebexInquiry": { "name": "webex-teams-bold", "color": "blue" }, "WebexInquiryCompleted": { "name": "webex-teams-bold", "color": "yellow" }, "WebexInquiryAnswered": { "name": "webex-teams-bold", "color": "green" }, "Status Change": { "name": "magic-pen-bold", "color": "red" }, "Notes": { "name": "magic-pen-bold", "color": "yellow" }, "Reported Spam": { "name": "participant-blocked-bold", "color": "red" }, "email-sad": { "name": "emoji-sad-filled", "color": "blue" }, "email-happy": { "name": "emoji-happy-filled", "color": "green" }, "email-neutral": { "name": "emoji-passive-filled", "color": "yellow" }, "email-template": { "name": "email-bold", "color": "yellow" }, "survey-sad": { "name": "emoji-sad-filled", "color": "blue" }, "survey-happy": { "name": "emoji-happy-filled", "color": "green" }, "survey-neutral": { "name": "emoji-passive-filled", "color": "yellow" }, "outage-alert": { "name": "alert-bold", "color": "yellow" }, "outage-active": { "name": "alert-filled", "color": "red" }, "outage-fixed": { "name": "alert-bold", "color": "blue" }, "outage-agent": { "name": "alert-bold", "color": "green" }, "analyze": { "name": "analysis-filled", "color": "pink" }, "QueueCallHappy": { "name": "emoji-happy-filled", "color": "green" }, "QueueCallMad": { "name": "emoji-sad-filled", "color": "blue" }, "QueueCallNeutral": { "name": "emoji-passive-filled", "color": "yellow" }, "AgentNotesHappy": { "name": "emoji-happy-filled", "color": "green" }, "AgentNotesSad": { "name": "emoji-sad-filled", "color": "blue" }, "AgentNotesNeutral": { "name": "emoji-passive-filled", "color": "yellow" }, "Agent-Notes Happy Customer": { "name": "emoji-happy-filled", "color": "green" }, "Agent-Notes Sad Customer": { "name": "emoji-sad-filled", "color": "blue" }, "Agent-Notes Customer": { "name": "emoji-passive-filled", "color": "yellow" }, "LastMinuteDeals": { "name": "add-question-bold", "color": "yellow" }, "Vacations": { "name": "add-question-bold", "color": "blue" }, "AirMiles": { "name": "pto-presence-regular", "color": "yellow" }, "Immediate Departure": { "name": "pto-presence-regular", "color": "blue" }, "Cruise": { "name": "video-blur-bold", "color": "blue" }, "AlternativeFlight": { "name": "pto-presence-regular", "color": "red" }, "RebookedFlight": { "name": "pto-presence-regular", "color": "green" }, "RandomWeb": { "name": "language-bold", "color": "yellow" }, "IdentifiedWeb": { "name": "language-bold", "color": "green" }, "passwordChange": { "name": "private-circle-bold", "color": "yellow" }, "passwordChange-pass": { "name": "private-circle-bold", "color": "green" }, "passwordChange-fail": { "name": "private-circle-bold", "color": "red" }, "Queue-Record": { "name": "record-bold", "color": "green" }, "Queue-NoRecord": { "name": "record-bold", "color": "yellow" }, "Serviced By Agent": { "name": "headset-bold", "color": "green" }, "Used Self Service": { "name": "bot-customer-assistant-bold", "color": "orange" }, "Answered Quickly": { "name": "emoji-happy-filled", "color": "green" }, "Waited In Queue Too Long": { "name": "emoji-sad-filled", "color": "blue" }, "Acceptable Queue Wait-time": { "name": "emoji-passive-filled", "color": "yellow" }, "Abandoned While Waiting": { "name": "emoji-unhappy-filled", "color": "red" }, "DUO Verified": { "name": "private-circle-bold", "color": "green" }, "DUO Authentication Failed": { "name": "private-circle-bold", "color": "red" }, "Add Option": { "name": "add-option-bold", "color": "green" }, "Instant-Video": { "name": "telepresence-bold", "color": "yellow" }, "Deflection": { "name": "forward-message-bold", "color": "yellow" }, "Voice_Mail": { "name": "new-voicemail-bold", "color": "blue" }, "Change Address": { "name": "contact-card-bold", "color": "blue" }, "Form Filled": { "name": "magic-pen-bold", "color": "green" }, "Information Given": { "name": "info-bold", "color": "purple" }, "Pages Visited": { "name": "open-pages-bold", "color": "blue" }, "Information Ready": { "name": "report-bold", "color": "yellow" }, "Chat Website": { "name": "language-bold", "color": "green" }, "Announcement": { "name": "announcement-bold", "color": "purple" }, "audioCall": { "name": "audio-call-bold", "color": "green" }, "audioCallFail": { "name": "audio-call-bold", "color": "red" }, "confirmAppointment": { "name": "check-circle-bold", "color": "yellow" }, "cancelAppointment": { "name": "check-circle-filled", "color": "red" }, "changeAppointment": { "name": "check-refresh-bold", "color": "purple" }, "salesforce": { "name": "cloud-bold", "color": "blue" }, "patient": { "name": "accessibility-bold", "color": "blue" }, "thumbsDown": { "name": "dislike-bold", "color": "blue" }, "thumbsUp": { "name": "like-bold", "color": "yellow" }, "alertHigh": { "name": "alert-active-filled", "color": "red" }, "alertMedium": { "name": "alert-filled", "color": "yellow" }, "alertLow": { "name": "alert-filled", "color": "blue" }, "alertFixed": { "name": "alert-muted-filled", "color": "Green" }, "accident": { "name": "laser-pointer-cursor-red-light", "color": "red" }, "shoppingCart": { "name": "shopping-cart-bold", "color": "red" }, "shoppingCartFull": { "name": "shopping-cart-filled", "color": "blue" }, "uploadImage": { "name": "upload-image-bold", "color": "green" } }
+{
+    "Generic": {
+        "name": "meeting-summary-bold",
+        "color": "grey"
+    },
+    "Chat": {
+        "name": "chat-filled",
+        "color": "cobalt"
+    },
+    "WhatsApp": {
+        "name": "social-whatsapp-color",
+        "color": "green",
+        "iconSet": "momentumBrandVisuals"
+    },
+    "Messenger": {
+        "name": "social-fbmessenger-color",
+        "color": "cobalt",
+        "iconSet": "momentumBrandVisuals"
+    },
+    "Facebook": {
+        "name": "social-facebook-color",
+        "color": "grey",
+        "iconSet": "momentumBrandVisuals"
+    },
+    "Apple": {
+        "name": "apple-filled",
+        "color": "black"
+    },
+    "Activity": {
+        "name": "meetings-bold",
+        "color": "grey"
+    },
+    "Email": {
+        "name": "email-bold",
+        "color": "violet"
+    },
+    "SMS": {
+        "name": "sms-filled",
+        "color": "mint"
+    },
+    "Telephony": {
+        "name": "handset-filled",
+        "color": "green"
+    },
+    "Voice": {
+        "name": "handset-filled",
+        "color": "green"
+    },
+    "Call": {
+        "name": "handset-filled",
+        "color": "green"
+    },
+    "outbound-call": {
+        "name": "outgoing-call-legacy-filled",
+        "color": "green"
+    },
+    "inbound-call": {
+        "name": "incoming-call-legacy-filled",
+        "color": "green"
+    },
+    "Phone": {
+        "name": "handset-filled",
+        "color": "green"
+    },
+    "wrapup": {
+        "name": "close-space-bold",
+        "color": "red"
+    },
+    "agent": {
+        "name": "headset-bold",
+        "color": "pink"
+    },
+    "social": {
+        "name": "queue-contact-bold",
+        "color": "mint"
+    },
+    "task": {
+        "name": "check-bold",
+        "color": "yellow"
+    },
+    "Login": {
+        "name": "sign-in-bold",
+        "color": "yellow"
+    },
+    "Page Visit": {
+        "name": "mouse-cursor-bold",
+        "color": "grey"
+    },
+    "Entered ZipCode": {
+        "name": "location-bold",
+        "color": "cyan"
+    },
+    "Identify": {
+        "name": "user-bold",
+        "color": "blue"
+    },
+    "Quote": {
+        "name": "document-bold",
+        "color": "cobalt"
+    },
+    "NPS.*": {
+        "name": "analysis-filled",
+        "color": "red"
+    },
+    "Video": {
+        "name": "camera-bold",
+        "color": "orange"
+    },
+    "Initiated Walk In": {
+        "name": "camera-bold",
+        "color": "orange"
+    },
+    "IMI_Inbound": {
+        "name": "incoming-call-legacy-filled",
+        "color": "green"
+    },
+    "IMI_Outbound": {
+        "name": "outgoing-call-legacy-filled",
+        "color": "darkmint"
+    },
+    "Trigger Sent to Server": {
+        "name": "send-bold",
+        "color": "violet"
+    },
+    "Survey Response Collected": {
+        "name": "survey-bold",
+        "color": "yellow"
+    },
+    "multi events single day": {
+        "name": "calendar-day-bold",
+        "color": "yellow"
+    },
+    "calendarDate": {
+        "name": "calendar-month-bold",
+        "color": "green"
+    },
+    "calendarDateCancel": {
+        "name": "calendar-month-bold",
+        "color": "red"
+    },
+    "calendarDateChange": {
+        "name": "calendar-month-bold",
+        "color": "blue"
+    },
+    "calendarDateCreate": {
+        "name": "calendar-month-bold",
+        "color": "green"
+    },
+    "emoticon-passive": {
+        "name": "emoji-passive-filled",
+        "color": "yellow"
+    },
+    "emoticon-sad": {
+        "name": "emoji-sad-filled",
+        "color": "blue"
+    },
+    "emoticon-mad": {
+        "name": "emoji-unhappy-filled",
+        "color": "red"
+    },
+    "OTP-Sent": {
+        "name": "private-circle-bold",
+        "color": "yellow"
+    },
+    "OTP-pass": {
+        "name": "private-circle-bold",
+        "color": "green"
+    },
+    "OTP-fail": {
+        "name": "private-circle-bold",
+        "color": "red"
+    },
+    "Information": {
+        "name": "info-circle-filled",
+        "color": "yellow"
+    },
+    "Webex": {
+        "name": "webex-teams-bold",
+        "color": "purple"
+    },
+    "FBbot": {
+        "name": "bot-customer-assistant-bold",
+        "color": "blue"
+    },
+    "bot": {
+        "name": "bot-customer-assistant-bold",
+        "color": "orange"
+    },
+    "botmad": {
+        "name": "bot-expert-assistant-bold",
+        "color": "red"
+    },
+    "Callback": {
+        "name": "audio-call-bold",
+        "color": "purple"
+    },
+    "CallbackDigital": {
+        "name": "audio-call-bold",
+        "color": "blue"
+    },
+    "CallbackRetry": {
+        "name": "audio-call-bold",
+        "color": "orange"
+    },
+    "CallbackFail": {
+        "name": "audio-call-bold",
+        "color": "red"
+    },
+    "WrapCode": {
+        "name": "favorite-filled",
+        "color": "orange"
+    },
+    "Location": {
+        "name": "location-bold",
+        "color": "green"
+    },
+    "Pending": {
+        "name": "magic-pen-bold",
+        "color": "blue"
+    },
+    "Review": {
+        "name": "magic-pen-bold",
+        "color": "red"
+    },
+    "In Progress": {
+        "name": "magic-pen-bold",
+        "color": "yellow"
+    },
+    "Completed": {
+        "name": "magic-pen-bold",
+        "color": "green"
+    },
+    "Weather": {
+        "name": "cloud-bold",
+        "color": "blue"
+    },
+    "Bill Pay Success": {
+        "name": "magic-pen-bold",
+        "color": "green"
+    },
+    "Bill Pay Fail": {
+        "name": "magic-pen-bold",
+        "color": "red"
+    },
+    "Payment": {
+        "name": "magic-pen-bold",
+        "color": "blue"
+    },
+    "Payment Paid": {
+        "name": "check-circle-bold",
+        "color": "green"
+    },
+    "Payment Notify": {
+        "name": "magic-pen-bold",
+        "color": "red"
+    },
+    "Attendance": {
+        "name": "calendar-month-bold",
+        "color": "yellow"
+    },
+    "WebexInquiry": {
+        "name": "webex-teams-bold",
+        "color": "blue"
+    },
+    "WebexInquiryCompleted": {
+        "name": "webex-teams-bold",
+        "color": "yellow"
+    },
+    "WebexInquiryAnswered": {
+        "name": "webex-teams-bold",
+        "color": "green"
+    },
+    "Status Change": {
+        "name": "magic-pen-bold",
+        "color": "red"
+    },
+    "Notes": {
+        "name": "magic-pen-bold",
+        "color": "yellow"
+    },
+    "Reported Spam": {
+        "name": "participant-blocked-bold",
+        "color": "red"
+    },
+    "email-sad": {
+        "name": "emoji-sad-filled",
+        "color": "blue"
+    },
+    "email-happy": {
+        "name": "emoji-happy-filled",
+        "color": "green"
+    },
+    "email-neutral": {
+        "name": "emoji-passive-filled",
+        "color": "yellow"
+    },
+    "email-template": {
+        "name": "email-bold",
+        "color": "yellow"
+    },
+    "survey-sad": {
+        "name": "emoji-sad-filled",
+        "color": "blue"
+    },
+    "survey-happy": {
+        "name": "emoji-happy-filled",
+        "color": "green"
+    },
+    "survey-neutral": {
+        "name": "emoji-passive-filled",
+        "color": "yellow"
+    },
+    "outage-alert": {
+        "name": "alert-bold",
+        "color": "yellow"
+    },
+    "outage-active": {
+        "name": "alert-filled",
+        "color": "red"
+    },
+    "outage-fixed": {
+        "name": "alert-bold",
+        "color": "blue"
+    },
+    "outage-agent": {
+        "name": "alert-bold",
+        "color": "green"
+    },
+    "analyze": {
+        "name": "analysis-filled",
+        "color": "pink"
+    },
+    "QueueCallHappy": {
+        "name": "emoji-happy-filled",
+        "color": "green"
+    },
+    "QueueCallMad": {
+        "name": "emoji-sad-filled",
+        "color": "blue"
+    },
+    "QueueCallNeutral": {
+        "name": "emoji-passive-filled",
+        "color": "yellow"
+    },
+    "AgentNotesHappy": {
+        "name": "emoji-happy-filled",
+        "color": "green"
+    },
+    "AgentNotesSad": {
+        "name": "emoji-sad-filled",
+        "color": "blue"
+    },
+    "AgentNotesNeutral": {
+        "name": "emoji-passive-filled",
+        "color": "yellow"
+    },
+    "Agent-Notes Happy Customer": {
+        "name": "emoji-happy-filled",
+        "color": "green"
+    },
+    "Agent-Notes Sad Customer": {
+        "name": "emoji-sad-filled",
+        "color": "blue"
+    },
+    "Agent-Notes Customer": {
+        "name": "emoji-passive-filled",
+        "color": "yellow"
+    },
+    "LastMinuteDeals": {
+        "name": "add-question-bold",
+        "color": "yellow"
+    },
+    "Vacations": {
+        "name": "add-question-bold",
+        "color": "blue"
+    },
+    "AirMiles": {
+        "name": "pto-presence-regular",
+        "color": "yellow"
+    },
+    "Immediate Departure": {
+        "name": "pto-presence-regular",
+        "color": "blue"
+    },
+    "Cruise": {
+        "name": "video-blur-bold",
+        "color": "blue"
+    },
+    "AlternativeFlight": {
+        "name": "pto-presence-regular",
+        "color": "red"
+    },
+    "RebookedFlight": {
+        "name": "pto-presence-regular",
+        "color": "green"
+    },
+    "RandomWeb": {
+        "name": "language-bold",
+        "color": "yellow"
+    },
+    "IdentifiedWeb": {
+        "name": "language-bold",
+        "color": "green"
+    },
+    "passwordChange": {
+        "name": "private-circle-bold",
+        "color": "yellow"
+    },
+    "passwordChange-pass": {
+        "name": "private-circle-bold",
+        "color": "green"
+    },
+    "passwordChange-fail": {
+        "name": "private-circle-bold",
+        "color": "red"
+    },
+    "Queue-Record": {
+        "name": "record-bold",
+        "color": "green"
+    },
+    "Queue-NoRecord": {
+        "name": "record-bold",
+        "color": "yellow"
+    },
+    "Serviced By Agent": {
+        "name": "headset-bold",
+        "color": "green"
+    },
+    "Used Self Service": {
+        "name": "bot-customer-assistant-bold",
+        "color": "orange"
+    },
+    "Answered Quickly": {
+        "name": "emoji-happy-filled",
+        "color": "green"
+    },
+    "Waited In Queue Too Long": {
+        "name": "emoji-sad-filled",
+        "color": "blue"
+    },
+    "Acceptable Queue Wait-time": {
+        "name": "emoji-passive-filled",
+        "color": "yellow"
+    },
+    "Abandoned While Waiting": {
+        "name": "emoji-unhappy-filled",
+        "color": "red"
+    },
+    "DUO Verified": {
+        "name": "private-circle-bold",
+        "color": "green"
+    },
+    "DUO Authentication Failed": {
+        "name": "private-circle-bold",
+        "color": "red"
+    },
+    "Add Option": {
+        "name": "add-option-bold",
+        "color": "green"
+    },
+    "Instant-Video": {
+        "name": "telepresence-bold",
+        "color": "yellow"
+    },
+    "Deflection": {
+        "name": "forward-message-bold",
+        "color": "yellow"
+    },
+    "Voice_Mail": {
+        "name": "new-voicemail-bold",
+        "color": "blue"
+    },
+    "Change Address": {
+        "name": "contact-card-bold",
+        "color": "blue"
+    },
+    "Form Filled": {
+        "name": "magic-pen-bold",
+        "color": "green"
+    },
+    "Information Given": {
+        "name": "info-bold",
+        "color": "purple"
+    },
+    "Pages Visited": {
+        "name": "open-pages-bold",
+        "color": "blue"
+    },
+    "Information Ready": {
+        "name": "report-bold",
+        "color": "yellow"
+    },
+    "Chat Website": {
+        "name": "language-bold",
+        "color": "green"
+    },
+    "Announcement": {
+        "name": "announcement-bold",
+        "color": "purple"
+    },
+    "audioCall": {
+        "name": "audio-call-bold",
+        "color": "green"
+    },
+    "audioCallFail": {
+        "name": "audio-call-bold",
+        "color": "red"
+    },
+    "confirmAppointment": {
+        "name": "check-circle-bold",
+        "color": "yellow"
+    },
+    "cancelAppointment": {
+        "name": "check-circle-filled",
+        "color": "red"
+    },
+    "changeAppointment": {
+        "name": "check-refresh-bold",
+        "color": "purple"
+    },
+    "salesforce": {
+        "name": "cloud-bold",
+        "color": "blue"
+    },
+    "patient": {
+        "name": "accessibility-bold",
+        "color": "blue"
+    },
+    "thumbsDown": {
+        "name": "dislike-bold",
+        "color": "blue"
+    },
+    "thumbsUp": {
+        "name": "like-bold",
+        "color": "yellow"
+    },
+    "alertHigh": {
+        "name": "alert-active-filled",
+        "color": "red"
+    },
+    "alertMedium": {
+        "name": "alert-filled",
+        "color": "yellow"
+    },
+    "alertLow": {
+        "name": "alert-filled",
+        "color": "blue"
+    },
+    "alertFixed": {
+        "name": "alert-muted-filled",
+        "color": "Green"
+    },
+    "accident": {
+        "name": "laser-pointer-cursor-red-light",
+        "color": "red"
+    },
+    "shoppingCart": {
+        "name": "shopping-cart-bold",
+        "color": "red"
+    },
+    "shoppingCartFull": {
+        "name": "shopping-cart-filled",
+        "color": "blue"
+    },
+    "uploadImage": {
+        "name": "upload-image-bold",
+        "color": "green"
+    }
+}
