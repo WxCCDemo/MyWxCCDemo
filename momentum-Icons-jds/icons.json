@@ -565,5 +565,29 @@
     "uploadImage": {
         "name": "upload-image-bold",
         "color": "green"
+    },
+    "Account Balance": {
+        "name": "report-bold",
+        "color": "blue"
+    },
+    "Credit Card Outstanding": {
+    "name": "credit-card-bold",
+    "color": "red"
+    },
+    "Account Transactions": {
+    "name": "analysis-filled",
+    "color": "cobalt"
+    },
+    "Card Transactions": {
+    "name": "credit-card-filled",
+    "color": "blue"
+    },
+    "HumanResolved": {
+    "name": "headset-bold",
+    "color": "green"
+    },
+    "EscalatedToHuman": {
+    "name": "arrow-up-bold",
+    "color": "orange"
     }
 }
