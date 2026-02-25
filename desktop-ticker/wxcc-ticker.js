@@ -64,11 +64,11 @@
     render() {
       this.innerHTML = [
         "<style>",
-        ":host{display:block;width:100%;}",
-        ".wrap{display:flex;align-items:center;gap:10px;background:#0f5fff;color:#fff;border-radius:8px;padding:6px 10px;box-sizing:border-box;}",
-        ".label{font:600 12px/1.2 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;opacity:.9;white-space:nowrap;}",
+        ":host{display:block;min-width:360px;width:min(56vw,860px);max-width:860px;}",
+        ".wrap{display:flex;align-items:center;gap:12px;background:#ffffff;color:#0f5fff;border:1px solid #9eb8ff;border-radius:8px;padding:6px 12px;box-sizing:border-box;width:100%;}",
+        ".label{font:700 12px/1.2 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0f5fff;white-space:nowrap;}",
         ".marquee{position:relative;overflow:hidden;flex:1;white-space:nowrap;}",
-        ".text{display:inline-block;padding-left:100%;font:500 13px/1.2 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;animation-name:wxccTickerMove;animation-timing-function:linear;animation-iteration-count:infinite;}",
+        ".text{display:inline-block;padding-left:100%;font:600 13px/1.2 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0f5fff;animation-name:wxccTickerMove;animation-timing-function:linear;animation-iteration-count:infinite;}",
         "@keyframes wxccTickerMove{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}",
         "</style>",
         "<div class='wrap' role='status' aria-live='polite'>",
