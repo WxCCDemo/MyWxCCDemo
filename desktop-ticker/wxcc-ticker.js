@@ -64,11 +64,11 @@
     render() {
       this.innerHTML = [
         "<style>",
-        ":host{display:block;flex:1 1 clamp(220px, 34vw, 680px);min-width:220px;max-width:100%;}",
-        ".wrap{display:flex;align-items:center;gap:clamp(6px,1vw,10px);background:#ffffff;color:#0f5fff;border:1px solid #9eb8ff;border-radius:8px;padding:clamp(3px,.5vw,6px) clamp(8px,1.2vw,14px);box-sizing:border-box;width:100%;min-width:0;}",
-        ".label{font:700 clamp(11px,.9vw,12px)/1.2 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0f5fff;white-space:nowrap;}",
-        ".marquee{position:relative;overflow:hidden;flex:1;white-space:nowrap;}",
-        ".text{display:inline-block;padding-left:100%;font:600 clamp(12px,1vw,13px)/1.2 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0f5fff;animation-name:wxccTickerMove;animation-timing-function:linear;animation-iteration-count:infinite;}",
+        ":host{display:block;flex:0 1 clamp(180px, 24vw, 420px);min-width:140px;max-width:420px;}",
+        ".wrap{display:flex;align-items:center;gap:clamp(4px,.8vw,8px);background:#ffffff;color:#0f5fff;border:1px solid #9eb8ff;border-radius:8px;padding:clamp(2px,.4vw,5px) clamp(6px,1vw,10px);box-sizing:border-box;width:100%;min-width:0;max-width:100%;overflow:hidden;}",
+        ".label{font:700 clamp(10px,.8vw,11px)/1.2 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0f5fff;white-space:nowrap;flex:0 0 auto;}",
+        ".marquee{position:relative;overflow:hidden;flex:1 1 auto;white-space:nowrap;min-width:0;}",
+        ".text{display:inline-block;padding-left:100%;font:600 clamp(10px,.9vw,12px)/1.2 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0f5fff;animation-name:wxccTickerMove;animation-timing-function:linear;animation-iteration-count:infinite;}",
         "@keyframes wxccTickerMove{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}",
         "</style>",
         "<div class='wrap' role='status' aria-live='polite'>",
