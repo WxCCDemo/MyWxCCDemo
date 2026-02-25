@@ -45,7 +45,7 @@
     async load() {
       try {
         const url = this.apiBase.replace(/\/$/, "") + this.endpoint;
-        const res = await fetch(url, { method: "GET", credentials: "include" });
+        const res = await fetch(url, { method: "GET" });
         const data = await safeJson(res);
 
         const text = typeof data.text === "string" ? data.text.trim() : "";
@@ -99,17 +99,16 @@
       return this.apiBase.replace(/\/$/, "") + this.endpoint;
     }
 
-    headers() {
+    headersForWrite() {
       const h = { "Content-Type": "application/json" };
       if (this.accessToken) h.Authorization = "Bearer " + this.accessToken;
-      if (this.orgId) h["X-Org-Id"] = this.orgId;
       return h;
     }
 
     async load() {
       this.setMessage("Loading...", "muted");
       try {
-        const res = await fetch(this.url(), { method: "GET", credentials: "include", headers: this.headers() });
+        const res = await fetch(this.url(), { method: "GET" });
         const data = await safeJson(res);
 
         this._text.value = typeof data.text === "string" ? data.text : "";
@@ -130,8 +129,7 @@
 
         const res = await fetch(this.url(), {
           method: "PUT",
-          credentials: "include",
-          headers: this.headers(),
+          headers: this.headersForWrite(),
           body: JSON.stringify(payload)
         });
 
