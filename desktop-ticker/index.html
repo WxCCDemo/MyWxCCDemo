@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desktop Ticker Test</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        margin: 24px;
+        color: #1f2a44;
+        background: #f4f7ff;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        max-width: 920px;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid #d9dde8;
+        border-radius: 10px;
+        padding: 16px;
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 22px;
+      }
+      p {
+        margin: 0;
+        color: #5e6a87;
+      }
+      code {
+        background: #eef2ff;
+        padding: 1px 5px;
+        border-radius: 4px;
+      }
+    </style>
+    <script src="./wxcc-ticker.js"></script>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="card">
+        <h1>Ticker Banner (Agent View)</h1>
+        <p>Set <code>apiBase</code> to your hosted backend.</p>
+        <br />
+        <wxcc-ticker-banner apiBase="http://localhost:3000" endpoint="/api/ticker" pollMs="5000" title="Supervisor Broadcast"></wxcc-ticker-banner>
+      </div>
+
+      <div class="card">
+        <h1>Ticker Admin (Supervisor View)</h1>
+        <p>Use the same API endpoint as the banner.</p>
+        <br />
+        <wxcc-ticker-admin apiBase="http://localhost:3000" endpoint="/api/ticker"></wxcc-ticker-admin>
+      </div>
+    </div>
+  </body>
+</html>
