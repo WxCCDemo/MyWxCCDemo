@@ -1,0 +1,14 @@
+{
+  "name": "webex-connect-otp-crm-gate",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Webex AI Agent action service that gates CRM access behind Webex Connect OTP verification.",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "DUO_MOCK_MODE=true node src/server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

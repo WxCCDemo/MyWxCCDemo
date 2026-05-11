@@ -1,0 +1,1 @@
+window.WEBEX_CONNECT_VERIFY_URL = "";

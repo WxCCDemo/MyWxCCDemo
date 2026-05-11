@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DBS Secure OTP Gate</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #f5f7f9;
+        color: #18212f;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      main {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 28px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 28px;
+        line-height: 1.2;
+      }
+
+      .status {
+        border: 1px solid #cfd8e3;
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      .workspace {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        gap: 18px;
+      }
+
+      section {
+        background: #ffffff;
+        border: 1px solid #d9e1ea;
+        border-radius: 8px;
+        padding: 18px;
+      }
+
+      label {
+        display: block;
+        margin-top: 12px;
+        color: #526070;
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      input,
+      select {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 6px;
+        border: 1px solid #c8d2df;
+        border-radius: 6px;
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      button {
+        width: 100%;
+        margin-top: 16px;
+        border: 0;
+        border-radius: 6px;
+        background: #d71920;
+        color: #ffffff;
+        padding: 11px 14px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button.secondary {
+        background: #333f48;
+      }
+
+      .url-box {
+        margin-top: 16px;
+        border: 1px solid #f2b8bc;
+        border-radius: 8px;
+        background: #fff6f6;
+        padding: 14px;
+      }
+
+      .url-box a {
+        display: block;
+        margin-top: 8px;
+        color: #b5121b;
+        overflow-wrap: anywhere;
+        font-weight: 700;
+      }
+
+      pre {
+        min-height: 340px;
+        overflow: auto;
+        border-radius: 8px;
+        background: #111827;
+        color: #d1fae5;
+        padding: 16px;
+        white-space: pre-wrap;
+      }
+
+      .crm {
+        margin-top: 16px;
+        border-left: 4px solid #b91c1c;
+        background: #fff5f5;
+        padding: 12px;
+        font-weight: 700;
+      }
+
+      .crm.open {
+        border-color: #126c5b;
+        background: #edfdf6;
+      }
+
+      @media (max-width: 820px) {
+        main {
+          padding: 18px;
+        }
+
+        header,
+        .workspace {
+          display: block;
+        }
+
+        section {
+          margin-bottom: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <h1>DBS Secure OTP Gate</h1>
+          <p>Create a secure page URL for the customer to enter the OTP outside the AI transcript.</p>
+        </div>
+        <div class="status" id="health">Checking service...</div>
+      </header>
+
+      <div class="workspace">
+        <section>
+          <label for="actor">Request source</label>
+          <select id="actor">
+            <option value="ai-agent">Webex AI Agent</option>
+            <option value="human-agent">Human Agent</option>
+          </select>
+
+          <label for="customer_id">Customer ID</label>
+          <input id="customer_id" value="DBS-48291" />
+
+          <label for="customer_name">Customer name</label>
+          <input id="customer_name" value="Avery Tan" />
+
+          <label for="registered_mobile">Registered mobile</label>
+          <input id="registered_mobile" value="6587414102" />
+
+          <label for="reason">Reason</label>
+          <input id="reason" value="Open CRM profile during support call" />
+
+          <button id="verify">Create customer OTP page URL</button>
+          <button class="secondary" id="sessions">Refresh sessions</button>
+        </section>
+
+        <section>
+          <strong>Result</strong>
+          <div class="crm" id="crm">CRM portal blocked</div>
+          <div class="url-box" id="customerUrlBox" hidden>
+            Send this secure webpage URL to the customer:
+            <a id="customerUrl" href="#"></a>
+            <button class="secondary" id="copyUrl" type="button">Copy customer URL</button>
+          </div>
+          <pre id="output">{}</pre>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const output = document.querySelector("#output");
+      const crm = document.querySelector("#crm");
+      const customerUrlBox = document.querySelector("#customerUrlBox");
+      const customerUrl = document.querySelector("#customerUrl");
+      const copyUrl = document.querySelector("#copyUrl");
+
+      async function request(path, options) {
+        const response = await fetch(path, options);
+        const payload = await response.json();
+        output.textContent = JSON.stringify(payload, null, 2);
+        return payload;
+      }
+
+      async function checkHealth() {
+        await fetch("/health").then((res) => res.json());
+        document.querySelector("#health").textContent = "Service ready";
+      }
+
+      document.querySelector("#verify").addEventListener("click", async () => {
+        const actor = document.querySelector("#actor").value;
+        const path = actor === "human-agent" ? "/api/human-agent/otp/start" : "/api/ai-agent/otp/start";
+        const payload = await request(path, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            customer_id: document.querySelector("#customer_id").value,
+            customer_name: document.querySelector("#customer_name").value,
+            registered_mobile: document.querySelector("#registered_mobile").value,
+            reason: document.querySelector("#reason").value
+          })
+        });
+
+        if (payload.verification_status === "verified") {
+          crm.classList.add("open");
+          crm.textContent = `CRM portal unlocked: ${payload.crm_url}`;
+        } else if (payload.verification_status === "pending") {
+          crm.classList.remove("open");
+          crm.textContent = `CRM portal blocked. Verification page: ${payload.verification_url}`;
+          customerUrl.href = payload.verification_url;
+          customerUrl.textContent = payload.verification_url;
+          customerUrlBox.hidden = false;
+        } else {
+          crm.classList.remove("open");
+          crm.textContent = "CRM portal blocked";
+        }
+      });
+
+      copyUrl.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(customerUrl.href);
+        copyUrl.textContent = "Copied";
+        setTimeout(() => {
+          copyUrl.textContent = "Copy customer URL";
+        }, 1600);
+      });
+
+      document.querySelector("#sessions").addEventListener("click", () => request("/api/sessions"));
+      checkHealth();
+    </script>
+  </body>
+</html>
