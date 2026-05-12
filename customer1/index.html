@@ -82,6 +82,11 @@
       font-weight: 700;
     }
 
+    button.contact-link {
+      width: calc(100% - 20px);
+      text-align: left;
+    }
+
     @media (max-width: 768px) {
       .dbs-home-link {
         top: 10px;
@@ -118,10 +123,10 @@
         <img src="../assets/Phone.jpg" alt="Phone Icon" />
         +65 6047 8485
       </a>
-      <a href="https://wa.me/12076803454" class="contact-link" id="whatsappQrLink" data-bs-toggle="tooltip" title="WhatsApp QR">
+      <button type="button" class="contact-link" id="whatsappQrLink" data-bs-toggle="tooltip" title="WhatsApp QR">
         <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" />
         +1 (207) 680-3454
-      </a>
+      </button>
       <a href="mailto:cxdemosc@gmail.com" class="contact-link" data-bs-toggle="tooltip" title="Email">
         <img src="../assets/contact-us-email.jpg" alt="Email Icon" />
         sc01customer@gmail.com
@@ -237,12 +242,20 @@
       const whatsappUrl = "https://wa.me/12076803454";
       const qrImage = document.getElementById("whatsappQrImage");
       const qrLink = document.getElementById("whatsappQrLink");
-      const qrModal = new bootstrap.Modal(document.getElementById("whatsappQrModal"));
+      const qrModalElement = document.getElementById("whatsappQrModal");
+      const qrModal = window.bootstrap ? new bootstrap.Modal(qrModalElement) : null;
 
       qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(whatsappUrl);
       qrLink.addEventListener("click", function (event) {
         event.preventDefault();
-        qrModal.show();
+        if (qrModal) {
+          qrModal.show();
+          return;
+        }
+
+        qrModalElement.classList.add("show");
+        qrModalElement.removeAttribute("aria-hidden");
+        qrModalElement.style.display = "block";
       });
     });
   </script>
