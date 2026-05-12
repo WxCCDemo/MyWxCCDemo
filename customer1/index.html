@@ -59,6 +59,29 @@
       background-color: #d71920;
     }
 
+    .whatsapp-qr {
+      display: grid;
+      justify-items: center;
+      gap: 14px;
+      text-align: center;
+    }
+
+    .whatsapp-qr img {
+      width: 220px;
+      height: 220px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px;
+      background: #ffffff;
+    }
+
+    .whatsapp-qr .btn {
+      background: #25d366;
+      border-color: #25d366;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
     @media (max-width: 768px) {
       .dbs-home-link {
         top: 10px;
@@ -95,7 +118,7 @@
         <img src="../assets/Phone.jpg" alt="Phone Icon" />
         +65 6047 8485
       </a>
-      <a href="https://wa.me/12076803454" target="_blank" rel="noopener" class="contact-link" data-bs-toggle="tooltip" title="WhatsApp">
+      <a href="https://wa.me/12076803454" class="contact-link" id="whatsappQrLink" data-bs-toggle="tooltip" title="WhatsApp QR">
         <img src="../assets/contact-us-whatsapp.jpeg" alt="WhatsApp Icon" />
         +1 (207) 680-3454
       </a>
@@ -111,6 +134,24 @@
         <img src="../assets/webex-logo.png" alt="Webex Home" />
         Webex
       </a>
+    </div>
+  </div>
+
+  <div class="modal fade" id="whatsappQrModal" tabindex="-1" aria-labelledby="whatsappQrTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="whatsappQrTitle">WhatsApp Chat</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="whatsapp-qr">
+            <img id="whatsappQrImage" src="" alt="WhatsApp chat QR code" />
+            <p class="mb-0">Scan this QR code to start a WhatsApp chat.</p>
+            <a class="btn" id="whatsappDirectLink" href="https://wa.me/12076803454" target="_blank" rel="noopener">Open WhatsApp</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -191,6 +232,17 @@
       const tooltipTriggerList = [].slice.call(document.querySelectorAll("[data-bs-toggle='tooltip']"));
       tooltipTriggerList.forEach(function (tooltipTriggerEl) {
         new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+
+      const whatsappUrl = "https://wa.me/12076803454";
+      const qrImage = document.getElementById("whatsappQrImage");
+      const qrLink = document.getElementById("whatsappQrLink");
+      const qrModal = new bootstrap.Modal(document.getElementById("whatsappQrModal"));
+
+      qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(whatsappUrl);
+      qrLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        qrModal.show();
       });
     });
   </script>
