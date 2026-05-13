@@ -95,7 +95,8 @@
 
       button:disabled {
         cursor: not-allowed;
-        opacity: 0.7;
+        background: #a8b1bd;
+        opacity: 1;
       }
 
       .result {
@@ -108,8 +109,8 @@
       }
 
       .result.success {
-        background: #edfdf6;
-        color: #126c5b;
+        background: #f6f8fb;
+        color: #3d4a5c;
       }
 
       .result.error {
@@ -161,10 +162,11 @@
         }
 
         submit.disabled = true;
-        show("Verifying code...");
+        otp.disabled = true;
+        show("Submitted. Please return to the banking conversation.");
 
         try {
-          const response = await fetch(VERIFY_ENDPOINT, {
+          await fetch(VERIFY_ENDPOINT, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -174,19 +176,8 @@
               otp: code
             })
           });
-          const payload = await response.json();
-
-          if (payload.verification_status === "verified") {
-            show("Verification complete. You may return to the banking conversation.", "success");
-            otp.disabled = true;
-            return;
-          }
-
-          show("Verification failed. Please check the code or ask the agent to resend it.", "error");
-          submit.disabled = false;
         } catch (error) {
-          show("Unable to verify right now. Please try again.", "error");
-          submit.disabled = false;
+          show("Submitted. Please return to the banking conversation.");
         }
       });
     </script>

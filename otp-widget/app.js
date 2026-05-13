@@ -5,8 +5,9 @@ const POLL_MS = 5000;
 const states = [
   { key: "requested", label: "Preparing OTP", value: 20, badge: "Requested" },
   { key: "sent", label: "OTP Sent", value: 50, badge: "Sent" },
-  { key: "entered", label: "OTP Entered", value: 75, badge: "Entered" },
-  { key: "verified", label: "OTP Verified", value: 100, badge: "Verified", complete: true }
+  { key: "entered", label: "OTP Submitted", value: 75, badge: "Submitted" },
+  { key: "verified", label: "OTP Verified", value: 100, badge: "Verified", complete: true },
+  { key: "failed", label: "OTP Failed", value: 100, badge: "Failed", failed: true }
 ];
 
 let stateIndex = 0;
@@ -46,9 +47,9 @@ function normalizeBool(value) {
 function mapStatusToState(data) {
   const status = (data.SC_OTP_Status || "").toString().trim().toUpperCase();
   if (status === "VERIFIED" || status === "AUTHENTICATED") return "verified";
-  if (status.includes("VERIFY") || status.includes("AUTH")) return "verified";
-  if (status.includes("ENTER")) return "entered";
-  if (status.includes("SENT")) return "sent";
+  if (status === "FAILED" || status === "DENIED") return "failed";
+  if (status === "RETRY") return "entered";
+  if (status === "SENT") return "sent";
 
   const entered = normalizeBool(data.SC_OTP_Entered);
   const sent = normalizeBool(data.SC_OTP_Sent);
@@ -67,6 +68,8 @@ function updateUI() {
   progressLabel.textContent = current.label;
   progressValue.textContent = `${current.value}%`;
   badge.textContent = current.badge;
+  badge.classList.toggle("is-failed", Boolean(current.failed));
+  progressFill.classList.toggle("is-failed", Boolean(current.failed));
 
   document.querySelectorAll(".step").forEach((step, index) => {
     step.classList.remove("is-active", "is-complete");
@@ -79,7 +82,9 @@ function updateUI() {
   });
 
   hint.textContent = current.complete
-    ? "OTP verified. The call can be routed back to the same agent."
+    ? "OTP verified. Privileged service actions may continue."
+    : current.failed
+      ? "OTP verification failed. Escalate or resend according to bank policy."
     : "This panel updates automatically with OTP status.";
 }
 

@@ -67,6 +67,11 @@ h1 {
   font-size: 12px;
 }
 
+.badge.is-failed {
+  background: #fff1f2;
+  color: #b5121b;
+}
+
 .progress {
   margin-bottom: 18px;
 }
@@ -85,6 +90,10 @@ h1 {
   background: linear-gradient(90deg, #2f6bff, #52b1ff);
   border-radius: 999px;
   transition: width 0.4s ease;
+}
+
+.progress-fill.is-failed {
+  background: linear-gradient(90deg, #b5121b, #ef4444);
 }
 
 .progress-meta {
