@@ -87,6 +87,53 @@
       text-align: left;
     }
 
+    #notificationOffcanvasIndependent {
+      --bs-offcanvas-width: 320px;
+    }
+
+    #notificationOffcanvasIndependent .offcanvas-header {
+      background: #d71920;
+      color: #ffffff;
+    }
+
+    #notificationSidebarIconTrigger {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      z-index: 1060;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: #ffffff;
+      border: 0;
+      border-radius: 50%;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    #notificationSidebarIconTrigger:hover,
+    #notificationSidebarIconTrigger:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
+    }
+
+    #notificationSidebarIconTrigger img {
+      width: 26px;
+      height: 26px;
+    }
+
+    .notification-preview {
+      padding: 12px;
+      color: #4b5563;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
     @media (max-width: 768px) {
       .dbs-home-link {
         top: 10px;
@@ -161,6 +208,68 @@
   </div>
 
   <div id="divicw" data-bind="A0993777-C0CF-4DE8-BF2D-57859A20A5A7" data-org=""></div>
+
+  <button id="notificationSidebarIconTrigger" type="button" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvasIndependent" aria-controls="notificationOffcanvasIndependent" aria-label="Open proactive notification">
+    <img src="../assets/informationicon.png" alt="" />
+  </button>
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="notificationOffcanvasIndependent" aria-labelledby="notificationOffcanvasLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="notificationOffcanvasLabel">Proactive Notification</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <form id="notificationFormIndependent">
+        <div class="mb-3">
+          <label class="form-label fw-semibold" for="webhookSelectIndependent">Region</label>
+          <select class="form-select" id="webhookSelectIndependent">
+            <option value="sg" selected>Singapore</option>
+            <option value="us">USA</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold" for="nameSelectIndependent">Customer</label>
+          <select class="form-select" id="nameSelectIndependent" required>
+            <option value="" disabled selected>Select Customer</option>
+            <option value="Christopher">Christopher</option>
+            <option value="Shailesh">Shailesh</option>
+            <option value="Joshua">Joshua</option>
+            <option value="Grace">Grace</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold" for="phoneInputIndependent">Phone Number</label>
+          <input class="form-control" id="phoneInputIndependent" placeholder="Auto-filled" readonly />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold" for="channelInputIndependent">Channel</label>
+          <input class="form-control" id="channelInputIndependent" value="WhatsApp" readonly />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold" for="messageTypeSelectIndependent">Template</label>
+          <select class="form-select" id="messageTypeSelectIndependent" required>
+            <option value="" disabled selected>Select Template</option>
+            <option value="Notification">Notification</option>
+            <option value="Offer">Offer</option>
+            <option value="Reminder">Reminder</option>
+            <option value="Chat">Chat</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Preview</label>
+          <div class="notification-preview" id="notificationPreviewIndependent">Select a customer and template to preview the WhatsApp notification.</div>
+        </div>
+
+        <button type="submit" class="btn btn-danger w-100" id="sendNotificationButton" disabled>Send WhatsApp Notification</button>
+      </form>
+      <div id="formStatusIndependent" class="mt-3 fw-semibold" style="display:none;"></div>
+    </div>
+  </div>
 
   <script>
     var i = {
@@ -256,6 +365,88 @@
         qrModalElement.classList.add("show");
         qrModalElement.removeAttribute("aria-hidden");
         qrModalElement.style.display = "block";
+      });
+
+      const phoneLookup = {
+        Christopher: "6589485304",
+        Shailesh: "6598250480",
+        Joshua: "6591438487",
+        Grace: "6587832760",
+      };
+
+      const templateCopy = {
+        Notification: "Hi {name}, DBS has an important update for you. Reply here to continue with our Contact Center on WhatsApp.",
+        Offer: "Hi {name}, DBS has a new offer available for you. Reply here to connect with our Contact Center on WhatsApp.",
+        Reminder: "Hi {name}, this is a DBS reminder. Reply here if you would like help from our Contact Center on WhatsApp.",
+        Chat: "Hi {name}, tap here to continue your conversation with our Contact Center on WhatsApp.",
+      };
+
+      const nameSelect = document.getElementById("nameSelectIndependent");
+      const phoneInput = document.getElementById("phoneInputIndependent");
+      const messageTypeSelect = document.getElementById("messageTypeSelectIndependent");
+      const notificationPreview = document.getElementById("notificationPreviewIndependent");
+      const sendButton = document.getElementById("sendNotificationButton");
+      const notificationForm = document.getElementById("notificationFormIndependent");
+      const formStatus = document.getElementById("formStatusIndependent");
+
+      function updateNotificationForm() {
+        const customerName = nameSelect.value;
+        const messageType = messageTypeSelect.value;
+
+        phoneInput.value = phoneLookup[customerName] || "";
+        sendButton.disabled = !customerName || !messageType;
+        notificationPreview.textContent =
+          customerName && messageType
+            ? templateCopy[messageType].replace("{name}", customerName)
+            : "Select a customer and template to preview the WhatsApp notification.";
+      }
+
+      nameSelect.addEventListener("change", updateNotificationForm);
+      messageTypeSelect.addEventListener("change", updateNotificationForm);
+
+      notificationForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (sendButton.disabled) return;
+
+        const region = document.getElementById("webhookSelectIndependent").value;
+        const webhookUrls = {
+          sg: "https://hooks.sg.webexconnect.io/events/CSWMWVJ81X",
+          us: "https://hooks.us.webexconnect.io/events/K2PYR77SOP",
+        };
+        const payload = {
+          Name: nameSelect.value,
+          Phone: phoneInput.value,
+          channel: "WhatsApp",
+          messageType: messageTypeSelect.value,
+        };
+
+        sendButton.disabled = true;
+        sendButton.textContent = "Sending...";
+        formStatus.style.display = "none";
+
+        fetch(webhookUrls[region] || webhookUrls.sg, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then(function (response) {
+            if (!response.ok) throw new Error("Network error");
+            return response.text();
+          })
+          .then(function () {
+            formStatus.textContent = "WhatsApp notification sent to " + nameSelect.value + ". Waiting for customer to respond...";
+            formStatus.className = "mt-3 fw-semibold text-success";
+            formStatus.style.display = "block";
+          })
+          .catch(function () {
+            formStatus.textContent = "Failed to send WhatsApp notification. Please try again.";
+            formStatus.className = "mt-3 fw-semibold text-danger";
+            formStatus.style.display = "block";
+          })
+          .finally(function () {
+            sendButton.textContent = "Send WhatsApp Notification";
+            updateNotificationForm();
+          });
       });
     });
   </script>
