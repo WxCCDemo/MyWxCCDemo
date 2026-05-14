@@ -404,6 +404,19 @@
       nameSelect.addEventListener("change", updateNotificationForm);
       messageTypeSelect.addEventListener("change", updateNotificationForm);
 
+      function parseWebhookBody(bodyText) {
+        if (!bodyText) return {};
+        try {
+          return JSON.parse(bodyText);
+        } catch (error) {
+          return { message: bodyText };
+        }
+      }
+
+      function getWebhookStatus(data) {
+        return String(data.status || data.Status || data.result || data.state || "").toLowerCase();
+      }
+
       notificationForm.addEventListener("submit", function (event) {
         event.preventDefault();
         if (sendButton.disabled) return;
@@ -430,16 +443,38 @@
           body: JSON.stringify(payload),
         })
           .then(function (response) {
-            if (!response.ok) throw new Error("Network error");
-            return response.text();
+            return response.text().then(function (bodyText) {
+              return {
+                data: parseWebhookBody(bodyText),
+                ok: response.ok,
+                statusCode: response.status,
+              };
+            });
           })
-          .then(function () {
-            formStatus.textContent = "WhatsApp notification sent to " + nameSelect.value + ". Waiting for customer to respond...";
+          .then(function (webhookResult) {
+            const status = getWebhookStatus(webhookResult.data);
+            const message = webhookResult.data.message || webhookResult.data.Message || webhookResult.data.error || webhookResult.data.Error;
+
+            if (!webhookResult.ok || status.includes("fail")) {
+              formStatus.textContent = message || "Failed to send WhatsApp notification. Please try again.";
+              formStatus.className = "mt-3 fw-semibold text-warning";
+              formStatus.style.display = "block";
+              return;
+            }
+
+            if (status.includes("error")) {
+              formStatus.textContent = message || "Webhook returned an error while sending the notification.";
+              formStatus.className = "mt-3 fw-semibold text-danger";
+              formStatus.style.display = "block";
+              return;
+            }
+
+            formStatus.textContent = message || "WhatsApp notification sent to " + nameSelect.value + ". Waiting for customer to respond...";
             formStatus.className = "mt-3 fw-semibold text-success";
             formStatus.style.display = "block";
           })
           .catch(function () {
-            formStatus.textContent = "Failed to send WhatsApp notification. Please try again.";
+            formStatus.textContent = "Error sending WhatsApp notification. Please check the webhook or network connection.";
             formStatus.className = "mt-3 fw-semibold text-danger";
             formStatus.style.display = "block";
           })
