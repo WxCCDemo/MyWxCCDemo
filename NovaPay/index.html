@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaPay Secure Checkout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      color: #172033;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(41, 121, 255, 0.18), transparent 28%),
+        linear-gradient(135deg, #eef5ff 0%, #f7f9fc 45%, #e9f7f2 100%);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .checkout {
+      width: min(100%, 440px);
+      background: #ffffff;
+      border: 1px solid #dce5f2;
+      border-radius: 8px;
+      box-shadow: 0 24px 70px rgba(18, 31, 53, 0.16);
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 24px;
+      background: #101828;
+      color: #ffffff;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: #1f7aec;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 4px 0 0;
+      color: #c8d2e3;
+      font-size: 13px;
+    }
+
+    .content {
+      padding: 24px;
+    }
+
+    .notice {
+      margin: 0 0 18px;
+      padding: 10px 12px;
+      border: 1px solid #b7d7ff;
+      border-radius: 8px;
+      background: #eff7ff;
+      color: #28496f;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #344054;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid #cfd8e6;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font: inherit;
+      font-size: 14px;
+      color: #172033;
+      background: #ffffff;
+    }
+
+    input[readonly] {
+      color: #475467;
+      background: #f8fafc;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #1f7aec;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(31, 122, 236, 0.16);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    button {
+      width: 100%;
+      min-height: 46px;
+      border: 0;
+      border-radius: 8px;
+      background: #1f7aec;
+      color: #ffffff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1767cc;
+    }
+
+    button:disabled {
+      background: #8bbcf7;
+      cursor: progress;
+    }
+
+    .confirmation {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #a7e3bf;
+      background: #effaf3;
+      color: #14532d;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .confirmation strong {
+      color: #0f3d21;
+    }
+
+    .error {
+      display: none;
+      margin-top: 14px;
+      color: #b42318;
+      font-size: 13px;
+    }
+
+    .footer {
+      padding: 14px 24px;
+      border-top: 1px solid #eef2f7;
+      color: #667085;
+      font-size: 12px;
+      background: #fbfcfe;
+      text-align: center;
+    }
+
+    @media (max-width: 420px) {
+      body {
+        padding: 12px;
+      }
+
+      .header,
+      .content {
+        padding: 20px;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="checkout">
+    <section class="header">
+      <div class="brand">
+        <div class="mark">NP</div>
+        <div>
+          <h1>NovaPay</h1>
+          <p class="subtitle">Secure demo checkout</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <p class="notice">Demo payment page. Do not enter real card details.</p>
+
+      <div class="field">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" min="1" step="0.01" placeholder="Loading..." readonly>
+      </div>
+
+      <div class="field">
+        <label for="cardType">Card Type</label>
+        <select id="cardType">
+          <option>Visa</option>
+          <option>Mastercard</option>
+          <option>American Express</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="cardName">Name on Card</label>
+        <input type="text" id="cardName" placeholder="Demo User" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label for="cardNumber">Card Number</label>
+        <input type="text" id="cardNumber" inputmode="numeric" placeholder="4111 1111 1111 1111" maxlength="19" autocomplete="off">
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="expiry">Expiry</label>
+          <input type="text" id="expiry" placeholder="12/30" maxlength="5" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="cvv">CVV</label>
+          <input type="password" id="cvv" placeholder="123" maxlength="4" autocomplete="off">
+        </div>
+      </div>
+
+      <button id="payButton" type="button" disabled>Loading...</button>
+      <div class="error" id="errorBox"></div>
+      <div class="confirmation" id="confirmationBox"></div>
+    </section>
+
+    <footer class="footer">NovaPay mock payment service for demo use only</footer>
+  </main>
+
+  <script>
+    const SUPABASE_REST_URL = 'https://yrirrlfmjjfzcvmkuzpl.supabase.co/rest/v1';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyaXJybGZtampmemN2bWt1enBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMxODk1MzQsImV4cCI6MjA2ODc2NTUzNH0.Iyn8te51bM2e3Pvdjrx3BkG14WcBKuqFhoIq2PSwJ8A';
+
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('sessionId');
+    const sessionToken = params.get('token');
+    const payButton = document.getElementById('payButton');
+
+    function showError(message) {
+      const errorBox = document.getElementById('errorBox');
+      errorBox.textContent = message;
+      errorBox.style.display = 'block';
+    }
+
+    function clearError() {
+      const errorBox = document.getElementById('errorBox');
+      errorBox.textContent = '';
+      errorBox.style.display = 'none';
+    }
+
+    async function callRpc(functionName, payload) {
+      const response = await fetch(`${SUPABASE_REST_URL}/rpc/${functionName}`, {
+        method: 'POST',
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(data && data.message ? data.message : 'NovaPay request failed.');
+      }
+
+      return Array.isArray(data) ? data[0] : data;
+    }
+
+    function generateConfirmationCode() {
+      return `NP-${Math.random().toString(36).slice(2, 10).toUpperCase()}`;
+    }
+
+    async function loadSession() {
+      if (!sessionId || !sessionToken) {
+        showError('Missing payment session details. Please use the payment link sent by the agent.');
+        payButton.textContent = 'Unavailable';
+        return;
+      }
+
+      try {
+        const session = await callRpc('get_novapay_session', {
+          p_session_id: sessionId,
+          p_session_token: sessionToken
+        });
+
+        if (!session) {
+          throw new Error('Payment session not found.');
+        }
+
+        document.getElementById('amount').value = Number(session.amount).toFixed(2);
+
+        if (session.status === 'completed') {
+          document.getElementById('confirmationBox').innerHTML =
+            `<strong>Payment Already Completed</strong><br>
+             Amount: $${Number(session.amount).toFixed(2)}<br>
+             Confirmation Code: ${session.confirmation_code || 'Completed'}`;
+          document.getElementById('confirmationBox').style.display = 'block';
+          payButton.textContent = 'Payment Completed';
+          return;
+        }
+
+        payButton.disabled = false;
+        payButton.textContent = 'Pay Now';
+      } catch (error) {
+        showError(error.message || 'Unable to load payment session.');
+        payButton.textContent = 'Unavailable';
+      }
+    }
+
+    async function processPayment() {
+      clearError();
+
+      const cardNumber = document.getElementById('cardNumber').value;
+      const payload = {
+        cardNumber,
+        cardName: document.getElementById('cardName').value,
+        expiry: document.getElementById('expiry').value,
+        cvv: document.getElementById('cvv').value
+      };
+
+      if (!payload.cardNumber || !payload.cardName || !payload.expiry || !payload.cvv) {
+        showError('Please complete all fields.');
+        return;
+      }
+
+      const digitsOnly = String(cardNumber).replace(/\D/g, '');
+      if (digitsOnly.length < 4) {
+        showError('Please enter a valid demo card number.');
+        return;
+      }
+
+      payButton.disabled = true;
+      payButton.textContent = 'Processing...';
+
+      try {
+        const result = await callRpc('complete_novapay_session', {
+          p_session_id: sessionId,
+          p_session_token: sessionToken,
+          p_paid_card_last4: digitsOnly.slice(-4),
+          p_confirmation_code: generateConfirmationCode()
+        });
+
+        document.getElementById('confirmationBox').innerHTML =
+          `<strong>Payment Successful</strong><br>
+           Amount: $${Number(result.amount).toFixed(2)}<br>
+           Card: **** **** **** ${result.paid_card_last4}<br>
+           Confirmation Code: ${result.confirmation_code}`;
+        document.getElementById('confirmationBox').style.display = 'block';
+        payButton.textContent = 'Payment Completed';
+      } catch (error) {
+        showError(error.message || 'Server error. Please try again.');
+        payButton.disabled = false;
+        payButton.textContent = 'Pay Now';
+      }
+    }
+
+    payButton.addEventListener('click', processPayment);
+    loadSession();
+  </script>
+</body>
+</html>
