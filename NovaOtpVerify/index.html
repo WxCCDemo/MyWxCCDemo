@@ -12,9 +12,7 @@
         color: #172033;
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
       body {
         min-height: 100vh;
@@ -69,9 +67,7 @@
         font-size: 13px;
       }
 
-      .content {
-        padding: 24px;
-      }
+      .content { padding: 24px; }
 
       h1 {
         margin: 0 0 8px;
@@ -134,9 +130,7 @@
         cursor: pointer;
       }
 
-      button:hover {
-        background: #1767cc;
-      }
+      button:hover { background: #1767cc; }
 
       button:disabled {
         cursor: not-allowed;
@@ -189,9 +183,9 @@
         <p class="notice">Do not say this code aloud or share it in the conversation.</p>
 
         <label for="otp">Verification code</label>
-        <input id="otp" maxlength="12" autocomplete="one-time-code" autofocus />
+        <input id="otp" maxlength="6" inputmode="numeric" pattern="[0-9]{6}" autocomplete="one-time-code" autofocus />
 
-        <button id="submit" type="button">Verify</button>
+        <button id="submit" type="button" disabled>Submit</button>
         <div class="result" id="result">Waiting for verification code.</div>
       </section>
 
@@ -211,6 +205,15 @@
         result.className = "result" + (type ? ` ${type}` : "");
       }
 
+      function updateSubmitState() {
+        submit.disabled = !interactionId || !/^\d{6}$/.test(otp.value);
+      }
+
+      otp.addEventListener("input", () => {
+        otp.value = otp.value.replace(/\D/g, "").slice(0, 6);
+        updateSubmitState();
+      });
+
       if (!interactionId) {
         show("This verification link is missing an interaction ID. Please ask the agent to send a new link.", "error");
         otp.disabled = true;
@@ -218,10 +221,11 @@
       }
 
       submit.addEventListener("click", async () => {
-        const code = otp.value.trim().toUpperCase();
+        const code = otp.value.trim();
 
-        if (!code) {
-          show("Please enter the verification code.", "error");
+        if (!/^\d{6}$/.test(code)) {
+          show("Please enter a 6-digit verification code.", "error");
+          updateSubmitState();
           return;
         }
 
@@ -232,13 +236,8 @@
         try {
           await fetch(VERIFY_ENDPOINT, {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              interactionId,
-              otp: code
-            })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ interactionId, otp: code })
           });
         } catch (error) {
           show("Submitted. Please return to the payment conversation.", "success");
