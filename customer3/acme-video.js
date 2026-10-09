@@ -97,7 +97,7 @@
     if (!links || links.querySelector('[data-contact-action="video"]')) return false;
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'acme-contact-link acme-video-contact';
+    button.className = 'acme-contact-link';
     button.dataset.contactAction = 'video';
     button.title = 'Video Assistance';
     button.innerHTML = `<span class="acme-video-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path d="M15 8.5V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1.5l5 3V5.5l-5 3Z"/></svg></span><span>Video Assistance</span>`;
