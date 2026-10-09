@@ -67,6 +67,14 @@
         joinLink.target = '_blank';
         joinLink.rel = 'noopener noreferrer';
         joinLink.textContent = 'Join video call';
+        joinLink.addEventListener('click', () => {
+          joinLink.setAttribute('aria-disabled', 'true');
+          joinLink.textContent = 'Opening video call...';
+          joinLink.style.pointerEvents = 'none';
+          joinLink.style.background = '#94a3b8';
+          joinLink.style.color = '#e2e8f0';
+          window.setTimeout(close, 250);
+        }, { once: true });
         result.classList.add('success');
         result.append(message, joinLink);
         submitButton.hidden = true;
