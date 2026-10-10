@@ -75,8 +75,8 @@ function App() {
           </div>
           <div className="order-first md:order-last">
             <img
-              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop"
-              alt="Digital Banking Dashboard"
+              src="/MyWxCCDemo/assets/ACME_hero_mobile_banking.png"
+              alt="ACME Bank mobile banking app"
               className="rounded-lg shadow-lg w-full"
             />
           </div>
@@ -194,8 +194,8 @@ function App() {
               </div>
               <div className="h-full min-h-[400px]">
                 <img
-                  src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=800&h=600&fit=crop"
-                  alt="Modern Banking"
+                  src="/MyWxCCDemo/assets/ACME_about_secure_banking.png"
+                  alt="Secure ACME Bank banking"
                   className="w-full h-full object-cover"
                 />
               </div>
