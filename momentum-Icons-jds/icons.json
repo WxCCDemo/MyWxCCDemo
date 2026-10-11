@@ -548,7 +548,7 @@
     },
     "alertFixed": {
         "name": "alert-muted-filled",
-        "color": "Green"
+        "color": "green"
     },
     "accident": {
         "name": "laser-pointer-cursor-red-light",
@@ -565,5 +565,73 @@
     "uploadImage": {
         "name": "upload-image-bold",
         "color": "green"
+    },
+    "InApp": {
+        "name": "chat-filled",
+        "color": "purple"
+    },
+    "WebChat": {
+        "name": "language-bold",
+        "color": "cobalt"
+    },
+    "iMessage": {
+        "name": "apple-filled",
+        "color": "black"
+    },
+    "VidCall": {
+        "name": "camera-bold",
+        "color": "orange"
+    },
+    "AIEngaged": {
+        "name": "bot-customer-assistant-bold",
+        "color": "orange"
+    },
+    "AIResolved": {
+        "name": "bot-customer-assistant-bold",
+        "color": "green"
+    },
+    "AIToHuman": {
+        "name": "forward-message-bold",
+        "color": "purple"
+    },
+    "HumanEngaged": {
+        "name": "headset-bold",
+        "color": "green"
+    },
+    "ContactClosed": {
+        "name": "close-space-bold",
+        "color": "red"
+    },
+    "EscalationChat": {
+        "name": "chat-filled",
+        "color": "red"
+    },
+    "ScheduledCallback": {
+        "name": "calendar-month-bold",
+        "color": "purple"
+    },
+    "DeflectedToDigital": {
+        "name": "forward-message-bold",
+        "color": "yellow"
+    },
+    "OutboundDigital": {
+        "name": "send-bold",
+        "color": "violet"
+    },
+    "CampaignCall": {
+        "name": "outgoing-call-legacy-filled",
+        "color": "darkmint"
+    },
+    "chat-happy": {
+        "name": "chat-filled",
+        "color": "green"
+    },
+    "phone": {
+        "name": "handset-filled",
+        "color": "green"
+    },
+    "chat": {
+        "name": "chat-filled",
+        "color": "cobalt"
     }
 }
